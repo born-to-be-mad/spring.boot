@@ -1,0 +1,17 @@
+<html>
+<body>
+<script>
+    window.addEventListener('load', function (e) {
+        var ws = new WebSocket("ws://localhost:8080/ws/ping");
+        ws.addEventListener('open', function (ev) {
+            var name = window.prompt('Ping whom?');
+            ws.send(name);
+        });
+        ws.addEventListener('message', function (msg) {
+            console.log('ping from server:' + msg.data);
+        });
+
+    });
+</script>
+</body>
+</html>

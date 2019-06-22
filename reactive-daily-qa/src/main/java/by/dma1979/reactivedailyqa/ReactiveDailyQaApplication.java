@@ -41,15 +41,15 @@ public class ReactiveDailyQaApplication {
 }
 
 @Configuration
-class WebSocketConfiguration {
+class WebsocketConfig {
     @Bean
     SimpleUrlHandlerMapping simpleUrlHandlerMapping(WebSocketHandler handler) {
         return new SimpleUrlHandlerMapping() {
-            @Override
-            public void setUrlMap(Map<String, ?> urlMap) {
-                super.setUrlMap(Map.of("/ws/ping", handler));
+            {
+                setUrlMap(Map.of("/ws/ping", handler));
                 setOrder(10);
             }
+
         };
     }
 
@@ -90,7 +90,7 @@ class PingResponse {
 @Component
 class PingProducer {
     Flux<PingResponse> ping(PingRequest request) {
-        Flux
+        return Flux
                 .fromStream(Stream.generate(() ->
                         new PingResponse("Hello " + request.getName() + " @ " + LocalTime.now())))
                 .delayElements(Duration.ofSeconds(1));

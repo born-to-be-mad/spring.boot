@@ -21,3 +21,4 @@ For further reference, please consider the following sections:
 
 * [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
 
+Based on [Josh Long speech at Voxxed Days Minsk 2019](https://www.youtube.com/watch?v=Z5q-CXbvM1E&list=PLRsbF2sD7JVq3tPa0jQjCtI1_xeLiPu-Z&index=32)
