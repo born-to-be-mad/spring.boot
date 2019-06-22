@@ -17,7 +17,16 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
+import org.springframework.web.reactive.socket.WebSocketHandler;
+import org.springframework.web.reactive.socket.WebSocketMessage;
+import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 import reactor.core.publisher.Flux;
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -30,6 +39,65 @@ public class ReactiveDailyQaApplication {
     }
 
 }
+
+@Configuration
+class WebSocketConfiguration {
+    @Bean
+    SimpleUrlHandlerMapping simpleUrlHandlerMapping(WebSocketHandler handler) {
+        return new SimpleUrlHandlerMapping() {
+            @Override
+            public void setUrlMap(Map<String, ?> urlMap) {
+                super.setUrlMap(Map.of("/ws/ping", handler));
+                setOrder(10);
+            }
+        };
+    }
+
+    @Bean
+    WebSocketHandlerAdapter webSocketHandlerAdapter() {
+        return new WebSocketHandlerAdapter();
+    }
+
+    @Bean
+    WebSocketHandler webSocketHandler(PingProducer producer) {
+        return session -> {
+            var response = session.receive()
+                    .map(WebSocketMessage::getPayloadAsText)
+                    .map(PingRequest::new)
+                    .flatMap(producer::ping)
+                    .map(PingResponse::getMessage)
+                    .map(session::textMessage);
+            return session.send(response);
+        };
+    }
+
+}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class PingRequest {
+    String name;
+}
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class PingResponse {
+    String message;
+}
+
+@Component
+class PingProducer {
+    Flux<PingResponse> ping(PingRequest request) {
+        Flux
+                .fromStream(Stream.generate(() ->
+                        new PingResponse("Hello " + request.getName() + " @ " + LocalTime.now())))
+                .delayElements(Duration.ofSeconds(1));
+
+    }
+}
+
 
 @Configuration
 class HttpConfiguration {
