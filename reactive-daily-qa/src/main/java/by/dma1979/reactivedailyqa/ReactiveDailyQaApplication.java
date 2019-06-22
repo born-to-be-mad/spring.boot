@@ -13,9 +13,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
-import java.util.function.Consumer;
 
 @SpringBootApplication
 public class ReactiveDailyQaApplication {
@@ -24,6 +24,17 @@ public class ReactiveDailyQaApplication {
         SpringApplication.run(ReactiveDailyQaApplication.class, args);
     }
 
+}
+
+@RestController
+@RequiredArgsConstructor
+class BranchController {
+    private final BranchRepository repository;
+
+    @RequestMapping("/branches")
+    Flux<Branch> listFlux() {
+        return repository.findAll();
+    }
 }
 
 @Component
