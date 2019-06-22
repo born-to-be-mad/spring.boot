@@ -8,14 +8,19 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
+
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 @SpringBootApplication
 public class ReactiveDailyQaApplication {
@@ -26,14 +31,13 @@ public class ReactiveDailyQaApplication {
 
 }
 
-@RestController
-@RequiredArgsConstructor
-class BranchController {
-    private final BranchRepository repository;
-
-    @RequestMapping("/branches")
-    Flux<Branch> listFlux() {
-        return repository.findAll();
+@Configuration
+class HttpConfiguration {
+    @Bean
+    RouterFunction<ServerResponse> routes(BranchRepository repository) {
+        return route()
+                .GET("/branches", serverRequest -> ok().body(repository.findAll(), Branch.class))
+                .build();
     }
 }
 
