@@ -2,7 +2,7 @@
 <body>
 <script>
     window.addEventListener('load', function (e) {
-        var ws = new WebSocket("ws://localhost:8080/ws/ping");
+        var ws = new WebSocket("ws://localhost:8888/ws/ping");
         ws.addEventListener('open', function (ev) {
             var name = window.prompt('Ping whom?');
             ws.send(name);
