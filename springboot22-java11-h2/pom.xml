@@ -12,7 +12,7 @@
   <artifactId>springboot22-java11-h2</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>springboot22-java11-h2</name>
-  <description>Demo project for Spring Boot 2.2 with java 11 andH2</description>
+  <description>Demo project for Spring Boot 2.2 with java 11 and H2</description>
 
   <properties>
     <java.version>11</java.version>

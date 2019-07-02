@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 /**
  * @author dzmitry.marudau
- * @since 2019.4
+ * @since 2019.6
  */
 @Data
 @Entity

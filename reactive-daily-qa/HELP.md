@@ -1,6 +1,6 @@
 # Getting Started
 
-## Run Postpres as docker container
+## Run Postgres as docker container
 * download docker image
 ```
 $ pull postgres:11
@@ -14,6 +14,49 @@ $ docker run --name dev-postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d p
 * create database 'dailyqa' for user 'postgres'
 ```
 $ docker exec dev-postgres psql -U postgres -c "create database dailyqa" postgres
+```
+
+## Run Oracle as docker container
+* login to Docker hub with your Docker account information with the below command
+```
+$ docker login
+```
+
+* Use the below command to install Oracle 12c image from Docker Hub.
+```
+$ docker run -d -p 1521:1521 --name OracleDB store/oracle/database-enterprise:12.2.0.1-slim
+```
+
+* to start and mount the database.
+```
+$ docker exec -it OracleDB bash -c "source /home/oracle/.bashrc; sqlplus /nolog"
+``` 
+
+* start working on DB
+```
+connect sys as sysdba;
+-- Here enter the password as 'Oradoc_db1'
+alter session set "_ORACLE_SCRIPT"=true;
+create user dummy identified by dummy;
+GRANT CONNECT, RESOURCE, DBA TO dummy;
+--Now create a sample table.
+create table Docker (id int,name varchar2(20));
+--Start inserting values in to the table
+```
+
+* Below are the details of the database we installed:
+
+  * HostName: localhost (hostname will be System IP address if you installed in any Linux VM)
+
+  * Port: 1521
+
+  * UserName and Password: dummy
+
+  * Service Name: ORCLCDB.localdomain 
+
+  * Use the below command to get the Service Name of the DB installed.
+```
+select value from v$parameter where name='service_names';
 ```
 
 ### Reference Documentation

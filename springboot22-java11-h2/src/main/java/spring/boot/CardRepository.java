@@ -5,7 +5,7 @@ import spring.boot.model.Card;
 
 /**
  * @author dzmitry.marudau
- * @since 2019.4
+ * @since 2019.6
  */
 public interface CardRepository extends JpaRepository<Card, Long> {
 }

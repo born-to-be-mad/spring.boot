@@ -9,7 +9,7 @@ import spring.boot.model.Card;
 
 /**
  * @author dzmitry.marudau
- * @since 2019.4
+ * @since 2019.6
  */
 @Slf4j
 @Component
