@@ -1,5 +1,6 @@
 package by.dma.crudwebapp;
 
+import by.dma.crudwebapp.model.Card;
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

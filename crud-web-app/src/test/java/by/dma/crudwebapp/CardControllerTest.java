@@ -1,5 +1,7 @@
 package by.dma.crudwebapp;
 
+import by.dma.crudwebapp.business.CardService;
+import by.dma.crudwebapp.controller.CardController;
 import by.dma.crudwebapp.dto.CardRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -55,7 +57,7 @@ class CardControllerTest {
                         .content(mapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(header().string("Location", "http://localhost//api/cards/123"));
+                .andExpect(header().string("Location", "http://localhost/api/cards/123"));
 
         CardRequestDTO verifiedDTO = captor.getValue();
         assertThat(verifiedDTO.getDefinition(), is("WTF"));

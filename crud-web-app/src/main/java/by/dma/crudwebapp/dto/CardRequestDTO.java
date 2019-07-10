@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -22,6 +23,6 @@ public class CardRequestDTO {
     @Length(max = 50)
     private String author;
 
-    @NotEmpty
+    @NotNull
     private Date creationDate;
 }
