@@ -105,6 +105,26 @@ class CardControllerTest {
     }
 
     @Test
+    void updateUnknownCardShouldReturnNotFoundStatus() throws Exception {
+        CardRequestDTO requestDTO = new CardRequestDTO();
+        requestDTO.setDefinition("OOP");
+        requestDTO.setContent("Object Oriented Programming");
+        requestDTO.setAuthor("Vasya Pupkin");
+        requestDTO.setHashTag("#oop #programming #object");
+
+        long cardId = 123L;
+        when(service.updateCard(eq(cardId), captor.capture()))
+                .thenThrow(new CardNotFoundException(String.format("Card with id %s not found",cardId)));
+
+        mockMvc
+                .perform(
+                        put("/api/cards/"+ cardId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
     void requestAllCardsShouldReturnSeveralCards() throws  Exception {
         when(service.getAllCards())
             .thenReturn(
@@ -147,7 +167,8 @@ class CardControllerTest {
     @Test
     void requestCardByUnknownIdShouldReturnNotFoundStatus() throws  Exception {
         long unknownCardId = 123L;
-        when(service.getCardById(unknownCardId)).thenThrow(new CardNotFoundException("Card with id '123' not found"));
+        when(service.getCardById(unknownCardId))
+                .thenThrow(new CardNotFoundException("Card with id '123' not found"));
 
         mockMvc
             .perform(
