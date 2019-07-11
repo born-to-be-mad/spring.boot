@@ -14,6 +14,10 @@ h2. Reading entities include following steps:
 - [X] Add business logic for both endpoints
 - [X] Manually verify endpoints with Postman
 
+h2. Updating entities include following steps:
+
+h2. Deleting entities include following steps:
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
