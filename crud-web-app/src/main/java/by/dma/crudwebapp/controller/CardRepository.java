@@ -1,6 +1,6 @@
-package by.dma.crudwebapp;
+package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.model.Card;
+import by.dma.crudwebapp.controller.model.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

@@ -1,4 +1,4 @@
-package by.dma.crudwebapp;
+package by.dma.crudwebapp.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

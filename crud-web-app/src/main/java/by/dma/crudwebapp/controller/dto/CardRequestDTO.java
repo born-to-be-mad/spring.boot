@@ -1,4 +1,4 @@
-package by.dma.crudwebapp.dto;
+package by.dma.crudwebapp.controller.dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -23,6 +23,5 @@ public class CardRequestDTO {
     @Length(max = 50)
     private String author;
 
-    @NotNull
     private Date creationDate;
 }

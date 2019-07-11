@@ -1,8 +1,8 @@
-package by.dma.crudwebapp;
+package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.business.CardService;
-import by.dma.crudwebapp.controller.CardController;
-import by.dma.crudwebapp.dto.CardRequestDTO;
+import by.dma.crudwebapp.controller.business.CardService;
+import by.dma.crudwebapp.controller.controller.CardController;
+import by.dma.crudwebapp.controller.dto.CardRequestDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +47,6 @@ class CardControllerTest {
         dto.setContent("What The Fuck");
         dto.setAuthor("Vasya Pupkin");
         dto.setHashTag("#wtf");
-        dto.setCreationDate(new Date());
 
         when(service.createCard(captor.capture())).thenReturn(123L);
 

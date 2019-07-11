@@ -1,10 +1,12 @@
-package by.dma.crudwebapp.business;
+package by.dma.crudwebapp.controller.business;
 
-import by.dma.crudwebapp.CardRepository;
-import by.dma.crudwebapp.dto.CardRequestDTO;
-import by.dma.crudwebapp.model.Card;
+import by.dma.crudwebapp.controller.CardRepository;
+import by.dma.crudwebapp.controller.dto.CardRequestDTO;
+import by.dma.crudwebapp.controller.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class CardService {
@@ -16,8 +18,8 @@ public class CardService {
         card.setAuthor(request.getAuthor());
         card.setContent(request.getContent());
         card.setDefinition(request.getDefinition());
-        card.setCreationDate(request.getCreationDate());
         card.setHashTag(request.getHashTag());
+        card.setCreationDate(new Date());
 
         Card savedCard = cardRepository.save(card);
         return savedCard.getId();

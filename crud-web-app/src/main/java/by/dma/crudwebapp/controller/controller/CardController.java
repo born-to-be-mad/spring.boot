@@ -1,7 +1,7 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp.controller.controller;
 
-import by.dma.crudwebapp.business.CardService;
-import by.dma.crudwebapp.dto.CardRequestDTO;
+import by.dma.crudwebapp.controller.business.CardService;
+import by.dma.crudwebapp.controller.dto.CardRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
