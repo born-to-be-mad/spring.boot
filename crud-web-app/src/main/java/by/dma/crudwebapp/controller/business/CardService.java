@@ -39,4 +39,8 @@ public class CardService {
         }
         return requestedCard.get();
     }
+
+    public Card updateCard(long cardId, CardRequestDTO cardToUpdateRequest) {
+        return null;
+    }
 }

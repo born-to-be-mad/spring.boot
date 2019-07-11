@@ -16,15 +16,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -47,29 +48,60 @@ class CardControllerTest {
     ArgumentCaptor<CardRequestDTO> captor;
 
     @Test
-    void requestNewCardCreationShouldCreteBookInDB() throws Exception {
+    void requestNewCardCreationShouldCreateCardInDatabase() throws Exception {
         CardRequestDTO dto = new CardRequestDTO();
-        dto.setDefinition("WTF");
-        dto.setContent("What The Fuck");
+        dto.setDefinition("OOP");
+        dto.setContent("Object Oriented Programming");
         dto.setAuthor("Vasya Pupkin");
-        dto.setHashTag("#wtf");
+        dto.setHashTag("#oop");
 
-        long expectedId = 123L;
-        when(service.createCard(captor.capture())).thenReturn(expectedId);
+        long expectedCardId = 123L;
+        when(service.createCard(captor.capture())).thenReturn(expectedCardId);
 
         mockMvc
             .perform(
                 post("/api/cards")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding(StandardCharsets.UTF_8.name())
                         .content(mapper.writeValueAsString(dto)))
             .andExpect(status().isCreated())
             .andExpect(header().exists("Location"))
-            .andExpect(header().string("Location", "http://localhost/api/cards/" + expectedId));
+            .andExpect(header().string("Location", "http://localhost/api/cards/" + expectedCardId));
 
         CardRequestDTO verifiedDTO = captor.getValue();
-        assertThat(verifiedDTO.getDefinition(), is("WTF"));
-        assertThat(verifiedDTO.getContent(), is("What The Fuck"));
-        assertThat(verifiedDTO.getHashTag(), is("#wtf"));
+        assertThat(verifiedDTO.getDefinition(), is("OOP"));
+        assertThat(verifiedDTO.getContent(), is("Object Oriented Programming"));
+        assertThat(verifiedDTO.getHashTag(), is("#oop"));
+    }
+
+    @Test
+    void updateKnownCardShouldUpdateCardInDatabase() throws Exception {
+        CardRequestDTO requestDTO = new CardRequestDTO();
+        requestDTO.setDefinition("OOP");
+        requestDTO.setContent("Object Oriented Programming");
+        requestDTO.setAuthor("Vasya Pupkin");
+        requestDTO.setHashTag("#oop #programming #object");
+
+        long cardId = 123L;
+        when(service.updateCard(eq(cardId), captor.capture()))
+                .thenReturn(createTestCard(101L, "OOP","Object Oriented Programming", "#oop #programming #object"));
+
+        mockMvc
+                .perform(
+                        put("/api/cards/"+ cardId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isOk() )
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id", is(cardId)))
+                .andExpect(jsonPath("$.definition", is("OOP")))
+                .andExpect(jsonPath("$.content", is("Object Oriented Programming")))
+                .andExpect(jsonPath("$.hashTag", is("#oop #programming #object")));
+
+        CardRequestDTO verifiedDTO = captor.getValue();
+        assertThat(verifiedDTO.getDefinition(), is("OOP"));
+        assertThat(verifiedDTO.getContent(), is("Object Oriented Programming"));
+        assertThat(verifiedDTO.getHashTag(), is("#oop #programming #object"));
     }
 
     @Test
@@ -97,8 +129,9 @@ class CardControllerTest {
 
     @Test
     void requestCardByIdShouldReturnCardFromDB() throws  Exception {
-        when(service.getCardById(101L))
-            .thenReturn(createTestCard(101L, "OOP","Object Oriented Programming", "#oop #programming #object"));
+        long cardId = 101L;
+        when(service.getCardById(cardId))
+            .thenReturn(createTestCard(cardId, "OOP","Object Oriented Programming", "#oop #programming #object"));
 
         mockMvc
             .perform(
