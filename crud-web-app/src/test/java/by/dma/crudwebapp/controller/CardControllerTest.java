@@ -88,10 +88,38 @@ class CardControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$", hasSize(3)))
-            .andExpect(jsonPath("$[0].id", is(101L)))
+            .andExpect(jsonPath("$[0].id", is(101)))
             .andExpect(jsonPath("$[0].definition", is("OOP")))
             .andExpect(jsonPath("$[0].content", is("Object Oriented Programming")))
             .andExpect(jsonPath("$[0].hashTag", is("#oop #programming #object")));
+
+    }
+
+    @Test
+    void requestCardByIdShouldReturnCardFromDB() throws  Exception {
+        when(service.getCardById(101L))
+            .thenReturn(createTestCard(101L, "OOP","Object Oriented Programming", "#oop #programming #object"));
+
+        mockMvc
+            .perform(
+                get("/api/cards/101"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType("application/json"))
+            .andExpect(jsonPath("$.id", is(101)))
+            .andExpect(jsonPath("$.definition", is("OOP")))
+            .andExpect(jsonPath("$.content", is("Object Oriented Programming")))
+            .andExpect(jsonPath("$.hashTag", is("#oop #programming #object")));
+    }
+
+    @Test
+    void requestCardByUnknownIdShouldReturnNotFoundStatus() throws  Exception {
+        long unknownCardId = 123L;
+        when(service.getCardById(unknownCardId)).thenThrow(new CardNotFoundException("Card with id '123' not found"));
+
+        mockMvc
+            .perform(
+                get("/api/cards/" + unknownCardId))
+            .andExpect(status().isNotFound());
 
     }
 

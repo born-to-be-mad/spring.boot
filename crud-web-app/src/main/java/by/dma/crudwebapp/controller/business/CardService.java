@@ -1,5 +1,6 @@
 package by.dma.crudwebapp.controller.business;
 
+import by.dma.crudwebapp.controller.CardNotFoundException;
 import by.dma.crudwebapp.controller.CardRepository;
 import by.dma.crudwebapp.controller.dto.CardRequestDTO;
 import by.dma.crudwebapp.controller.model.Card;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CardService {
@@ -27,6 +29,14 @@ public class CardService {
     }
 
     public List<Card> getAllCards() {
-        return null;
+        return cardRepository.findAll();
+    }
+
+    public Card getCardById(long cardId) {
+        Optional<Card> requestedCard = cardRepository.findById(cardId);
+        if (requestedCard.isEmpty()) {
+            throw new CardNotFoundException(String.format("Card with id %s not found", cardId));
+        }
+        return requestedCard.get();
     }
 }
