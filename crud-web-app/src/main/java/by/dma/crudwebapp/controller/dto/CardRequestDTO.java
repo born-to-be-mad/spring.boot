@@ -16,6 +16,7 @@ public class CardRequestDTO {
     @Length(max = 50)
     private String definition;
 
+    @NotEmpty
     @Length(max = 255)
     private String content;
 

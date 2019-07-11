@@ -6,6 +6,7 @@ import by.dma.crudwebapp.controller.dto.CardRequestDTO;
 import by.dma.crudwebapp.controller.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,18 @@ public class CardService {
         return requestedCard.get();
     }
 
+    @Transactional
     public Card updateCard(long cardId, CardRequestDTO cardToUpdateRequest) {
-        return null;
+        Optional<Card> storedCard = cardRepository.findById(cardId);
+        if (storedCard.isEmpty()) {
+            throw new CardNotFoundException(String.format("Card with id %s not found", cardId));
+        }
+        Card card = storedCard.get();
+        card.setAuthor(cardToUpdateRequest.getAuthor());
+        card.setContent(cardToUpdateRequest.getContent());
+        card.setDefinition(cardToUpdateRequest.getDefinition());
+        card.setHashTag(cardToUpdateRequest.getHashTag());
+        card.setCreationDate(cardToUpdateRequest.getCreationDate());
+        return card;
     }
 }

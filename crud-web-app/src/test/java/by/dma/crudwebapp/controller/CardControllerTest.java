@@ -59,11 +59,10 @@ class CardControllerTest {
         when(service.createCard(captor.capture())).thenReturn(expectedCardId);
 
         mockMvc
-            .perform(
-                post("/api/cards")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .characterEncoding(StandardCharsets.UTF_8.name())
-                        .content(mapper.writeValueAsString(dto)))
+            .perform(post("/api/cards")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .characterEncoding(StandardCharsets.UTF_8.name())
+                    .content(mapper.writeValueAsString(dto)))
             .andExpect(status().isCreated())
             .andExpect(header().exists("Location"))
             .andExpect(header().string("Location", "http://localhost/api/cards/" + expectedCardId));
@@ -82,18 +81,15 @@ class CardControllerTest {
         requestDTO.setAuthor("Vasya Pupkin");
         requestDTO.setHashTag("#oop #programming #object");
 
-        long cardId = 123L;
-        when(service.updateCard(eq(cardId), captor.capture()))
-                .thenReturn(createTestCard(101L, "OOP","Object Oriented Programming", "#oop #programming #object"));
+        when(service.updateCard(eq(123L), captor.capture()))
+                .thenReturn(createTestCard(123L, "OOP","Object Oriented Programming", "#oop #programming #object"));
 
-        mockMvc
-                .perform(
-                        put("/api/cards/"+ cardId)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(requestDTO)))
+        mockMvc.perform(put("/api/cards/123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(requestDTO)))
                 .andExpect(status().isOk() )
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.id", is(cardId)))
+                .andExpect(jsonPath("$.id", is(123)))
                 .andExpect(jsonPath("$.definition", is("OOP")))
                 .andExpect(jsonPath("$.content", is("Object Oriented Programming")))
                 .andExpect(jsonPath("$.hashTag", is("#oop #programming #object")));
@@ -112,15 +108,13 @@ class CardControllerTest {
         requestDTO.setAuthor("Vasya Pupkin");
         requestDTO.setHashTag("#oop #programming #object");
 
-        long cardId = 123L;
-        when(service.updateCard(eq(cardId), captor.capture()))
-                .thenThrow(new CardNotFoundException(String.format("Card with id %s not found",cardId)));
+        when(service.updateCard(eq(123L), captor.capture()))
+                .thenThrow(new CardNotFoundException("Card with id 123 not found"));
 
-        mockMvc
-                .perform(
-                        put("/api/cards/"+ cardId)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(requestDTO)))
+        mockMvc.perform(put("/api/cards/123")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding(StandardCharsets.UTF_8.name())
+                        .content(mapper.writeValueAsString(requestDTO)))
                 .andExpect(status().isNotFound());
     }
 
@@ -134,16 +128,14 @@ class CardControllerTest {
                     createTestCard(103L, "TDD","Test Driven Development", "#tdd #programming #testing")
             ));
 
-        mockMvc
-            .perform(
-                get("/api/cards"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType("application/json"))
-            .andExpect(jsonPath("$", hasSize(3)))
-            .andExpect(jsonPath("$[0].id", is(101)))
-            .andExpect(jsonPath("$[0].definition", is("OOP")))
-            .andExpect(jsonPath("$[0].content", is("Object Oriented Programming")))
-            .andExpect(jsonPath("$[0].hashTag", is("#oop #programming #object")));
+        mockMvc.perform(get("/api/cards"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].id", is(101)))
+                .andExpect(jsonPath("$[0].definition", is("OOP")))
+                .andExpect(jsonPath("$[0].content", is("Object Oriented Programming")))
+                .andExpect(jsonPath("$[0].hashTag", is("#oop #programming #object")));
 
     }
 
@@ -154,8 +146,7 @@ class CardControllerTest {
             .thenReturn(createTestCard(cardId, "OOP","Object Oriented Programming", "#oop #programming #object"));
 
         mockMvc
-            .perform(
-                get("/api/cards/101"))
+            .perform(get("/api/cards/101"))
             .andExpect(status().isOk())
             .andExpect(content().contentType("application/json"))
             .andExpect(jsonPath("$.id", is(101)))
@@ -166,13 +157,12 @@ class CardControllerTest {
 
     @Test
     void requestCardByUnknownIdShouldReturnNotFoundStatus() throws  Exception {
-        long unknownCardId = 123L;
-        when(service.getCardById(unknownCardId))
+        long cardId = 123L;
+        when(service.getCardById(cardId))
                 .thenThrow(new CardNotFoundException("Card with id '123' not found"));
 
         mockMvc
-            .perform(
-                get("/api/cards/" + unknownCardId))
+            .perform(get("/api/cards/" + cardId))
             .andExpect(status().isNotFound());
 
     }
