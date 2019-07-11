@@ -9,7 +9,7 @@ h2. Creating entities include following steps:
 - [X] Manually verify endpoints with Postman
 
 h2. Reading entities include following steps:
-- [ ] Add test for reading entities
+- [X] Add test for reading entities
 - [ ] Add the endpoint for reading one and all entities
 - [ ] Add business logic for both endpoints
 - [ ] Manually verify endpoints with Postman
