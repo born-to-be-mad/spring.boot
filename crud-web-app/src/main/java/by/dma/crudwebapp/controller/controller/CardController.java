@@ -37,4 +37,14 @@ public class CardController {
 
         return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
     }
+
+    @GetMapping
+    ResponseEntity<List<Card>> getAllCards() {
+        return ResponseEntity.ok(service.getAllCards());
+    }
+
+    @GetMapping("/{id}")
+    ResponseEntity<Card> getCardById(@PathVariable("id") long cardId) {
+        return ResponseEntity.ok(service.getCardById(cardId));
+    }
 }
