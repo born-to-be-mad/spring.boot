@@ -1,7 +1,7 @@
 package by.dma.crudwebapp.controller.business;
 
-import by.dma.crudwebapp.controller.CardNotFoundException;
-import by.dma.crudwebapp.controller.CardRepository;
+import by.dma.crudwebapp.controller.exception.CardNotFoundException;
+import by.dma.crudwebapp.controller.repository.CardRepository;
 import by.dma.crudwebapp.controller.dto.CardRequestDTO;
 import by.dma.crudwebapp.controller.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;

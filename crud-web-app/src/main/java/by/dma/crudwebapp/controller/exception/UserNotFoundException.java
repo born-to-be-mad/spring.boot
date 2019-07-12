@@ -1,4 +1,4 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2019.7
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class CardNotFoundException extends RuntimeException {
+public class UserNotFoundException extends RuntimeException {
 
-    public CardNotFoundException(String msg) {
+    public UserNotFoundException(String msg) {
         super(msg);
     }
 }
