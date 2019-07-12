@@ -2,7 +2,6 @@ package by.dma.crudwebapp;
 
 import by.dma.crudwebapp.controller.CrudWebAppApplication;
 import com.fasterxml.jackson.databind.JsonNode;
-import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @ExtendWith(SpringExtension.class)
@@ -22,7 +22,8 @@ import static org.hamcrest.Matchers.is;
         classes = CrudWebAppApplication.class)
 public class CardControllerIT {
 
-    public static final String API_CARDS = "/api/cards/";
+    private static final String API_CARDS = "/api/cards/";
+
     @LocalServerPort
     int randomServerPort;
 
@@ -31,6 +32,18 @@ public class CardControllerIT {
     @BeforeEach
     public void setUp() {
         this.testRestTemplate = new TestRestTemplate();
+    }
+
+    @Test
+    public void getAll() {
+        String baseUrl = getBaseUrl();
+
+        ResponseEntity<JsonNode> response =
+                testRestTemplate.getForEntity(baseUrl + API_CARDS, JsonNode.class);
+
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertTrue(response.getBody().size() >= 10);
+
     }
 
     @Test
@@ -43,7 +56,7 @@ public class CardControllerIT {
 
         assertThat(initialResponse.getStatusCode(), is(HttpStatus.OK));
 
-        this.testRestTemplate.delete(baseUrl + API_CARDS + entityId);
+        testRestTemplate.delete(baseUrl + API_CARDS + entityId);
 
         ResponseEntity<JsonNode> updatedResponse =
                 testRestTemplate.getForEntity(baseUrl + API_CARDS + entityId, JsonNode.class);
