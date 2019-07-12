@@ -70,8 +70,9 @@ class UserControllerTest {
         UserRequestDTO requestDTO = new UserRequestDTO();
         requestDTO.setLogin("dma");
 
-        when(service.update(eq(123L), captor.capture()))
-                .thenReturn(createTestUser(123L, "dma"));
+        long userId = 123L;
+        when(service.update(eq(userId), captor.capture()))
+                .thenReturn(createTestUser(userId, "dma"));
 
         mockMvc.perform(put("/api/users/123")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -90,8 +91,9 @@ class UserControllerTest {
         UserRequestDTO requestDTO = new UserRequestDTO();
         requestDTO.setLogin("dma");
 
-        when(service.update(eq(123L), captor.capture()))
-                .thenThrow(new UserNotFoundException("User with id 123 not found"));
+        long userId = 123L;
+        when(service.update(eq(userId), captor.capture()))
+                .thenThrow(new UserNotFoundException(String.format("User with id %s not found", userId)));
 
         mockMvc.perform(put("/api/users/123")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -123,7 +125,7 @@ class UserControllerTest {
     void requestUserByIdShouldReturnUserFromDB() throws  Exception {
         long entityId = 101L;
         when(service.getById(entityId))
-            .thenReturn(createTestUser(101L, "dma"));
+            .thenReturn(createTestUser(entityId, "dma"));
 
         mockMvc
             .perform(get("/api/users/101"))
@@ -137,7 +139,7 @@ class UserControllerTest {
     void requestUserByUnknownIdShouldReturnNotFoundStatus() throws  Exception {
         long entityId = 123L;
         when(service.getById(entityId))
-                .thenThrow(new UserNotFoundException("User with id '123' not found"));
+                .thenThrow(new UserNotFoundException(String.format("User with id %s' not found", entityId)));
 
         mockMvc
             .perform(get("/api/users/" + entityId))

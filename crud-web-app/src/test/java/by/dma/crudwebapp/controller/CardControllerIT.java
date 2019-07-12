@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Objects;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CardControllerIT {
 
     private static final String API_CARDS = "/api/cards/";
+    private static final String HTTP_BASE_URL = "http://localhost:";
 
     @LocalServerPort
     int randomServerPort;
@@ -30,24 +33,24 @@ class CardControllerIT {
     private TestRestTemplate testRestTemplate; //it is used to make http-calls
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         this.testRestTemplate = new TestRestTemplate();
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         String baseUrl = getBaseUrl();
 
         ResponseEntity<JsonNode> response =
                 testRestTemplate.getForEntity(baseUrl + API_CARDS, JsonNode.class);
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertTrue(response.getBody().size() >= 10);
+        assertTrue(Objects.requireNonNull(response.getBody()).size() >= 10);
 
     }
 
     @Test
-    public void deletingKnownCardShouldNotBeFoundAfterDeletion() {
+    void deletingKnownCardShouldNotBeFoundAfterDeletion() {
         long entityId = 1;
         String baseUrl = getBaseUrl();
 
@@ -65,6 +68,6 @@ class CardControllerIT {
     }
 
     private String getBaseUrl() {
-        return "http://localhost:" + randomServerPort;
+        return HTTP_BASE_URL + randomServerPort;
     }
 }
