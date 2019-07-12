@@ -7,6 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Entity to manage users.
+ *
+ * @author dzmitry.marudau
+ * @since 2019.7
+ */
 @Data
 @Entity
 public class User {

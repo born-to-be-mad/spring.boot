@@ -2,9 +2,7 @@ package by.dma.crudwebapp.controller.controller;
 
 import by.dma.crudwebapp.controller.business.CardService;
 import by.dma.crudwebapp.controller.dto.CardRequestDTO;
-import by.dma.crudwebapp.controller.dto.UserRequestDTO;
 import by.dma.crudwebapp.controller.model.Card;
-import by.dma.crudwebapp.controller.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,7 +22,7 @@ public class CardController {
     private CardService service;
 
     @PostMapping
-    ResponseEntity<Void> createCard(@Valid @RequestBody CardRequestDTO request, UriComponentsBuilder builder) {
+    ResponseEntity<Void> createCard(final @Valid @RequestBody CardRequestDTO request, final UriComponentsBuilder builder) {
         Long entityId = service.createCard(request);
 
         URI uri = builder.path("/api/cards/{id}").buildAndExpand(entityId).toUri();

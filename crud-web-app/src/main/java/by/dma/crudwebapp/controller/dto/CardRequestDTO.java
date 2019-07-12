@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 public class CardRequestDTO {
     @NotEmpty
-    @Length(max = 21)
+    @Length(max = 50)
     private String hashTag;
 
     @NotEmpty
@@ -20,7 +20,7 @@ public class CardRequestDTO {
     @Length(max = 255)
     private String content;
 
-    @Length(max = 50)
+    @Length(max = 255)
     private String author;
 
     private Date creationDate;

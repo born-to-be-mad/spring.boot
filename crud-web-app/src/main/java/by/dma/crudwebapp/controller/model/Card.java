@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import java.util.Date;
 
 /**
+ * Entity to manage cards.
+ *
  * @author dzmitry.marudau
  * @since 2019.7
  */
@@ -19,10 +21,10 @@ public class Card {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String hashTag;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String definition;
 
     @Column(nullable = false)
