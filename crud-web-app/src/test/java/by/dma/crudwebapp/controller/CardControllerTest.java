@@ -27,6 +27,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -170,12 +171,21 @@ class CardControllerTest {
     }
 
     @Test
-    void deleteCardByIdShouldDeleteCardFromDB() throws  Exception {
+    void deleteKnownCardByIdShouldDeleteCardFromDB() throws  Exception {
         mockMvc.perform(delete("/api/cards/101")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
                 .andExpect(content().string(""))
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void deleteUnknownCardByIdShouldShouldReturnNotFoundStatus() throws  Exception {
+        long cardId = 123L;
+        doThrow(new CardNotFoundException("Card with id '123' not found"))
+                .when(service.deleteCard(eq(cardId)));
+        mockMvc.perform(delete("/api/cards/" + cardId))
+                .andExpect(status().isNotFound());
     }
 
     private Card createTestCard(long id, String definition, String content, String hashtag) {

@@ -50,6 +50,6 @@ public class CardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCardById(@PathVariable("id") Long cardId) {
         service.deleteCard(cardId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

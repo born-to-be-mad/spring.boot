@@ -57,6 +57,10 @@ public class CardService {
     }
 
     public void deleteCard(Long cardId) {
+        Optional<Card> storedCard = cardRepository.findById(cardId);
+        if (storedCard.isEmpty()) {
+            throw new CardNotFoundException(String.format("Card with id %s not found", cardId));
+        }
         cardRepository.deleteById(cardId);
     }
 }
