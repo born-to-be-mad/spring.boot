@@ -87,7 +87,7 @@ class CardControllerTest {
         mockMvc.perform(put("/api/cards/123")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(requestDTO)))
-                .andExpect(status().isOk() )
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(jsonPath("$.id", is(123)))
                 .andExpect(jsonPath("$.definition", is("OOP")))
