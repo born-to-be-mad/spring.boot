@@ -46,4 +46,12 @@ public class UserService {
         user.setLogin(entityToUpdateRequest.getLogin());
         return user;
     }
+
+    public void delete(Long userId) {
+        Optional<User> storedCard = repository.findById(userId);
+        if (storedCard.isEmpty()) {
+            throw new CardNotFoundException(String.format("User with id %s not found", userId));
+        }
+        repository.deleteById(userId);
+    }
 }

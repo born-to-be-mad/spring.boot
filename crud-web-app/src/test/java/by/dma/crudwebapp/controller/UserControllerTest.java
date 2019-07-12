@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -24,6 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -145,6 +147,26 @@ class UserControllerTest {
             .perform(get("/api/users/" + entityId))
             .andExpect(status().isNotFound());
 
+    }
+
+    @Test
+    void deleteKnownUserByIdShouldDeleteCardFromDB() throws  Exception {
+        mockMvc.perform(delete("/api/users/101")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    void deleteUnknownCardByIdShouldShouldReturnNotFoundStatus() throws  Exception {
+        long entityId = 123L;
+
+        doThrow(new UserNotFoundException(String.format("User with id %s not found", entityId)))
+                .when(service).delete(entityId);
+
+        mockMvc.perform(delete("/api/cards/" + entityId))
+                .andExpect(status().isNotFound());
     }
 
     private User createTestUser(long id, String login) {
