@@ -150,7 +150,7 @@ class UserControllerTest {
     }
 
     @Test
-    void deleteKnownUserByIdShouldDeleteCardFromDB() throws  Exception {
+    void deleteKnownUserByIdShouldDeleteUserFromDB() throws  Exception {
         mockMvc.perform(delete("/api/users/101")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent())
@@ -159,13 +159,13 @@ class UserControllerTest {
     }
 
     @Test
-    void deleteUnknownCardByIdShouldShouldReturnNotFoundStatus() throws  Exception {
+    void deleteUnknownUserByIdShouldShouldReturnNotFoundStatus() throws  Exception {
         long entityId = 123L;
 
         doThrow(new UserNotFoundException(String.format("User with id %s not found", entityId)))
                 .when(service).delete(entityId);
 
-        mockMvc.perform(delete("/api/cards/" + entityId))
+        mockMvc.perform(delete("/api/users/" + entityId))
                 .andExpect(status().isNotFound());
     }
 
