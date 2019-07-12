@@ -21,13 +21,13 @@
 - [X] Manually verify endpoints with Postman
 
 ### Deleting entities include following steps:
-- [ ] Add test for deleting entities
-- [ ] Add the endpoint for deleting the existing entities
-- [ ] Add business logic for deleting the existing entities
-- [ ] Manually verify endpoints with Postman
+- [X] Add test for deleting entities
+- [X] Add the endpoint for deleting the existing entities
+- [X] Add business logic for deleting the existing entities
+- [X] Manually verify endpoints with Postman
 
 ### Integration test
-- [ ] IT for Card REST service
+- [X] IT for Card REST service
 - [ ] IT for User REST service
 
 ### Reference Documentation
