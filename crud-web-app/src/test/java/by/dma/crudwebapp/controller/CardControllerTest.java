@@ -182,8 +182,10 @@ class CardControllerTest {
     @Test
     void deleteUnknownCardByIdShouldShouldReturnNotFoundStatus() throws  Exception {
         long cardId = 123L;
+
         doThrow(new CardNotFoundException("Card with id '123' not found"))
-                .when(service.deleteCard(eq(cardId)));
+                .when(service).deleteCard(cardId);
+
         mockMvc.perform(delete("/api/cards/" + cardId))
                 .andExpect(status().isNotFound());
     }
