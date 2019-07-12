@@ -55,4 +55,8 @@ public class CardService {
         card.setCreationDate(cardToUpdateRequest.getCreationDate());
         return card;
     }
+
+    public void deleteCard(Long cardId) {
+        cardRepository.deleteById(cardId);
+    }
 }

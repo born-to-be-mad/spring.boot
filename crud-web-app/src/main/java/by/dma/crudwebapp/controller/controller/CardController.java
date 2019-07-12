@@ -46,4 +46,10 @@ public class CardController {
     public ResponseEntity<Card> updateCard(@PathVariable("id") Long cardId, @Valid @RequestBody CardRequestDTO request) {
         return ResponseEntity.ok(service.updateCard(cardId, request));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCardById(@PathVariable("id") Long cardId) {
+        service.deleteCard(cardId);
+        return ResponseEntity.ok().build();
+    }
 }

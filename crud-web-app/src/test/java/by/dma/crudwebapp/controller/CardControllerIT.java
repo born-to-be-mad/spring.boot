@@ -1,4 +1,4 @@
-package by.dma.crudwebapp;
+package by.dma.crudwebapp.controller;
 
 import by.dma.crudwebapp.controller.CrudWebAppApplication;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -20,14 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = CrudWebAppApplication.class)
-public class CardControllerIT {
+class CardControllerIT {
 
     private static final String API_CARDS = "/api/cards/";
 
     @LocalServerPort
     int randomServerPort;
 
-    private TestRestTemplate testRestTemplate;
+    private TestRestTemplate testRestTemplate; //it is used to make http-calls
 
     @BeforeEach
     public void setUp() {

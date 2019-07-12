@@ -16,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -166,6 +167,15 @@ class CardControllerTest {
             .perform(get("/api/cards/" + cardId))
             .andExpect(status().isNotFound());
 
+    }
+
+    @Test
+    void deleteCardByIdShouldDeleteCardFromDB() throws  Exception {
+        mockMvc.perform(delete("/api/cards/101")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent())
+                .andExpect(content().string(""))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     private Card createTestCard(long id, String definition, String content, String hashtag) {
