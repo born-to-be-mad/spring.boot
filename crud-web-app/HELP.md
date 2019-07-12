@@ -3,9 +3,9 @@
 * To Access h2 in-memory database use the link [localhost:port/h2-console](http://localhost:port/h2-console) with JDB URL `jdbc:h2:mem:testdb`
 
 ### Creating entities include following steps:
-- [X] Add test for creating a new entity(Card)
-- [X] Add the endpoint for creating a new entity(Card)
-- [X] Add business logic for creating a new entity(Card)
+- [X] Add test for creating new entities(Card, User)
+- [X] Add the endpoint for creating new entities(Card, User)
+- [X] Add business logic for creating new entities(Card, User)
 - [X] Manually verify endpoints with Postman
 
 ### Reading entities include following steps:
@@ -15,8 +15,20 @@
 - [X] Manually verify endpoints with Postman
 
 ### Updating entities include following steps:
+- [X] Add test for updating entities
+- [X] Add the endpoint for updating the existing entities
+- [X] Add business logic for updating the existing entities
+- [X] Manually verify endpoints with Postman
 
 ### Deleting entities include following steps:
+- [ ] Add test for deleting entities
+- [ ] Add the endpoint for deleting the existing entities
+- [ ] Add business logic for deleting the existing entities
+- [ ] Manually verify endpoints with Postman
+
+### Integration test
+- [ ] IT for Card REST service
+- [ ] IT for User REST service
 
 ### Reference Documentation
 For further reference, please consider the following sections:
