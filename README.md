@@ -6,4 +6,4 @@
 
 * ### [CRUD WEB Application with Spring Boot 2.2, Java 11, H2 and Docker (inc. JPA, Lombok)](../master/crud-web-app)
 
-* ### [Demo project for Spring Boot with React]((../master/react-sample))
+* ### [Demo project for Spring Boot with React](../master/react-sample)
