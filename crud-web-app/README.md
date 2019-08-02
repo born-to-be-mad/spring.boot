@@ -2,6 +2,8 @@
 
 * To Access h2 in-memory database use the link [localhost:port/h2-console](http://localhost:port/h2-console) with JDB URL `jdbc:h2:mem:testdb`
 
+* API is available via [link](http://localhost:port/swagger-ui.html#)
+
 ### Creating entities include following steps:
 - [X] Add test for creating new entities(Card, User)
 - [X] Add the endpoint for creating new entities(Card, User)
@@ -28,7 +30,17 @@
 
 ### Integration test
 - [X] IT for Card REST service
-- [ ] IT for User REST service
+- [X] IT for User REST service
+
+### Hibernate steps
+- [X] Many2Many - DB tables
+  * [X] table User
+    * [X] table User
+  * [X] table Card
+  * [X] table Card2user
+  * [X] fill table data
+- [ ] Many2Many - mapping entities
+- [ ] Many2Many - test in Demo app
 
 ### Reference Documentation
 

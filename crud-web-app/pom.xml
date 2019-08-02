@@ -12,10 +12,15 @@
   <artifactId>crud-web-app</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>crud-web-app</name>
-  <description>CRUD WEB Application with Spring Boot 2.2, Java 11, H2 and Docker (inc. JPA, Lombok)</description>
+  <description>CRUD WEB Application with Spring Boot 2.2, Java 11, H2 and Docker (inc. JPA, Lombok, Swagger)</description>
 
   <properties>
     <java.version>11</java.version>
+
+    <swagger.version>2.9.2</swagger.version>
+    <swagger-annotations.version>1.5.21</swagger-annotations.version>
+    <swagger-models.version>1.5.21</swagger-models.version>
+
   </properties>
 
   <dependencies>
@@ -26,6 +31,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.plugin</groupId>
+      <artifactId>spring-plugin-core</artifactId>
+      <version>1.2.0.RELEASE</version>
     </dependency>
 
     <dependency>
@@ -64,6 +74,28 @@
           <artifactId>junit</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <!--swagger-->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger2</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>${swagger.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>${swagger-annotations.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-models</artifactId>
+      <version>${swagger-models.version}</version>
     </dependency>
   </dependencies>
 
