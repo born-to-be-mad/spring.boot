@@ -18,17 +18,22 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Component
-public class CardInitializer implements CommandLineRunner {
-    public static final int INT = 10;
-    public static final int INITIAL_AMOUN_OF_CARDS = INT;
-    @Autowired
-    private CardRepository cardRepository;
+public class ApplicationInitializer implements CommandLineRunner {
+    private static final int INITIAL_AMOUNT_OF_CARDS = 10;
+
+    private final CardRepository cardRepository;
+
+    private final Faker faker;
+
+    public ApplicationInitializer(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+        faker = new Faker();
+    }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Starting to initialize data ...");
-        Faker faker = new Faker();
-        for (int i = 0; i < INITIAL_AMOUN_OF_CARDS; i++) {
+        for (int i = 0; i < INITIAL_AMOUNT_OF_CARDS; i++) {
             Card card = createFakeCard(faker);
             cardRepository.save(card);
         }

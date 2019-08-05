@@ -18,6 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @Api(tags = "User API")
+@CrossOrigin(origins = "http://localhost:4100")
+//The annotation enables Cross-Origin Resource Sharing (CORS) on the server. This step isn’t always necessary.
+// Since we are deploying our Angular frontend to http://localhost:4100 and our Boot backend to http://localhost:8100,
+// the browser would otherwise deny requests from one to the other.
 public class UserController {
 
     @Autowired
@@ -34,24 +38,25 @@ public class UserController {
         return new ResponseEntity<>(httpHeaders, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    ResponseEntity<List<User>> getAllCards() {
-        return ResponseEntity.ok(service.getAll());
-    }
-
-    @GetMapping("/{id}")
-    ResponseEntity<User> getCardById(@PathVariable("id") Long userId) {
-        return ResponseEntity.ok(service.getById(userId));
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody UserRequestDTO request) {
         return ResponseEntity.ok(service.update(userId, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCardById(@PathVariable("id") Long userId) {
+    public ResponseEntity<Void> deleteUserById(@PathVariable("id") Long userId) {
         service.delete(userId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(service.getAll());
+    }
+
+    @GetMapping("/{id}")
+    ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
+        return ResponseEntity.ok(service.getById(userId));
+    }
+
 }
