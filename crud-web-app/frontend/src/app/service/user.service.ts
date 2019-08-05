@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { User } from '../model/user';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {User} from '../model/user';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -16,7 +16,19 @@ export class UserService {
     return this.http.get<User[]>(this.usersUrl);
   }
 
-  public save(user: User) {
+  public create(user: User) {
     return this.http.post<User>(this.usersUrl, user);
+  }
+
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`${this.usersUrl}/${id}`, {responseType: 'text'});
+  }
+
+  get(id: number): Observable<Object> {
+    return this.http.get(`${this.usersUrl}/${id}`);
+  }
+
+  update(id: number, userData: any): Observable<Object> {
+    return this.http.post(`${this.usersUrl}/${id}`, userData);
   }
 }
