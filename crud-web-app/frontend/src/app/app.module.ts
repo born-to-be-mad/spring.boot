@@ -7,12 +7,19 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserService } from './service/user.service';
+import { CardListComponent } from './card-list/card-list.component';
+import { CardService } from "./service/card.service";
+import { PlayCardComponent } from './play-card/play-card.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
             declarations: [
               AppComponent,
               UserListComponent,
-              UserFormComponent
+              UserFormComponent,
+              CardListComponent,
+              PlayCardComponent,
+              AdminPanelComponent
             ],
             imports: [
               BrowserModule,
@@ -20,7 +27,7 @@ import { UserService } from './service/user.service';
               HttpClientModule,
               FormsModule
             ],
-            providers: [UserService],
+            providers: [UserService, CardService],
             bootstrap: [AppComponent]
           })
 export class AppModule { }

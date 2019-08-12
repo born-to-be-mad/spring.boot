@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Author</th>
+    <th scope="col">definition</th>
+    <th scope="col">Created at</th>
+    <th scope="col">Hash tags</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let card of cards">
+    <td>{{ card.id }}</td>
+    <td>{{ card.author }}</td>
+    <td>{{ card.definition }}</td>
+    <td>{{ card.creationDate }}</td>
+    <td>{{ card.hashTag }}</td>
+  </tr>
+  </tbody>
+</table>

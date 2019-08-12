@@ -6,29 +6,29 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class UserService {
 
-  private usersUrl: string;
+  private baseUrl : string;
 
   constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8100/api/users';
+    this.baseUrl = '/api/users';
   }
 
   public findAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    return this.http.get<User[]>(`${this.baseUrl}`);
   }
 
   public create(user: User) {
-    return this.http.post<User>(this.usersUrl, user);
+    return this.http.post<User>(`${this.baseUrl}`, user);
   }
 
   public delete(id: number): Observable<any> {
-    return this.http.delete(`${this.usersUrl}/${id}`, {responseType: 'text'});
+    return this.http.delete(`${this.baseUrl}/${id}`, {responseType: 'text'});
   }
 
   get(id: number): Observable<Object> {
-    return this.http.get(`${this.usersUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   update(id: number, userData: any): Observable<Object> {
-    return this.http.post(`${this.usersUrl}/${id}`, userData);
+    return this.http.post(`${this.baseUrl}/${id}`, userData);
   }
 }

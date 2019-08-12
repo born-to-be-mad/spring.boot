@@ -9,6 +9,6 @@ export class AppComponent {
   title: string;
 
   constructor() {
-    this.title = 'CRUD WEB Application - Angular Client';
+    this.title = 'CRUD WEB Application with Angular Client';
   }
 }

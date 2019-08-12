@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserFormComponent } from './user-form.component';
+import {UserService} from "../service/user.service";
+import {HttpClient} from "@angular/common/http";
 
 describe('UserFormComponent', () => {
   let component: UserFormComponent;
@@ -8,9 +10,13 @@ describe('UserFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserFormComponent ]
-    })
-    .compileComponents();
+                                     declarations: [UserFormComponent],
+                                     providers: [
+                                       {provide: UserService},
+                                       {provide: HttpClient}
+                                     ]
+                                   })
+      .compileComponents();
   }));
 
   beforeEach(() => {

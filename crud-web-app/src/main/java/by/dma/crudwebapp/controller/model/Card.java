@@ -23,7 +23,6 @@ public class Card {
 
     @Column(nullable = false, length = 50)
     private String hashTag;
-
     @Column(nullable = false, length = 50)
     private String definition;
 
