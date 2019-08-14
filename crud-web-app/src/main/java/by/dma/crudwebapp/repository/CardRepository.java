@@ -1,6 +1,6 @@
-package by.dma.crudwebapp.controller.repository;
+package by.dma.crudwebapp.repository;
 
-import by.dma.crudwebapp.controller.model.User;
+import by.dma.crudwebapp.model.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author dzmitry.marudau
  * @since 2019.7
  */
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface CardRepository extends JpaRepository<Card, Long> {
 }

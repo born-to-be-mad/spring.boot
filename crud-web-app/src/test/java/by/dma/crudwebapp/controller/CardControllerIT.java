@@ -1,6 +1,6 @@
 package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.controller.CrudWebAppApplication;
+import by.dma.crudwebapp.CrudWebAppApplication;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

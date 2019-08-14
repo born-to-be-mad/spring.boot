@@ -1,4 +1,4 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp.configuration;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package by.dma.crudwebapp.controller.dto;
+package by.dma.crudwebapp.dto;
 
 import lombok.Data;
 

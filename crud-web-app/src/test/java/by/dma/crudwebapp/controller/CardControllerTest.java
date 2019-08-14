@@ -1,10 +1,9 @@
 package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.controller.business.CardService;
-import by.dma.crudwebapp.controller.controller.CardController;
-import by.dma.crudwebapp.controller.dto.CardRequestDTO;
-import by.dma.crudwebapp.controller.exception.CardNotFoundException;
-import by.dma.crudwebapp.controller.model.Card;
+import by.dma.crudwebapp.business.CardService;
+import by.dma.crudwebapp.dto.CardRequestDTO;
+import by.dma.crudwebapp.exception.CardNotFoundException;
+import by.dma.crudwebapp.model.Card;
 import com.fasterxml.jackson.databind.ObjectMapper;
  import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

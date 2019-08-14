@@ -1,7 +1,7 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp;
 
-import by.dma.crudwebapp.controller.model.User;
-import by.dma.crudwebapp.controller.repository.UserRepository;
+import by.dma.crudwebapp.model.User;
+import by.dma.crudwebapp.repository.UserRepository;
 import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

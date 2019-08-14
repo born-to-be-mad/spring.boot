@@ -2,6 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
+* package.json – node module dependencies (version 2 onwards)
+* tsconfig.json – root level Typescript configurations (version 2 onwards)
+* tsconfig.app.json – application level Typescript configurations (version 4 onwards)
+* angular.json – Angular CLI configurations (version 6 onwards)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4100/`. The app will automatically reload if you change any of the source files.

@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CardListComponent} from "../card-list/card-list.component";
-import {UserListComponent} from "../user-list/user-list.component";
-import {UserFormComponent} from "../user-form/user-form.component";
 
 @Component({
              selector: 'app-admin-panel',

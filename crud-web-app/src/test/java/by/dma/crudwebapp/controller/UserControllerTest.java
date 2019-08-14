@@ -1,10 +1,9 @@
 package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.controller.business.UserService;
-import by.dma.crudwebapp.controller.controller.UserController;
-import by.dma.crudwebapp.controller.dto.UserRequestDTO;
-import by.dma.crudwebapp.controller.exception.UserNotFoundException;
-import by.dma.crudwebapp.controller.model.User;
+import by.dma.crudwebapp.business.UserService;
+import by.dma.crudwebapp.dto.UserRequestDTO;
+import by.dma.crudwebapp.exception.UserNotFoundException;
+import by.dma.crudwebapp.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,8 +1,8 @@
-package by.dma.crudwebapp.controller.controller;
+package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.controller.business.CardService;
-import by.dma.crudwebapp.controller.dto.CardRequestDTO;
-import by.dma.crudwebapp.controller.model.Card;
+import by.dma.crudwebapp.business.CardService;
+import by.dma.crudwebapp.dto.CardRequestDTO;
+import by.dma.crudwebapp.model.Card;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

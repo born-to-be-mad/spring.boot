@@ -1,4 +1,4 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,10 +1,9 @@
-package by.dma.crudwebapp.controller;
+package by.dma.crudwebapp;
 
-import by.dma.crudwebapp.controller.model.Card;
-import by.dma.crudwebapp.controller.repository.CardRepository;
+import by.dma.crudwebapp.model.Card;
+import by.dma.crudwebapp.repository.CardRepository;
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

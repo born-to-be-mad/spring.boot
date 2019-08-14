@@ -1,9 +1,9 @@
-package by.dma.crudwebapp.controller.business;
+package by.dma.crudwebapp.business;
 
-import by.dma.crudwebapp.controller.exception.CardNotFoundException;
-import by.dma.crudwebapp.controller.repository.UserRepository;
-import by.dma.crudwebapp.controller.dto.UserRequestDTO;
-import by.dma.crudwebapp.controller.model.User;
+import by.dma.crudwebapp.exception.CardNotFoundException;
+import by.dma.crudwebapp.repository.UserRepository;
+import by.dma.crudwebapp.dto.UserRequestDTO;
+import by.dma.crudwebapp.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

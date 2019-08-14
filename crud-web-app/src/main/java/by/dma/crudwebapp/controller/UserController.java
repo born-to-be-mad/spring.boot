@@ -1,8 +1,8 @@
-package by.dma.crudwebapp.controller.controller;
+package by.dma.crudwebapp.controller;
 
-import by.dma.crudwebapp.controller.business.UserService;
-import by.dma.crudwebapp.controller.dto.UserRequestDTO;
-import by.dma.crudwebapp.controller.model.User;
+import by.dma.crudwebapp.business.UserService;
+import by.dma.crudwebapp.dto.UserRequestDTO;
+import by.dma.crudwebapp.model.User;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
