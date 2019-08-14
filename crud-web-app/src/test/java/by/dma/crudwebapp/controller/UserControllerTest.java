@@ -47,8 +47,7 @@ class UserControllerTest {
 
     @Test
     void requestNewUserCreationShouldCreateUserInDatabase() throws Exception {
-        UserRequestDTO dto = new UserRequestDTO();
-        dto.setLogin("dma");
+        UserRequestDTO dto = createUserRequestDTO();
 
         long expectedId = 123L;
         when(service.create(captor.capture())).thenReturn(expectedId);
@@ -68,8 +67,7 @@ class UserControllerTest {
 
     @Test
     void updateKnownUserShouldUpdateUserInDatabase() throws Exception {
-        UserRequestDTO requestDTO = new UserRequestDTO();
-        requestDTO.setLogin("dma");
+        UserRequestDTO requestDTO = createUserRequestDTO();
 
         long userId = 123L;
         when(service.update(eq(userId), captor.capture()))
@@ -89,8 +87,7 @@ class UserControllerTest {
 
     @Test
     void updateUnknownUserShouldReturnNotFoundStatus() throws Exception {
-        UserRequestDTO requestDTO = new UserRequestDTO();
-        requestDTO.setLogin("dma");
+        UserRequestDTO requestDTO = createUserRequestDTO();
 
         long userId = 123L;
         when(service.update(eq(userId), captor.capture()))
@@ -175,4 +172,12 @@ class UserControllerTest {
         return user;
     }
 
+    private UserRequestDTO createUserRequestDTO() {
+        UserRequestDTO requestDTO = new UserRequestDTO();
+        requestDTO.setLogin("dma");
+        requestDTO.setLogin("dma");
+        requestDTO.setName("Dzmitry");
+        requestDTO.setEmail("1@tut.by");
+        return requestDTO;
+    }
 }

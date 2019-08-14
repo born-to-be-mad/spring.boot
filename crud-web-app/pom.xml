@@ -15,7 +15,15 @@
   <description>CRUD WEB Application with Spring Boot 2.2, Java 11, H2 and Docker (inc. JPA, Lombok, Swagger)</description>
 
   <properties>
+    <!--Using <java.version> is possible only with the Spring Boot application
+    we can override the default version of the parent by specifying the java.version property(1.8 by default)
+    By setting the java.version property we declare that the source and the target Java versions are both equal
+    starting from the Spring Boot 2.0, Java 8 is the minimum version.
+    -->
     <java.version>11</java.version>
+
+    <!--the new -release option replaces three flags: -source, -target and -bootclasspath.-->
+    <maven.compiler.release>11</maven.compiler.release>
 
     <swagger.version>2.9.2</swagger.version>
     <swagger-annotations.version>1.5.21</swagger-annotations.version>
@@ -109,8 +117,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
+<!--      <source>${java.version}</source>
+          <target>${java.version}</target>-->
+          <release>${maven.compiler.release}</release>
         </configuration>
       </plugin>
     </plugins>
