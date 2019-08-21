@@ -105,6 +105,20 @@
       <artifactId>swagger-models</artifactId>
       <version>${swagger-models.version}</version>
     </dependency>
+
+
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+      <version>3.6.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <version>${liquibase.version}</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -120,6 +134,17 @@
 <!--      <source>${java.version}</source>
           <target>${java.version}</target>-->
           <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+
+
+      <!-- liquibase -->
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>${liquibase.version}</version>
+        <configuration>
+          <propertyFile>src/main/resources/liquibase.properties</propertyFile>
         </configuration>
       </plugin>
     </plugins>
