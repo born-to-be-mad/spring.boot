@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+  <changeSet author="DMA" id="4">
+    <insert tableName="person">
+      <column name="id" valueNumeric="4"/>
+      <column name="name" value="Robert De Niro"/>
+      <column name="address" value="IT"/>
+    </insert>
+    <insert tableName="person">
+      <column name="id" valueNumeric="5"/>
+      <column name="name" value="Robert Martin"/>
+      <column name="address" value="CA"/>
+    </insert>
+  </changeSet>
+
+  <changeSet author="DMA" id="5">
+    <addColumn tableName="person">
+      <column name="description" type="varchar(255)"/>
+    </addColumn>
+  </changeSet>
+</databaseChangeLog>
