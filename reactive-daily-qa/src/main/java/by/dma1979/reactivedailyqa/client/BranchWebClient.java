@@ -14,12 +14,14 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 public class BranchWebClient {
 
+    final String urlServer = "http://localhost:8888";
+
     private final WebClient webClient;
 
     public Flux<Branch> getAllBranches() {
         return webClient
             .get()
-            .uri("http://localhost:8888/branches")
+            .uri(urlServer + "/branches")
             .retrieve()
             .bodyToFlux(Branch.class);
     }

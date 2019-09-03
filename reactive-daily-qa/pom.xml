@@ -33,6 +33,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-rsocket</artifactId>
 		</dependency>
+<!--		With WebFlux, which is based on Project Reactor, you can write reactive applications.
+This kind of application is characterized because the requests aren't blocking and functional programming is wi-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>

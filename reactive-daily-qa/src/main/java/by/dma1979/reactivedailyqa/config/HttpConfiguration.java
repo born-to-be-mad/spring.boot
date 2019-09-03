@@ -3,7 +3,6 @@ package by.dma1979.reactivedailyqa.config;
 import by.dma1979.reactivedailyqa.BranchRepository;
 import by.dma1979.reactivedailyqa.client.BranchWebClient;
 import by.dma1979.reactivedailyqa.model.Branch;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;

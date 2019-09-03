@@ -1,5 +1,10 @@
 # Getting Started
-
+ -  server runs on the port 8888
+ -  rsocket server runs on the port 7777
+ - `http://localhost:8888/branches` to see the branches(typical REST call)
+ - `http://localhost:8888/branch/names` to see the names of branches via WebClient(reactive call)
+ - 'http://localhost:8888/index.html' here we can see WebSocket in action( pinging in browser console)
+ 
 ## Run Postgres as docker container
 * download docker image
 ```
