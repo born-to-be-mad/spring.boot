@@ -22,7 +22,6 @@
     -->
     <java.version>11</java.version>
 
-    <!--the new -release option replaces three flags: -source, -target and -bootclasspath.-->
     <maven.compiler.release>11</maven.compiler.release>
 
     <swagger.version>2.9.2</swagger.version>
@@ -130,7 +129,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+		<version>3.8.1</version>
         <configuration>
+		    <!--starting from JDK 9 version, we can use a new -release command-line option.
+	The new -release option replaces three flags: -source, -target and -bootclasspath.-->
 <!--      <source>${java.version}</source>
           <target>${java.version}</target>-->
           <release>${maven.compiler.release}</release>
