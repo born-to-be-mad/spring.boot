@@ -1,5 +1,7 @@
 package by.dma1979.recipes.calculator;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Collection;
 
 /**
@@ -7,6 +9,7 @@ import java.util.Collection;
  * @created at : 00:39
  * @since : 2019.10
  **/
+@Component
 public class Calculator {
     private final Collection<Operation> operations;
 
