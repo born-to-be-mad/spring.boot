@@ -1,6 +1,7 @@
 package by.dma1979.recipes;
 
 import by.dma1979.recipes.calculator.Calculator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,8 +14,8 @@ import java.util.Arrays;
 public class SpringBootRecipesApplication {
 
     public static void main(String[] args) {
-        System.out.println("###############   BOOTING........");
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
+        System.out.println("###############   BOOTING........");
         System.out.printf("# There are %d bean definitions:%n", context.getBeanDefinitionCount());
         String[] beanNames = context.getBeanDefinitionNames();
         Arrays.sort(beanNames);
@@ -25,11 +26,11 @@ public class SpringBootRecipesApplication {
     }
 
     @Bean
-    public ApplicationRunner calculationRunner(Calculator calculator) {
-        return args -> {
-            calculator.calculate(9, 7, '+');
-            calculator.calculate(9, 7, '*');
-        };
+    public ApplicationRunner calculationRunner(Calculator calculator,
+                                               @Value("${lhs}") int lhs,
+                                               @Value("${rhs}") int rhs,
+                                               @Value("${op:+}") char op) {
+        return args -> calculator.calculate(lhs, rhs, op);
     }
 
 }
