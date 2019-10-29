@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  **/
 class AdditionTest {
 
-    private final Operation operation = new Multiplication();
+    private final Operation operation = new Addition();
 
     @Test
     public void shouldMatchOperation() {
@@ -23,7 +23,7 @@ class AdditionTest {
 
     @Test
     public void shouldCorrectlyApplyFormula() {
-        assertThat(operation.apply(9, 7)).isEqualTo(2);
-        assertThat(operation.apply(13, 11)).isEqualTo(2);
+        assertThat(operation.apply(9, 7)).isEqualTo(16);
+        assertThat(operation.apply(13, 11)).isEqualTo(24);
     }
 }
