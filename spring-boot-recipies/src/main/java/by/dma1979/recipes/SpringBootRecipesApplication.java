@@ -13,22 +13,22 @@ import java.util.Arrays;
 public class SpringBootRecipesApplication {
 
     public static void main(String[] args) {
+        System.out.println("###############   BOOTING........");
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
-        System.out.println("# Beans: " + context.getBeanDefinitionCount());
-        String[] names = context.getBeanDefinitionNames();
-        Arrays.sort(names);
-        Arrays.asList(names).forEach(System.out::println);
+        System.out.printf("# There are %d bean definitions:%n", context.getBeanDefinitionCount());
+        String[] beanNames = context.getBeanDefinitionNames();
+        Arrays.sort(beanNames);
+        Arrays.asList(beanNames).forEach(System.out::println);
         System.out.println("############################################");
-        System.out.println("###############   STARTED    ###############");
+        System.out.println("###############   THE END    ###############");
         System.out.println("############################################");
-
     }
 
     @Bean
     public ApplicationRunner calculationRunner(Calculator calculator) {
         return args -> {
-            calculator.calculate(137, 21, '+');
-            calculator.calculate(137, 21, '*');
+            calculator.calculate(9, 7, '+');
+            calculator.calculate(9, 7, '*');
         };
     }
 

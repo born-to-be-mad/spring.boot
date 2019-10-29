@@ -17,14 +17,14 @@ public class Calculator {
         this.operations = operations;
     }
 
-    public void calculate(int lhs, int rhs, char op) {
+    public void calculate(int lhs, int rhs, char mathOperation) {
         for (var operation : operations) {
-            if (operation.handles(op)) {
+            if (operation.handles(mathOperation)) {
                 var result = operation.apply(lhs, rhs);
-                System.out.printf("%d %s %d = %s%n", lhs, op, rhs, result);
+                System.out.printf("%d %s %d = %s%n", lhs, mathOperation, rhs, result);
                 return;
             }
         }
-        throw new IllegalArgumentException("Unknown operation " + op);
+        throw new IllegalArgumentException("Unknown operation " + mathOperation);
     }
 }
