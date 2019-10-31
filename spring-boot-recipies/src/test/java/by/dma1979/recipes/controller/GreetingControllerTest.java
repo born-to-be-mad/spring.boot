@@ -30,6 +30,9 @@ public class GreetingControllerTest {
     @MockBean(name = "calculationRunner")
     private ApplicationRunner calculator;
 
+    @MockBean(name = "booksInitializer")
+    private ApplicationRunner booksInitializer;
+
     @org.junit.Test
     public void hello() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
