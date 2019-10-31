@@ -1,6 +1,8 @@
 package by.dma1979.recipes;
 
 import by.dma1979.recipes.calculator.Calculator;
+import by.dma1979.recipes.entity.Book;
+import by.dma1979.recipes.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,10 +36,24 @@ public class SpringBootRecipesApplication {
     }
 
     @Bean
+    public ApplicationRunner booksInitializer(BookService bookService) {
+        System.out.println("### Initializing books ...");
+        return args -> {
+            bookService.create(
+                    new Book("9780061120084", "To Kill a Mockingbird", "Harper Lee"));
+            bookService.create(
+                    new Book("9780451524935", "1984", "George Orwell"));
+            bookService.create(
+                    new Book("9780618260300", "The Hobbit", "J.R.R. Tolkien"));
+        };
+    }
+
+    @Bean
     public ApplicationRunner calculationRunner(Calculator calculator,
                                                @Value("${lhs}") int lhs,
                                                @Value("${rhs}") int rhs,
                                                @Value("${op:+}") char op) {
+        System.out.println("### Calculator calculate ...");
         return args -> calculator.calculate(lhs, rhs, op);
     }
 
