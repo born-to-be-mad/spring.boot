@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Arrays;
+
 import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,10 +37,12 @@ public class GreetingControllerTest {
 
     @org.junit.Test
     public void hello() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+        for (String urlTemplate : Arrays.asList("/", "/hi", "/hello")) {
+            mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Chuck Norris")))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
+        }
     }
 
     @org.junit.Test

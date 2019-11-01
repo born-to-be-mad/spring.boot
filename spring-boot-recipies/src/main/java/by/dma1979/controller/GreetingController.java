@@ -15,7 +15,7 @@ import java.util.Locale;
 public class GreetingController {
     private static Faker faker = new Faker(new Locale("en"));
 
-    @GetMapping("/")
+    @GetMapping( {"/", "/hello", "/hi", "/greetings"})
     public String hello() {
         return faker.chuckNorris().fact();
     }
