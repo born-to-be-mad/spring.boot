@@ -1,6 +1,6 @@
-package by.dma1979.recipes.service;
+package by.dma1979.service;
 
-import by.dma1979.recipes.entity.Book;
+import by.dma1979.entity.Book;
 
 import java.util.Optional;
 

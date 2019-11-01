@@ -1,8 +1,8 @@
-package by.dma1979.recipes.controller;
+package by.dma1979.controller;
 
 
-import by.dma1979.recipes.entity.Book;
-import by.dma1979.recipes.service.BookService;
+import by.dma1979.entity.Book;
+import by.dma1979.service.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

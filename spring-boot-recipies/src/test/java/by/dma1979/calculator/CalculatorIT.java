@@ -1,6 +1,6 @@
-package by.dma1979.recipes.calculator;
+package by.dma1979.calculator;
 
-import by.dma1979.recipes.SpringBootRecipesApplication;
+import by.dma1979.SpringBootRecipesApplication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

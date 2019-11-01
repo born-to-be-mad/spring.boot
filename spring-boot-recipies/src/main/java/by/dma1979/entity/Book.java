@@ -1,4 +1,4 @@
-package by.dma1979.recipes.entity;
+package by.dma1979.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

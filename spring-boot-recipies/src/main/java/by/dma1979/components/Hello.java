@@ -1,4 +1,4 @@
-package by.dma1979.recipes.components;
+package by.dma1979.components;
 
 import org.springframework.stereotype.Component;
 

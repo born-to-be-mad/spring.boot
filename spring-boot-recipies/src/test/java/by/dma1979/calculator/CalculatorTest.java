@@ -1,4 +1,4 @@
-package by.dma1979.recipes.calculator;
+package by.dma1979.calculator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

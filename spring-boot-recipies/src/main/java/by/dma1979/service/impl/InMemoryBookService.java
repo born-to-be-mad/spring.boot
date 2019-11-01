@@ -1,7 +1,7 @@
-package by.dma1979.recipes.service.impl;
+package by.dma1979.service.impl;
 
-import by.dma1979.recipes.entity.Book;
-import by.dma1979.recipes.service.BookService;
+import by.dma1979.entity.Book;
+import by.dma1979.service.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package by.dma1979.recipes.controller;
+package by.dma1979.controller;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package by.dma1979.recipes;
+package by.dma1979;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

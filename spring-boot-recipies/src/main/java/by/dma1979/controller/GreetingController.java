@@ -1,4 +1,4 @@
-package by.dma1979.recipes.controller;
+package by.dma1979.controller;
 
 import com.github.javafaker.Faker;
 import org.springframework.web.bind.annotation.GetMapping;

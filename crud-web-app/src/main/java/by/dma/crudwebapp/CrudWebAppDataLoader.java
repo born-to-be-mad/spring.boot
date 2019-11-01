@@ -28,11 +28,11 @@ public class CrudWebAppDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        LOG.info("Loading data...");
+/*        LOG.info("Loading data...");
         for (int i = 0; i < INITIAL_AMOUNT_OF_USERS; i++) {
             userRepository.save(generateUser());
         }
-        userRepository.findAll().forEach(System.out::println);
+        userRepository.findAll().forEach(System.out::println);*/
 
     }
 

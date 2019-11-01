@@ -1,8 +1,8 @@
-package by.dma1979.recipes;
+package by.dma1979;
 
-import by.dma1979.recipes.calculator.Calculator;
-import by.dma1979.recipes.entity.Book;
-import by.dma1979.recipes.service.BookService;
+import by.dma1979.calculator.Calculator;
+import by.dma1979.entity.Book;
+import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
