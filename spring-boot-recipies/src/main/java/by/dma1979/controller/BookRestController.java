@@ -46,4 +46,10 @@ public class BookRestController {
         URI newBookUri = uriBuilder.path("/books/{isbn}").build(created.getIsbn());
         return ResponseEntity.created(newBookUri).body(created).getBody();
     }
+
+    @GetMapping("/throw500")
+    public void error() {
+        throw new NullPointerException("Dummy NullPointerException.");
+    }
+
 }

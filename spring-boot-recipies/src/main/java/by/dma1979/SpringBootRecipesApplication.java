@@ -2,6 +2,7 @@ package by.dma1979;
 
 import by.dma1979.calculator.Calculator;
 import by.dma1979.entity.Book;
+import by.dma1979.exception.CustomizedErrorAttributes;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,6 +56,11 @@ public class SpringBootRecipesApplication {
                                                @Value("${op:+}") char op) {
         System.out.println("### Calculator calculate ...");
         return args -> calculator.calculate(lhs, rhs, op);
+    }
+
+    @Bean
+    public CustomizedErrorAttributes errorAttributes() {
+        return new CustomizedErrorAttributes();
     }
 
 }
