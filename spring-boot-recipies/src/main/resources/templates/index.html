@@ -2,10 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Spring Boot Recipes</title>
+    <title th:text="#{main.title}">Spring Boot Recipes - Admin panel</title>
 </head>
 <body>
-<h1>Admin panel via thymeleaf</h1>
-<a th:href="@{/books.html}" href="#">List of books</a>
+<h1 th:text="#{index.title}">Admin panel</h1>
+<a th:href="@{/books.html}" href="#" th:text="#{index.books.link}">List of
+    books</a>
 </body>
 </html>
