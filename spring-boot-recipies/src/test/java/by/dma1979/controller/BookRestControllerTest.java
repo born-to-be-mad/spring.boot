@@ -28,8 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since : 2019.11
  **/
 @RunWith(SpringRunner.class)
-@WebMvcTest(BookController.class)
-public class BookControllerTest {
+@WebMvcTest(BookRestController.class)
+public class BookRestControllerTest {
     @Autowired
     private MockMvc mockMvc;
 

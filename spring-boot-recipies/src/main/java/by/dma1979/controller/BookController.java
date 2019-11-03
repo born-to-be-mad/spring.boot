@@ -1,43 +1,35 @@
 package by.dma1979.controller;
 
-import by.dma1979.entity.Book;
 import by.dma1979.service.BookService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import java.net.URI;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author : Dzmitry Marudau
- * @created at : 00:44
+ * @created at : 23:44
  * @since : 2019.11
  **/
-@RestController
-@RequestMapping("/books")
+@Controller
 public class BookController {
+
     private final BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
-    @GetMapping
-    public Iterable<Book> list() {
-        return bookService.findAll();
+    @GetMapping("/books.html")
+    public String all(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        return "books/list.html";
     }
 
-    @GetMapping("/{isbn}")
-    public ResponseEntity<Book> get(@PathVariable("isbn") String isbn) {
-        return bookService.find(isbn)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public Book create(@RequestBody Book book, UriComponentsBuilder uriBuilder) {
-        Book created = bookService.create(book);
-        URI newBookUri = uriBuilder.path("/books/{isbn}").build(created.getIsbn());
-        return ResponseEntity.created(newBookUri).body(created).getBody();
+    @GetMapping(value = "/books.html", params = "isbn")
+    public String get(@RequestParam("isbn") String isbn, Model model) {
+        bookService.find(isbn)
+                .ifPresent(book -> model.addAttribute("book", book));
+        return "books/details";
     }
 }
