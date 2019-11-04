@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Library - Available Books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF­8"/>
+</head>
+<body>
+<form action="#" th:action="@{/books.edit.html/{isbn}(isbn=${book.isbn})}"
+      th:object="${book}" method="post">
+    <label for="title">Title</label>
+    <input type="text" th:field="*{title}" id="title" placeholder="Title">
+    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    <input type="submit" value="Update Book">
+</form>
+</body>
+</html>

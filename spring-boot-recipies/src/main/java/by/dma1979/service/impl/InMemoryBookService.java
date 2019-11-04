@@ -35,4 +35,14 @@ class InMemoryBookService implements BookService {
     public Optional<Book> find(String isbn) {
         return Optional.ofNullable(books.get(isbn));
     }
+
+    @Override
+    public Optional<Book> update(String isbn, Book book) {
+        return Optional.ofNullable(books.computeIfPresent(isbn, (k, v) -> book));
+    }
+
+    @Override
+    public Optional<Book> delete(String isbn) {
+        return Optional.ofNullable(books.remove(isbn));
+    }
 }

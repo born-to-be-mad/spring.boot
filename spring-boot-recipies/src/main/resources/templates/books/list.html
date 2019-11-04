@@ -7,6 +7,9 @@
 </head>
 <body>
 <h1>Available Books</h1>
+<a th:href="@{/books.show.add.html}" th:text="#{books.list.add}">
+    Add
+</a>
 <table>
     <thead>
     <tr>
@@ -20,8 +23,18 @@
         <td th:text="${book.title}">Title</td>
         <td th:text="${book.authors}">Authors</td>
         <td>
-            <a th:href="@{/books.html(isbn=${book.isbn})}" href="#"
-               th:text="${book.isbn}">1234567890123</a>
+            <a th:href="@{/books.html(isbn=${book.isbn})}" th:text="${book.isbn}">
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/books.show.edit.html/{isbn}(isbn=${book.isbn})}" th:text="#{books.list.edit}">
+                Edit
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/books.delete.html/{isbn}(isbn=${book.isbn})}" th:text="#{books.list.delete}">
+                Delete
+            </a>
         </td>
     </tr>
     </tbody>
