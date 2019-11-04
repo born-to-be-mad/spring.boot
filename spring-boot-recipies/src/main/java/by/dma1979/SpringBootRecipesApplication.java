@@ -44,7 +44,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         LOG.info("Hello from Log4j 2 - ConfigurableApplicationContext : {}", () -> context);
         System.out.println("###############   BOOTING........");
         if (args.length > 0 && args[0].equalsIgnoreCase("-debug")) {
-            printBeanDefinitions(args);
+            printBeanDefinitions(context);
         }
 
         LOG.info("###############   THE END    ###############");
