@@ -42,17 +42,19 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
         LOG.info("Hello from Log4j 2 - ConfigurableApplicationContext : {}", () -> context);
-
         System.out.println("###############   BOOTING........");
+        if (args.length > 0 && args[0].equalsIgnoreCase("-debug")) {
+            printBeanDefinitions(args);
+        }
+
+        LOG.info("###############   THE END    ###############");
+    }
+
+    private static void printBeanDefinitions(ConfigurableApplicationContext context) {
         System.out.printf("# There are %d bean definitions:%n", context.getBeanDefinitionCount());
         String[] beanNames = context.getBeanDefinitionNames();
         Arrays.sort(beanNames);
         Arrays.asList(beanNames).forEach(System.out::println);
-        System.out.println("############################################");
-        System.out.println("###############   THE END    ###############");
-        System.out.println("############################################");
-
-        LOG.info("###############   THE END    ###############");
     }
 
     @Bean
