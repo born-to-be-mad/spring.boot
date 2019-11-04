@@ -12,10 +12,8 @@ import java.util.Map;
  **/
 public class CustomizedErrorAttributes extends DefaultErrorAttributes {
     @Override
-    public Map<String, Object> getErrorAttributes(WebRequest webRequest,
-                                                  boolean includeStackTrace) {
-        Map<String, Object> errorAttributes =
-                super.getErrorAttributes(webRequest, includeStackTrace);
+    public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
+        Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, includeStackTrace);
         errorAttributes.put("parameters", webRequest.getParameterMap());
         return errorAttributes;
     }
