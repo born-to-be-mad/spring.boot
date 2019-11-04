@@ -22,7 +22,7 @@ public class DownloadController {
     @RequestMapping("/download")
     public String doDownloadFile(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("Access the request:{}", request.getPathInfo());
-        LOG.debug("Cccess the response:{}", response.getHeaderNames());
+        LOG.debug("Access the response:{}", response.getHeaderNames());
         return "DownloadPage";
     }
 }

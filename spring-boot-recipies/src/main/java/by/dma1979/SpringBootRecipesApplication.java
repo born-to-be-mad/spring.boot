@@ -12,16 +12,32 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.AbstractLocaleContextResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Arrays;
 import java.util.Locale;
 
 @SpringBootApplication
-public class SpringBootRecipesApplication {
+public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
     private static final Logger LOG = LogManager.getLogger(SpringBootRecipesApplication.class);
+
+    /*
+    Changing a User's Locale.
+    We register LocaleChangeInterceptor as interceptor via WebMvcConfigurer.
+    @param registry the registry of interceptors
+    */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
@@ -37,6 +53,29 @@ public class SpringBootRecipesApplication {
         System.out.println("############################################");
 
         LOG.info("###############   THE END    ###############");
+    }
+
+    @Bean
+    public HandlerInterceptor localeChangeInterceptor() {
+        return new LocaleChangeInterceptor();
+    }
+
+    /*
+    CookieLocaleResolver resolves locales by inspecting a cookie in a user’s browser.<BR/>
+    If the cookie does not exist, this locale resolver determines the default locale from the Accept-Language HTTP header.
+    */
+    @Bean
+    public LocaleResolver localeResolver() {
+/*        AbstractLocaleContextResolver localeResolver = new SessionLocaleResolver(); // FixedLocaleResolver
+        localeResolver.setDefaultLocale(new Locale("ru"));
+        return localeResolver;*/
+
+        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+        //we can customize
+        //cookieLocaleResolver.setCookieName("language");
+        cookieLocaleResolver.setCookieMaxAge(3600); //1 hour
+        cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+        return cookieLocaleResolver;
     }
 
     @Bean
@@ -66,10 +105,4 @@ public class SpringBootRecipesApplication {
         return new CustomizedErrorAttributes();
     }
 
-    @Bean
-    public LocaleResolver localeResolver () {
-        SessionLocaleResolver localeResolver = new SessionLocaleResolver();
-        localeResolver.setDefaultLocale(new Locale("ru"));
-        return localeResolver;
-    }
 }

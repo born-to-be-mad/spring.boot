@@ -10,7 +10,14 @@
 
 <body>
 <h1 th:text="#{index.title}">Admin panel</h1>
-<a th:href="@{/books.html}" href="#" th:text="#{index.books.link}">List of
-    books</a>
+<h3>Language</h3>
+<div>
+    <a href="?locale=ru" th:text="#{main.language.ru}">RU</a>
+    <a href="?locale=en" th:text="#{main.language.en}">EN</a>
+    <a href="?locale=de" th:text="#{main.language.de}">DE</a>
+</div>
+<a th:href="@{/books.html}" href="#" th:text="#{index.books.link}">
+    List of books
+</a>
 </body>
 </html>
