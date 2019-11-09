@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Locale;
 
 /**
@@ -20,6 +22,12 @@ public class GreetingController {
     @GetMapping({"/hello", "/hi", "/greetings"})
     public String hello() {
         return faker.chuckNorris().fact();
+    }
+
+    @GetMapping("/hellor")
+    public Mono<String> helloReactive() {
+        return Mono.just("Hello World, from Reactive Spring Boot 2!")
+                .delayElement(Duration.ofMillis(3000));
     }
 
     @GetMapping("login")
