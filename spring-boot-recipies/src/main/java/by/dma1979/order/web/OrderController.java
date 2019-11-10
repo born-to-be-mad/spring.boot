@@ -46,7 +46,12 @@ public class OrderController {
 
     // header will be application/stream+json
     @GetMapping(value = "/stream", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
-    public Flux<Order> listNonBlocking() {
+    public Flux<Order> listStream() {
+        return orderService.orders();
+    }
+
+    @GetMapping(value = "/event-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Order> listEventStream() {
         return orderService.orders();
     }
 

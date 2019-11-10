@@ -33,10 +33,15 @@ title="The Lord of the Rings" \   isbn="9780618640157" \   authors:='["J.R.R. To
 ### REACTIVE ###
 ################
 
-### orders blocking - rersul application/json
+### orders blocking - content type:application/json
 GET http://localhost:8100/orders
 
-### orders non-blocking - result application/stream+json
+### orders non-blocking - content type:application/stream+json
 GET http://localhost:8100/orders/stream
+
+
+### orders non-blocking - content type:text/event-stream
+GET http://localhost:8100/orders/event-stream
+
 
 ###
