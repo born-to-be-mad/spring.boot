@@ -38,7 +38,7 @@ public class GreetingControllerTest {
 
     @org.junit.Test
     public void hello() throws Exception {
-        for (String urlTemplate : Arrays.asList("/", "/hi", "/hello")) {
+        for (String urlTemplate : Arrays.asList("/hi", "/hello")) {
             mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Chuck Norris")))

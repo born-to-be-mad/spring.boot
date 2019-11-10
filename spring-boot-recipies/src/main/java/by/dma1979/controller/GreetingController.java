@@ -24,7 +24,7 @@ public class GreetingController {
         return faker.chuckNorris().fact();
     }
 
-    @GetMapping("/hellor")
+    @GetMapping("/helloreactive")
     public Mono<String> helloReactive() {
         return Mono.just("Hello World, from Reactive Spring Boot 2!")
                 .delayElement(Duration.ofMillis(3000));

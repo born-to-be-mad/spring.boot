@@ -25,14 +25,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since : 2019.11
  **/
 
-public class GreetingReactiveControllerTest {
+public class ReactiveGreetingControllerDirectTest {
 
     private final GreetingController controller = new GreetingController();
 
     @Test
-    public void shouldSayHello() {
+    public void shouldSayReactiveHello() {
         Mono<String> result = controller.helloReactive();
-        StepVerifier.create(result)
+        StepVerifier.create(result, 5000L)
                 .expectNext("Hello World, from Reactive Spring Boot 2!")
                 .verifyComplete();
     }
