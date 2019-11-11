@@ -28,7 +28,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Order> store(@RequestBody Mono<Order> order) {
         return orderService.save(order);
     }

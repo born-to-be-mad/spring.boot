@@ -16,7 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 @Service
 public class OrderService {
-    public static final int AMOUNT_OF_ORDERS = 25;
+    private static final int AMOUNT_OF_ORDERS = 25;
+
     private final Map<String, Order> orders = new ConcurrentHashMap<>(10);
 
     @PostConstruct

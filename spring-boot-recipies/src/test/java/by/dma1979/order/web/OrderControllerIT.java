@@ -4,6 +4,7 @@ import by.dma1979.order.Order;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,7 +38,7 @@ public class OrderControllerIT {
     @Test
     public void addAndGetOrder() {
         var order = new Order("test1", BigDecimal.valueOf(1234.56));
-        webTestClient.post().uri("/orders").syncBody(order)
+        webTestClient.post().uri("/orders").bodyValue(order)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Order.class).isEqualTo(order);
