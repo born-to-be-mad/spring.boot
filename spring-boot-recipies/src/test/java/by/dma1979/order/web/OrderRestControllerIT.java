@@ -22,14 +22,14 @@ import java.math.BigDecimal;
 /*@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureWebTestClient*/
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class OrderControllerIT {
+public class OrderRestControllerIT {
 
     @Autowired
     private WebTestClient webTestClient;
 
     @Test
     public void listOrders() {
-        webTestClient.get().uri("/orders")
+        webTestClient.get().uri("/order")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBodyList(Order.class).hasSize(25);
@@ -38,7 +38,7 @@ public class OrderControllerIT {
     @Test
     public void addAndGetOrder() {
         var order = new Order("test1", BigDecimal.valueOf(1234.56));
-        webTestClient.post().uri("/orders").bodyValue(order)
+        webTestClient.post().uri("/order").bodyValue(order)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Order.class).isEqualTo(order);
