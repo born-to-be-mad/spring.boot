@@ -42,7 +42,7 @@ public class OrderRestControllerIT {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Order.class).isEqualTo(order);
-        webTestClient.get().uri("/orders/{id}", order.getId())
+        webTestClient.get().uri("/order/{id}", order.getId())
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(Order.class).isEqualTo(order);

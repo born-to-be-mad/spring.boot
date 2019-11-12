@@ -4,6 +4,8 @@ import org.junit.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 /**
  * @author : Dzmitry Marudau
  * @created at : 00:16
@@ -18,7 +20,7 @@ public class ReactiveGreetingControllerDirectTest {
     public void shouldSayReactiveHello() {
         Mono<String> result = controller.helloReactive();
         StepVerifier.create(result, 5000L)
-                .expectNext("Hello World, from Reactive Spring Boot 2!")
-                .verifyComplete();
+            .expectNextMatches(messsage -> messsage.contains("Chuck Norris"))
+            .verifyComplete();
     }
 }

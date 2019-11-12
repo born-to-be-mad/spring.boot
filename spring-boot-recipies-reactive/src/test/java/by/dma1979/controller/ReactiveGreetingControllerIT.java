@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 /**
  * @author : Dzmitry Marudau
  * @created at : 21:23
@@ -28,6 +30,6 @@ public class ReactiveGreetingControllerIT {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody(String.class)
-                .isEqualTo("Hello World, from Reactive Spring Boot 2!");
+                .value(containsString("Chuck Norris"));
     }
 }
