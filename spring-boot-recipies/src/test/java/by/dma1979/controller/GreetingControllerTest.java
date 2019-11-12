@@ -49,13 +49,13 @@ public class GreetingControllerTest {
 
     @org.junit.Test
     public void loginUser() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/login?userName=Dzmitry"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/loginuser?userName=Dzmitry"))
             .andExpect(status().isOk())
             .andExpect(content().string(
                 allOf(containsString("Enter login details"), containsString("Dzmitry"))))
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/login?userName=Dzmitry"))
+        mockMvc.perform(MockMvcRequestBuilders.post("/loginuser?userName=Dzmitry"))
             .andExpect(status().isOk())
             .andExpect(content().string(containsString("Dzmitry is logged-in")))
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));

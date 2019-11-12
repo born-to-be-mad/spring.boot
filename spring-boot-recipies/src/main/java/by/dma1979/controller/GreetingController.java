@@ -23,12 +23,12 @@ public class GreetingController {
     }
 
 
-    @GetMapping("login")
+    @GetMapping("loginuser")
     public String viewLogin(@RequestParam String userName) {
         return String.format("Enter login details of %s", userName);
     }
 
-    @PostMapping("login")
+    @PostMapping("loginuser")
     public String doLogin(@RequestParam String userName) {
         return String.format("%s is logged-in", userName);
     }
