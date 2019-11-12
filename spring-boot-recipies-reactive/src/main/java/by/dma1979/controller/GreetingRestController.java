@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Locale;
 
 /**
@@ -14,14 +16,14 @@ import java.util.Locale;
  * @since : 2019.11
  **/
 @RestController
-public class GreetingController {
+public class GreetingRestController {
     private static Faker faker = new Faker(new Locale("en"));
 
     @GetMapping({"/hello", "/hi", "/greetings"})
-    public String hello() {
-        return faker.chuckNorris().fact();
+    public Mono<String> helloReactive() {
+        return Mono.just(faker.chuckNorris().fact())
+                .delayElement(Duration.ofMillis(3000));
     }
-
 
     @GetMapping("login")
     public String viewLogin(@RequestParam String userName) {

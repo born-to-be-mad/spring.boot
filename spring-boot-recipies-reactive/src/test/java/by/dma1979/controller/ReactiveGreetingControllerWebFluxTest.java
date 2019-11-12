@@ -1,6 +1,5 @@
 package by.dma1979.controller;
 
-import by.dma1979.exception.CustomizedErrorAttributes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @since : 2019.11
  **/
 @RunWith(SpringRunner.class)
-@WebFluxTest(GreetingController.class)
+@WebFluxTest(GreetingRestController.class)
 public class ReactiveGreetingControllerWebFluxTest {
     @Autowired
     private WebTestClient webClient;
@@ -28,9 +27,6 @@ public class ReactiveGreetingControllerWebFluxTest {
 
     @MockBean(name = "booksInitializer")
     private ApplicationRunner booksInitializer;
-
-    @MockBean
-    private CustomizedErrorAttributes errorAttributes;
 
     @Test
     public void shouldSayReactiveHello() {
