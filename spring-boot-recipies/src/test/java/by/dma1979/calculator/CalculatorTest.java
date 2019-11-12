@@ -21,7 +21,7 @@ class CalculatorTest {
     private Operation mockOperation;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         mockOperation = Mockito.mock(Operation.class);
         calculator = new Calculator(Collections.singletonList(mockOperation));
     }
