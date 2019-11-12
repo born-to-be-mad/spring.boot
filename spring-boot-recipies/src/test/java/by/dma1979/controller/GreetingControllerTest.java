@@ -1,20 +1,20 @@
 package by.dma1979.controller;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.any;
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,7 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since : 2019.11
  **/
 @RunWith(SpringRunner.class)
-@WebMvcTest(GreetingController.class)
+@WebMvcTest(value = GreetingController.class)
+@WithMockUser
 public class GreetingControllerTest {
 
     @Autowired
@@ -36,7 +37,7 @@ public class GreetingControllerTest {
     @MockBean(name = "booksInitializer")
     private ApplicationRunner booksInitializer;
 
-    @org.junit.Test
+    @Test
     public void hello() throws Exception {
         for (String urlTemplate : Arrays.asList("/hi", "/hello")) {
             mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate))

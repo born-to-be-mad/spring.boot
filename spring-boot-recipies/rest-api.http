@@ -12,8 +12,14 @@ GET http://localhost:8100/animal
 Accept: */*
 Cache-Control: no-cache
 
-### Books
+### Books - Unauthenticated access result
 GET http://localhost:8100/books
+Accept: */*
+Cache-Control: no-cache
+
+### Books - Authenticated access result
+GET http://localhost:8100/books
+Authorization: Basic admin admin#
 Accept: */*
 Cache-Control: no-cache
 
@@ -29,19 +35,6 @@ Cache-Control: no-cache
 
 title="The Lord of the Rings" \   isbn="9780618640157" \   authors:='["J.R.R. Tolkien"]'
 
-################
-### REACTIVE ###
-################
-
-### orders blocking - content type:application/json
-GET http://localhost:8100/orders
-
-### orders non-blocking - content type:application/stream+json
-GET http://localhost:8100/orders/stream
-
-
-### orders non-blocking - content type:text/event-stream
-GET http://localhost:8100/orders/event-stream
 
 
 ###
