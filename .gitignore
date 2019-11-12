@@ -33,4 +33,10 @@ build/
 ### VS Code ###
 .vscode/
 
+### Liquid base ###
+*.db
+
+### Frontend ###
+**/node/**
+
 

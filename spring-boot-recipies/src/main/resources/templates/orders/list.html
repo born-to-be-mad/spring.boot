@@ -19,8 +19,7 @@
     <tr th:each="order : ${orders}">
         <td th:text="${orderStat.count}">1</td>
         <td th:text="${order.id}"></td>
-        <td th:text="${#numbers.formatCurrency(order.amount)}"
-            style="text-align: right"></td>
+        <td th:text="${#numbers.formatCurrency(order.amount)}" style="text-align: right"></td>
     </tr>
     </tbody>
 </table>
