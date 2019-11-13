@@ -4,12 +4,67 @@
     <meta charset="UTF-8">
     <title>Library - Available Books</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF­8"/>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <!--https://fontawesome.com/-->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
 </head>
+
 <body>
-<h1>Available Books</h1>
-<a th:href="@{/books.show.add.html}" th:text="#{books.list.add}">
-    Add
-</a>
+
+<div class="container my-2">
+    <div class="card">
+        <div class="card-body">
+            <div th:switch="${books}" class="container my-5">
+                <p class="my-5">
+                    <a th:href="@{/books.show.add.html}" class="btn btn-primary">
+                        <i class="fas fa-plus ml-2" th:text="#{books.list.add}"> Add Book</i></a>
+                </p>
+                <div class="col-md-10">
+                    <h2 th:case="null">No Books!</h2>
+                    <div th:case="*">
+                        <table class="table table-striped table-responsive-md">
+                            <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Authors</th>
+                                <th>ISBN</th>
+                                <th>View</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="book : ${books}">
+                                <td th:text="${book.title}"></td>
+                                <td th:text="${{book.authors}}"></td>
+                                <td>
+                                    <a th:href="@{/books.html(isbn=${book.isbn})}" th:text="${book.isbn}">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/books.show.edit.html/{isbn}(isbn=${book.isbn})}" class="btn btn-primary">
+                                        <i class="fas fa-edit ml-2" th:text="#{books.list.edit}"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/books.delete.html/{isbn}(isbn=${book.isbn})}" class="btn btn-primary">
+                                        <i class="fas fa-minus ml-2" th:text="#{books.list.delete}"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table>
     <thead>
     <tr>

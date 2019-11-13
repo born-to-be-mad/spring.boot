@@ -6,6 +6,9 @@
     <title th:text="#{main.title}">
         Spring Boot Recipes - Admin panel
     </title>
+    <!-- Bootstrap core CSS -->
+    <!--https://memorynotfound.com/adding-static-resources-css-javascript-images-thymeleaf/-->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
 
 <body>
@@ -19,5 +22,7 @@
 <a th:href="@{/books.html}" href="#" th:text="#{index.books.link}">
     List of books
 </a>
+
 </body>
+
 </html>
