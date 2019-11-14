@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,7 +57,8 @@ public class GreetingControllerTest {
                 allOf(containsString("Enter login details"), containsString("Dzmitry"))))
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/loginuser?userName=Dzmitry"))
+        mockMvc.perform(post("/loginuser?userName=Dzmitry")
+                .with(csrf())) //this line takes care of adding the CSRF token to the request.
             .andExpect(status().isOk())
             .andExpect(content().string(containsString("Dzmitry is logged-in")))
             .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
