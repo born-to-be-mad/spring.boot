@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <title>Library - Available Books</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF­8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
 </head>
 <body>
 <form action="#" th:action="@{/books.add.html}" th:object="${book}" method="post">
 
-    <label for="isbn">ISBN</label>
-    <input type="text" th:field="*{isbn}" id="isbn" placeholder="Title">
-    <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+    <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input class="form-control" type="text" th:field="*{isbn}" id="isbn" placeholder="Enter ISBN">
+        <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+    </div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-control" type="text" th:field="*{title}" id="title" placeholder="Enter book title">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
 
-    <label for="title">Title</label>
-    <input type="text" th:field="*{title}" id="title" placeholder="Title">
-    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-
-    <input type="submit" value="Add Book">
+    <button type="submit" class="btn btn-primary">Add</button>
 </form>
 </body>
 </html>

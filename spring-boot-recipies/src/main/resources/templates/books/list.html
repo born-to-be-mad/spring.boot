@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <title>Library - Available Books</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF­8"/>
-    <!-- Bootstrap core CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <!--https://fontawesome.com/-->
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-          crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}"/>
+
 </head>
 
 <body>
@@ -65,34 +63,5 @@
     </div>
 </div>
 
-<table>
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>ISBN</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${books}">
-        <td th:text="${book.title}">Title</td>
-        <td th:text="${book.authors}">Authors</td>
-        <td>
-            <a th:href="@{/books.html(isbn=${book.isbn})}" th:text="${book.isbn}">
-            </a>
-        </td>
-        <td>
-            <a th:href="@{/books.show.edit.html/{isbn}(isbn=${book.isbn})}" th:text="#{books.list.edit}">
-                Edit
-            </a>
-        </td>
-        <td>
-            <a th:href="@{/books.delete.html/{isbn}(isbn=${book.isbn})}" th:text="#{books.list.delete}">
-                Delete
-            </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
 </body>
 </html>
