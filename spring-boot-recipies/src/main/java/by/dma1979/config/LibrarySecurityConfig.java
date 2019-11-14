@@ -19,10 +19,14 @@ public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.securityContext() //security context integration.
+                //.and()
+                //.authorizeRequests()
+                //.antMatchers( "/favicon.ico").permitAll()
                 .and()
                 .exceptionHandling() //exception handling
                 .and()
-                .servletApi(); // enable the Servlet API integration
+                //.httpBasic(); // HTTP Basic authentication*/
+                .formLogin(); // Form bases login
     }
 
 }
