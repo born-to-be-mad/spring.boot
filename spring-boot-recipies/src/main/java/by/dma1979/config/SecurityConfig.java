@@ -3,6 +3,7 @@ package by.dma1979.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author : Dzmitry Marudau
@@ -10,9 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @since : 2019.11
  **/
 @Configuration
-public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
-    public LibrarySecurityConfig() {
+    public SecurityConfig() {
         super(true); // disable default configuration
     }
 
@@ -23,10 +24,15 @@ public class LibrarySecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().anyRequest().authenticated() //every request requires the user to be authenticated
                 .and()
                 .exceptionHandling() //exception handling
+                //.and()
+                //.httpBasic() // HTTP Basic Authentication is supported
                 .and()
-                .httpBasic() // HTTP Basic Authentication is supported
+                .formLogin().defaultSuccessUrl("/") // form based authentication is supported
                 .and()
-                .formLogin(); // form based authentication is supported
+                .logout().logoutSuccessUrl("/") // logout service provides a handler to handle logout requests
+                .and()
+                .headers(); // the browser will be instructed to not cache the page.
+
     }
 
 }
