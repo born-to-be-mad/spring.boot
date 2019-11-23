@@ -16,15 +16,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
-    public SecurityConfig() {
+/*    public SecurityConfig() {
         super(true); // disable default configuration
-    }
+    }*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.securityContext() //security context integration.
                 .and()
-                .authorizeRequests().anyRequest().authenticated() //every request requires the user to be authenticated
+                .authorizeRequests().anyRequest()
+                .authenticated() //every request requires the user to be authenticated
                 .and()
                 .exceptionHandling() //exception handling
                 .and()
@@ -32,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .and()
                 .formLogin().defaultSuccessUrl("/") // form based authentication is supported
                 .and()
-                .logout().logoutSuccessUrl("/") // logout service provides a handler to handle logout requests
-                .and()
-                .anonymous().principal("guest").authorities("ROLE_GUEST") //Anonymous Login
+                .logout().logoutSuccessUrl("/login") // logout service provides a handler to handle logout requests
+                //.and()
+                //.anonymous().principal("guest").authorities("ROLE_GUEST") //Anonymous Login
                 .and()
                 .headers(); // the browser will be instructed to not cache the page.
     }
