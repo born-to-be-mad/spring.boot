@@ -20,23 +20,31 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityWebFilterChain springWebFilterChain(ServerHttpSecurity http) throws Exception {
-        return http
+        http.csrf().disable()
                 .authorizeExchange()
                 .pathMatchers("/").permitAll()
                 .pathMatchers("/orders*").hasRole("USER")
                 .anyExchange().authenticated()
                 .and()
-                .build();
+                .httpBasic()
+                .and()
+                .formLogin();
+        return http.build();
     }
 
     @Bean
     public MapReactiveUserDetailsService userDetailsService() {
-        UserDetails user = User
-                .withUsername("user")
-                .password(passwordEncoder().encode("user#"))
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("user")
                 .roles("USER")
                 .build();
-        return new MapReactiveUserDetailsService(user);
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("admin")
+                .password("admin")
+                .roles("USER", "ADMIN")
+                .build();
+        return new MapReactiveUserDetailsService(user, admin);
     }
 
     @Bean
