@@ -6,12 +6,15 @@ import by.dma1979.exception.CustomizedErrorAttributes;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,6 +22,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -37,6 +42,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
         LOG.info("Hello from Log4j 2 - ConfigurableApplicationContext : {}", () -> context);
@@ -53,6 +59,41 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         String[] beanNames = context.getBeanDefinitionNames();
         Arrays.sort(beanNames);
         Arrays.asList(beanNames).forEach(System.out::println);
+    }
+
+    @Bean
+    public ApplicationRunner printConnectionMetaData(DataSource dataSource) {
+        System.out.println("### Initializing books ...");
+        return args -> {
+            try (var con = dataSource.getConnection();
+                 var rs = con.getMetaData().getTables(null, null, "%", null)) {
+                while (rs.next()) {
+                    LOG.info("{}", rs.getString(3));
+                }
+            }
+        };
+    }
+
+    @Bean
+    public ApplicationRunner booksInitializer(BookService bookService) {
+        System.out.println("### Initializing books ...");
+        return args -> {
+            bookService.create(
+                    new Book("9780061120084", "To Kill a Mockingbird", "Harper Lee"));
+            bookService.create(
+                    new Book("9780451524935", "1984", "George Orwell"));
+            bookService.create(
+                    new Book("9780618260300", "The Hobbit", "J.R.R. Tolkien"));
+        };
+    }
+
+    @Bean
+    public ApplicationRunner calculationRunner(Calculator calculator,
+                                               @Value("${lhs}") int lhs,
+                                               @Value("${rhs}") int rhs,
+                                               @Value("${op:+}") char op) {
+        System.out.println("### Calculator calculate ...");
+        return args -> calculator.calculate(lhs, rhs, op);
     }
 
     @Bean
@@ -76,28 +117,6 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         cookieLocaleResolver.setCookieMaxAge(3600); //1 hour
         cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         return cookieLocaleResolver;
-    }
-
-    @Bean
-    public ApplicationRunner booksInitializer(BookService bookService) {
-        System.out.println("### Initializing books ...");
-        return args -> {
-            bookService.create(
-                    new Book("9780061120084", "To Kill a Mockingbird", "Harper Lee"));
-            bookService.create(
-                    new Book("9780451524935", "1984", "George Orwell"));
-            bookService.create(
-                    new Book("9780618260300", "The Hobbit", "J.R.R. Tolkien"));
-        };
-    }
-
-    @Bean
-    public ApplicationRunner calculationRunner(Calculator calculator,
-                                               @Value("${lhs}") int lhs,
-                                               @Value("${rhs}") int rhs,
-                                               @Value("${op:+}") char op) {
-        System.out.println("### Calculator calculate ...");
-        return args -> calculator.calculate(lhs, rhs, op);
     }
 
     @Bean
