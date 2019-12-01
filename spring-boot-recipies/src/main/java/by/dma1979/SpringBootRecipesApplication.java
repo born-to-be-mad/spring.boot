@@ -48,6 +48,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         LOG.info("Hello from Log4j 2 - ConfigurableApplicationContext : {}", () -> context);
         System.out.println("###############   BOOTING........");
         if (args.length > 0 && args[0].equalsIgnoreCase("-debug")) {
+            System.out.println("### DEBUG MODE IS ACIVATED ....");
             printBeanDefinitions(context);
         }
 
@@ -63,7 +64,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
     @Bean
     public ApplicationRunner printConnectionMetaData(DataSource dataSource) {
-        System.out.println("### Initializing books ...");
+        System.out.println("### Print data source connection metadata ...");
         return args -> {
             try (var con = dataSource.getConnection();
                  var rs = con.getMetaData().getTables(null, null, "%", null)) {
