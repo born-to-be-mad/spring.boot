@@ -6,3 +6,4 @@ create TABLE customer (
   email VARCHAR(255) NOT NULL,
   UNIQUE(name)
 );
+

@@ -116,11 +116,19 @@
             <artifactId>javafaker</artifactId>
             <version>1.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!--Version control system for DB https://flywaydb.org/-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
     <parent>
