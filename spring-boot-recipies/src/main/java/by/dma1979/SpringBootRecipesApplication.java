@@ -3,6 +3,7 @@ package by.dma1979;
 import by.dma1979.calculator.Calculator;
 import by.dma1979.entity.Book;
 import by.dma1979.exception.CustomizedErrorAttributes;
+import by.dma1979.jdbc.CustomerRepository;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -59,12 +61,35 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public ApplicationRunner printDBContent(DataSource dataSource) {
+    public ApplicationRunner printDBContentViaCustomerRepository(CustomerRepository repository) {
         return args -> {
-            var query = "SELECT id, name, email FROM customer";
-            try (var con = dataSource.getConnection();
-                 var stmt = con.createStatement();
-                 var rs = stmt.executeQuery(query)) {
+            System.out.println("### Print DB content via CustomerRepository ...");
+            repository.findAll()
+                .forEach(customer -> LOG.info("{}", customer));
+        };
+    }
+
+    @Bean
+    public ApplicationRunner printDBContentViaJDBCTemplate(JdbcTemplate jdbc) {
+        return args -> {
+            System.out.println("### Print DB content via JdbcTemplate ...");
+            jdbc.query("SELECT id, name, email FROM customer",
+                    rs -> {
+                        LOG.info("Customer [id={}, name={}, email={}]",
+                                rs.getLong(1), rs.getString(2), rs.getString(3));
+                    });
+        };
+    }
+
+    @Bean
+    public ApplicationRunner printDBContentViaDataSource(DataSource dataSource) {
+        return args -> {
+            System.out.println("### Print DB content via DataSource ...");
+            try (
+                    var con = dataSource.getConnection();
+                    var stmt = con.createStatement();
+                    var rs = stmt.executeQuery("SELECT id, name, email FROM customer")
+            ) {
                 while (rs.next()) {
                     LOG.info("Customer [id={}, name={}, email={}]",
                             rs.getLong(1), rs.getString(2), rs.getString(3));
