@@ -6,15 +6,12 @@ import by.dma1979.exception.CustomizedErrorAttributes;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -23,7 +20,6 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Locale;
 
@@ -47,7 +43,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootRecipesApplication.class, args);
         LOG.info("Hello from Log4j 2 - ConfigurableApplicationContext : {}", () -> context);
         System.out.println("###############   BOOTING........");
-        if (args.length > 0 && args[0].equalsIgnoreCase("-debug")) {
+        if (isDebugMode(args)) {
             System.out.println("### DEBUG MODE IS ACIVATED ....");
             printBeanDefinitions(context);
         }
@@ -63,13 +59,30 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public ApplicationRunner printConnectionMetaData(DataSource dataSource) {
-        System.out.println("### Print data source connection metadata ...");
+    public ApplicationRunner printDBContent(DataSource dataSource) {
         return args -> {
+            var query = "SELECT id, name, email FROM customer";
             try (var con = dataSource.getConnection();
-                 var rs = con.getMetaData().getTables(null, null, "%", null)) {
+                 var stmt = con.createStatement();
+                 var rs = stmt.executeQuery(query)) {
                 while (rs.next()) {
-                    LOG.info("{}", rs.getString(3));
+                    LOG.info("Customer [id={}, name={}, email={}]",
+                            rs.getLong(1), rs.getString(2), rs.getString(3));
+                }
+            }
+        };
+    }
+
+    @Bean
+    public ApplicationRunner printConnectionMetaData(DataSource dataSource) {
+        return args -> {
+            if (isDebugMode(args.getSourceArgs())) {
+                System.out.println("### Print data source connection metadata ...");
+                try (var con = dataSource.getConnection();
+                     var rs = con.getMetaData().getTables(null, null, "%", null)) {
+                    while (rs.next()) {
+                        LOG.info("{}", rs.getString(3));
+                    }
                 }
             }
         };
@@ -106,6 +119,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
     CookieLocaleResolver resolves locales by inspecting a cookie in a user’s browser.<BR/>
     If the cookie does not exist, this locale resolver determines the default locale from the Accept-Language HTTP header.
     */
+
     @Bean
     public LocaleResolver localeResolver() {
 /*        AbstractLocaleContextResolver localeResolver = new SessionLocaleResolver(); // FixedLocaleResolver
@@ -125,4 +139,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         return new CustomizedErrorAttributes();
     }
 
+    private static boolean isDebugMode(String[] args) {
+        return args.length > 0 && args[0].equalsIgnoreCase("-debug");
+    }
 }
