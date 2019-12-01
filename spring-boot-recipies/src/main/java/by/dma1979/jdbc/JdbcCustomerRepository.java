@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -46,13 +47,18 @@ public class JdbcCustomerRepository implements CustomerRepository {
     @Override
     public Customer save(Customer customer) {
         var keyHolder = new GeneratedKeyHolder();
-        jdbc.update(con -> {
-            var ps = con.prepareStatement(INSERT_QUERY);
+        int rows = jdbc.update(con -> {
+            var ps = con.prepareStatement(INSERT_QUERY, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getEmail());
             return ps;
         }, keyHolder);
-        return new Customer(keyHolder.getKey().longValue(), customer.getName(), customer.getEmail());
+
+        if (rows == 1) {
+            return new Customer(keyHolder.getKey().longValue(), customer.getName(), customer.getEmail());
+        } else {
+            throw new IllegalStateException("Customer was not inserted. Number of affected rows:"+ rows);
+        }
     }
 
     private Customer toCustomer(ResultSet rs) throws SQLException {
