@@ -1,6 +1,6 @@
 package by.dma1979.jpa.spring;
 
-import by.dma1979.jpa.Customer;
+import by.dma1979.jpa.entity.Customer;
 import org.springframework.data.repository.CrudRepository;
 
 /**

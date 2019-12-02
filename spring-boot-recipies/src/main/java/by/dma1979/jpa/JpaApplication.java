@@ -6,9 +6,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.stereotype.Component;
 
 @SpringBootApplication
+@EntityScan({
+        "by.dma1979.entity",
+        "by.dma1979.jpa.entity" })
 public class JpaApplication {
 
     public static void main(String[] args) {

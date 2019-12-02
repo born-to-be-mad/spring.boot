@@ -1,11 +1,6 @@
-package by.dma1979.jpa;
+package by.dma1979.jpa.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,12 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@Data
 public class Customer {
 
 	@Id
@@ -31,7 +21,5 @@ public class Customer {
 
 	@Column(nullable = false)
 	private String email;
-
-
 
 }

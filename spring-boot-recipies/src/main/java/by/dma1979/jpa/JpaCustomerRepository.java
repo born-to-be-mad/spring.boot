@@ -1,5 +1,6 @@
 package by.dma1979.jpa;
 
+import by.dma1979.jpa.entity.Customer;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
