@@ -57,7 +57,7 @@ public class JdbcCustomerRepository implements CustomerRepository {
         if (rows == 1) {
             return new Customer(keyHolder.getKey().longValue(), customer.getName(), customer.getEmail());
         } else {
-            throw new IllegalStateException("Customer was not inserted. Number of affected rows:"+ rows);
+            throw new IllegalStateException("Customer was not inserted. Number of affected rows:" + rows);
         }
     }
 
