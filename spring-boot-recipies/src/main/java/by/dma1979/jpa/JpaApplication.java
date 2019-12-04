@@ -25,13 +25,19 @@ public class JpaApplication {
 class CustomerLister implements ApplicationRunner {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final ICustomerRepository plainRepository;
+
     private final SpringDataJpaCustomerRepository springDataJpaCustomerRepository;
 
+    private final ICustomerRepository plainHibernateCustomerRepository;
+
     CustomerLister(PlainJpaCustomerRepository plainRepository,
-                   SpringDataJpaCustomerRepository springDataJpaCustomerRepository) {
+                   SpringDataJpaCustomerRepository springDataJpaCustomerRepository,
+                   PlainHibernateCustomerRepository plainHibernateCustomerRepository) {
         this.plainRepository = plainRepository;
         this.springDataJpaCustomerRepository = springDataJpaCustomerRepository;
+        this.plainHibernateCustomerRepository = plainHibernateCustomerRepository;
     }
 
     @Override
@@ -41,5 +47,8 @@ class CustomerLister implements ApplicationRunner {
 
         logger.debug("### Spring Data JPA repository ###");
         springDataJpaCustomerRepository.findAll().forEach(customer -> logger.info("{}", customer));
+
+        logger.debug("### Plain Hibernate repository ###");
+        plainHibernateCustomerRepository.findAll().forEach(customer -> logger.info("{}", customer));
     }
 }
