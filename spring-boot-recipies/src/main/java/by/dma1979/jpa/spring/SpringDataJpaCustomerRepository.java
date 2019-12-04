@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
  * @created at : 00:23
  * @since : 2019.12
  **/
-public interface CustomerRepository extends CrudRepository<Customer, Long> { }
+public interface SpringDataJpaCustomerRepository extends CrudRepository<Customer, Long> { }
 

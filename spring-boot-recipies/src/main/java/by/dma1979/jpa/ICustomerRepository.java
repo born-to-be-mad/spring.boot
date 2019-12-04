@@ -4,7 +4,7 @@ import by.dma1979.jpa.entity.Customer;
 
 import java.util.List;
 
-public interface CustomerRepository {
+public interface ICustomerRepository {
 
     List<Customer> findAll();
 

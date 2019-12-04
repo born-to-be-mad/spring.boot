@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CustomerRepositoryTest {
 
   @Autowired
-  private CustomerRepository repository;
+  private SpringDataJpaCustomerRepository repository;
 
   @Autowired
   private TestEntityManager testEntityManager;
