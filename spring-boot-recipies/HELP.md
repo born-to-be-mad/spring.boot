@@ -2,8 +2,11 @@
 ### Compile docker image with postgress
 `docker build -t sb2r-postgres.`
 
-###  run IMAGE using 
+###  run POSTGRES IMAGE using 
 `docker run -p 5432:5432 -it sb2r-postgres`.
+
+###  run MONGO DB IMAGE using 
+`docker run -p 27017:27017 -it sb2r-mongodb`.
 
 
 ### Reference Documentation

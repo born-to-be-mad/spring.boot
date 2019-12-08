@@ -4,6 +4,7 @@ import by.dma1979.calculator.Calculator;
 import by.dma1979.entity.Book;
 import by.dma1979.exception.CustomizedErrorAttributes;
 import by.dma1979.jdbc.CustomerRepository;
+import by.dma1979.jpa.JpaApplication;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
@@ -26,6 +29,11 @@ import java.util.Arrays;
 import java.util.Locale;
 
 @SpringBootApplication
+@ComponentScan(
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.ASSIGNABLE_TYPE,
+                classes = JpaApplication.class)
+)
 public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
     private static final Logger LOG = LogManager.getLogger(SpringBootRecipesApplication.class);
