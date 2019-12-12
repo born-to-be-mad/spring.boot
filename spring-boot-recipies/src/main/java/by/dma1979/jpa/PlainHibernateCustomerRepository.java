@@ -17,7 +17,7 @@ import java.util.List;
  **/
 @Repository
 @Transactional
-class PlainHibernateCustomerRepository implements ICustomerRepository {
+public class PlainHibernateCustomerRepository implements ICustomerRepository {
 
     @PersistenceContext
     private EntityManager em;

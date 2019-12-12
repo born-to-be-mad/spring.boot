@@ -1,12 +1,16 @@
 package by.dma1979.controller;
 
+import by.dma1979.jdbc.CustomerRepository;
+import by.dma1979.service.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,18 +30,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since : 2019.11
  **/
 @RunWith(SpringRunner.class)
+@MockBeans({
+        @MockBean(value = ApplicationRunner.class, name = "calculationRunner" ),
+        @MockBean(value = ApplicationRunner.class, name = "printDBContentViaDataSource" ),
+        @MockBean(value = ApplicationRunner.class, name = "printDBContentViaJDBCTemplate" ),
+        @MockBean(value = ApplicationRunner.class, name = "printConnectionMetaData" ),
+        @MockBean(value = LocalSessionFactoryBean.class, name = "entityManagerFactory" ),
+        @MockBean(BookService.class),
+        @MockBean(CustomerRepository.class)
+})
 @WebMvcTest(value = GreetingController.class)
 @WithMockUser
 public class GreetingControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean(name = "calculationRunner")
-    private ApplicationRunner calculator;
-
-    @MockBean(name = "booksInitializer")
-    private ApplicationRunner booksInitializer;
 
     @Test
     public void hello() throws Exception {

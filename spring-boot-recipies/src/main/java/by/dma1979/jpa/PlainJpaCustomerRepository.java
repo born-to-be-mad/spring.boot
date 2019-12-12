@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-class PlainJpaCustomerRepository implements ICustomerRepository {
+public class PlainJpaCustomerRepository implements ICustomerRepository {
 
     @PersistenceContext
     private EntityManager em;

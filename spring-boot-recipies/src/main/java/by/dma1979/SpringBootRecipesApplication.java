@@ -4,19 +4,27 @@ import by.dma1979.calculator.Calculator;
 import by.dma1979.entity.Book;
 import by.dma1979.exception.CustomizedErrorAttributes;
 import by.dma1979.jdbc.CustomerRepository;
-import by.dma1979.jpa.JpaApplication;
+import by.dma1979.jpa.ICustomerRepository;
+import by.dma1979.jpa.NativeHibernateCustomerRepository;
+import by.dma1979.jpa.PlainHibernateCustomerRepository;
+
+import by.dma1979.jpa.PlainJpaCustomerRepository;
+import by.dma1979.jpa.spring.SpringDataJpaCustomerRepository;
 import by.dma1979.service.BookService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.cfg.AvailableSettings;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,13 +35,9 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Properties;
 
 @SpringBootApplication
-@ComponentScan(
-        excludeFilters = @ComponentScan.Filter(
-                type = FilterType.ASSIGNABLE_TYPE,
-                classes = JpaApplication.class)
-)
 public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
     private static final Logger LOG = LogManager.getLogger(SpringBootRecipesApplication.class);
@@ -166,6 +170,24 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
         return cookieLocaleResolver;
     }
+    @Bean(name = "entityManagerFactory")
+    LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
+        Properties properties = new Properties();
+        properties.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.PostgreSQL95Dialect");
+        properties.setProperty(AvailableSettings.NON_CONTEXTUAL_LOB_CREATION, "true");
+        //properties.setProperty(AvailableSettings.CONNECTION_PROVIDER_DISABLES_AUTOCOMMIT, "true");
+
+        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
+        sessionFactoryBean.setDataSource(dataSource);
+        sessionFactoryBean.setPackagesToScan("by.dma1979.jpa", "by.dma1979.jpa.entity");
+        sessionFactoryBean.setHibernateProperties(properties);
+        return sessionFactoryBean;
+    }
+
+//  @Bean
+//  public PlatformTransactionManager transactionManager(SessionFactory sf) {
+//	  return new HibernateTransactionManager(sf);
+//  }
 
     @Bean
     public CustomizedErrorAttributes errorAttributes() {
@@ -174,5 +196,44 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
     private static boolean isDebugMode(String[] args) {
         return args.length > 0 && args[0].equalsIgnoreCase("-debug");
+    }
+}
+
+@Component
+class CustomerLister implements ApplicationRunner {
+
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final ICustomerRepository plainRepository;
+
+    private final SpringDataJpaCustomerRepository springDataJpaCustomerRepository;
+
+    private final ICustomerRepository plainHibernateCustomerRepository;
+
+    private final ICustomerRepository nativeHibernateCustomerRepository;
+
+    CustomerLister(PlainJpaCustomerRepository plainRepository,
+                   SpringDataJpaCustomerRepository springDataJpaCustomerRepository,
+                   PlainHibernateCustomerRepository plainHibernateCustomerRepository,
+                   NativeHibernateCustomerRepository nativeHibernateCustomerRepository) {
+        this.plainRepository = plainRepository;
+        this.springDataJpaCustomerRepository = springDataJpaCustomerRepository;
+        this.plainHibernateCustomerRepository = plainHibernateCustomerRepository;
+        this.nativeHibernateCustomerRepository = nativeHibernateCustomerRepository;
+    }
+
+    @Override
+    public void run(ApplicationArguments args) {
+        logger.debug("### Own Plain JPA repository ###");
+        plainRepository.findAll().forEach(customer -> logger.info("{}", customer));
+
+        logger.debug("### Spring Data JPA repository ###");
+        springDataJpaCustomerRepository.findAll().forEach(customer -> logger.info("{}", customer));
+
+        logger.debug("### Plain Hibernate repository ###");
+        plainHibernateCustomerRepository.findAll().forEach(customer -> logger.info("{}", customer));
+
+        logger.debug("### Plain NativeHibernate repository ###");
+        nativeHibernateCustomerRepository.findAll().forEach(customer -> logger.info("{}", customer));
     }
 }

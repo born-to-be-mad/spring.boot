@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         pattern = "by.dma1979.jdbc.*Repository")
 )
 @TestPropertySource(properties = "spring.flyway.enabled=false")
-public class JdbcCustomerRepositoryTest {
+public class JdbcCustomerRepositoryIT {
 
     @Autowired
     private JdbcCustomerRepository repository;

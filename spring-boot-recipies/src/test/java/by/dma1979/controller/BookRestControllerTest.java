@@ -2,6 +2,7 @@ package by.dma1979.controller;
 
 
 import by.dma1979.entity.Book;
+import by.dma1979.jdbc.CustomerRepository;
 import by.dma1979.service.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -29,6 +34,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since : 2019.11
  **/
 @RunWith(SpringRunner.class)
+@MockBeans({
+        @MockBean(value = ApplicationRunner.class, name = "calculationRunner" ),
+        @MockBean(value = ApplicationRunner.class, name = "printDBContentViaDataSource" ),
+        @MockBean(value = ApplicationRunner.class, name = "printDBContentViaJDBCTemplate" ),
+        @MockBean(value = ApplicationRunner.class, name = "printConnectionMetaData" ),
+        @MockBean(value = LocalSessionFactoryBean.class, name = "entityManagerFactory" ),
+        @MockBean(CustomerRepository.class)
+})
 @WebMvcTest(BookRestController.class)
 @WithMockUser
 public class BookRestControllerTest {
@@ -37,9 +50,6 @@ public class BookRestControllerTest {
 
     @MockBean
     private BookService bookService;
-
-    @MockBean(name = "calculationRunner")
-    private ApplicationRunner calculator;
 
     @Test
     public void shouldReturnListOfBooks() throws Exception {
