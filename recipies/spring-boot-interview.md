@@ -1,7 +1,7 @@
 # Interview questions
 + [What is __Spring Boot__?](#What-is-Spring-Boot)
 + [What is __spring-boot-starter-parent__?](#What-is-spring-boot-starter-parent)
-+ [Annotations to run spring boot application?](#Annotations-to-run-spring-boot-application)
++ [Annotations to run spring boot application?](#Annotations-to-run-spring-boot-based-application)
 + [What is __@SpringBootApplication__?](What-is-@SpringBootApplication)
 
 ## What is _Spring Boot_?
@@ -22,7 +22,7 @@ logging, and Spring Boot itself.
 
 [Table of contents](#Interview-questions)
 
-## Annotations to run spring boot application?
+## Annotations to run Spring Boot-based application?
 * The __@Configuration__ annotation makes this class a Spring Java configuration class.
 Generally when creating an application you also have other components you need to have picked up -
 for this add the __@ComponentScan__ annotation.
@@ -39,5 +39,17 @@ Finally, to let Spring Boot do its auto-configuration, we need the __@EnableAuto
   * @Configuration
   * @ComponentScan
   * @EnableAutoConfiguration
+
+The _@SpringBootConfiguration_ is a specialized @Configuration annotation.
+It indicates that this is a Spring Boot-based application.
+When using @SpringBootConfiguration in your application, there can only be one class annotated with this annotation!
+
+[Table of contents](#Interview-questions)
+
+## What is the difference between @SpringBootApplication and @Configuration?
+The _@SpringBootConfiguration_ is a specialized @Configuration annotation.
+It is composed annotation(@Configuration, @ComponentScan, @EnableAutoConfiguration etc.).
+It indicates that this is a Spring Boot-based application.
+When using @SpringBootConfiguration in your application, there can only be one class annotated with this annotation!
 
 [Table of contents](#Interview-questions)
