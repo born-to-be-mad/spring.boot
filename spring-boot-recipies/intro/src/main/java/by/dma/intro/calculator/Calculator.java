@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 @Component
+Configuration
 public class Calculator {
 
     private final Collection<Operation> operations;

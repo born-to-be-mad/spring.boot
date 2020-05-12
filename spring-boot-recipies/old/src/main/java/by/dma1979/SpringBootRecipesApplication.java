@@ -43,7 +43,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
     private static final Logger LOG = LogManager.getLogger(SpringBootRecipesApplication.class);
 
     /*
-    Changing a User's Locale.
+    Changing a Use`r's Locale.
     We register LocaleChangeInterceptor as interceptor via WebMvcConfigurer.
     @param registry the registry of interceptors
     */
@@ -64,6 +64,10 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
 
         LOG.info("###############   THE END    ###############");
     }
+
+  private static boolean isDebugMode(String[] args) {
+    return args.length > 0 && args[0].equalsIgnoreCase("-debug");
+  }
 
     private static void printBeanDefinitions(ConfigurableApplicationContext context) {
         System.out.printf("# There are %d bean definitions:%n", context.getBeanDefinitionCount());
@@ -194,9 +198,7 @@ public class SpringBootRecipesApplication implements WebMvcConfigurer {
         return new CustomizedErrorAttributes();
     }
 
-    private static boolean isDebugMode(String[] args) {
-        return args.length > 0 && args[0].equalsIgnoreCase("-debug");
-    }
+
 }
 
 @Component
