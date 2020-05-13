@@ -16,7 +16,8 @@ import java.util.Arrays;
 @ComponentScan
 public class IntroDemoApplication {
   public static void main(String[] args) {
-    ConfigurableApplicationContext context = SpringApplication.run(IntroDemoApplication.class, args);
+    ConfigurableApplicationContext context =
+            SpringApplication.run(IntroDemoApplication.class, args);
     System.out.println("###############   BOOTING........");
     if (isDebugMode(args)) {
       System.out.println("### DEBUG MODE IS ACIVATED ....");
@@ -24,14 +25,16 @@ public class IntroDemoApplication {
     }
   }
 
-  private static void printBeanDefinitions(ConfigurableApplicationContext context) {
-    System.out.printf("# There are %d bean definitions:%n", context.getBeanDefinitionCount());
+  private static void printBeanDefinitions(
+          ConfigurableApplicationContext context) {
+    System.out.printf("# There are %d bean definitions:%n",
+                      context.getBeanDefinitionCount());
 
     String[] beanNames = context.getBeanDefinitionNames();
     Arrays.sort(beanNames);
 
     Arrays.asList(beanNames)
-            .forEach(System.out::println);
+          .forEach(System.out::println);
   }
 
   private static boolean isDebugMode(String[] args) {
