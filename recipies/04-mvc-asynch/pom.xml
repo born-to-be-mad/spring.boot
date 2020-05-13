@@ -8,10 +8,9 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>by.dma</groupId>
-  <artifactId>mvc</artifactId>
+  <artifactId>spring-boot-mvc-asynch</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>mvc</name>
+  <name>04-spring-boot-mvc-asynch</name>
 
   <dependencies>
   </dependencies>

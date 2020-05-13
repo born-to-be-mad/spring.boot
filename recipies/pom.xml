@@ -39,9 +39,10 @@
   </dependencies>
 
   <modules>
-    <module>intro</module>
-    <module>basics</module>
-    <module>mvc</module>
+    <module>01-intro</module>
+    <module>02-basics</module>
+    <module>03-mvc</module>
+    <module>04-mvc-asynch</module>
   </modules>
 
 </project>
