@@ -4,6 +4,8 @@
 + [Annotations to run spring boot application?](#Annotations-to-run-spring-boot-based-application)
 + [What is __@SpringBootApplication__?](What-is-@SpringBootApplication)
 + [What is SpringApplication.run?](What-is-SpringApplication.run)
++ [What is the interface ApplicationRunner?](@What-is-interface-ApplicationRunner)
+
 
 ## What is _Spring Boot_?
 *Spring Boot Reference Guide*:
@@ -61,5 +63,13 @@ from the specified source using default settings.
 
 The main method calls SpringApplication.run with the main class passed as first parameter
 and arguments from the main method. The `run` method returns an ApplicationContext.
+
+[Table of contents](#Interview-questions)
+
+##What is the interface ApplicationRunner?
+Spring Boot has an interface `ApplicationRunner`, which can be used
+to run some code after startup of the application.
+When Spring Boot detects a bean of type ApplicationRunner,
+it will invoke its run method as soon as the application has started.
 
 [Table of contents](#Interview-questions)
