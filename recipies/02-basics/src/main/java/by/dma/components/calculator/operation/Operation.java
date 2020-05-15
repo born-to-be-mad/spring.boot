@@ -1,4 +1,4 @@
-package by.dma.calculator;
+package by.dma.components.calculator.operation;
 
 public interface Operation {
 

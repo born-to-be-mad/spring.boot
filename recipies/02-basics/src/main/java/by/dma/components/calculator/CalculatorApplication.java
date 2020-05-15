@@ -10,8 +10,8 @@ public class CalculatorApplication {
     var ctx = SpringApplication.run(CalculatorApplication.class, args);
     var calculator = ctx.getBean(Calculator.class);
     calculator.calculate(137, 21, '+');
-    calculator.calculate(137, 21, '*');
     calculator.calculate(137, 21, '-');
+    calculator.calculate(137, 21, '*');
   }
 
   //enabling overriding by setting spring.main.allow-bean-definition-overriding=true

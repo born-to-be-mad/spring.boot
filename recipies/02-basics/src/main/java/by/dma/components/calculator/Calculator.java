@@ -1,5 +1,6 @@
 package by.dma.components.calculator;
 
+import by.dma.components.calculator.operation.Operation;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
