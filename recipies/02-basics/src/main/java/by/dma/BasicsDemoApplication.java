@@ -1,6 +1,7 @@
 package by.dma;
 
 import by.dma.components.calculator.Calculator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -28,8 +29,14 @@ public class BasicsDemoApplication {
   }*/
 
   @Bean
-  public ApplicationRunner calculationRunner(Calculator calculator) {
+  public ApplicationRunner calculationRunner(Calculator calculator,
+          @Value("${left}") int lhs,
+          @Value("${right}") int rhs,
+          @Value("${operation}") char op) {
     return args -> {
+      System.out.println("### Calculate using property values:");
+      calculator.calculate(lhs, rhs, op);
+      System.out.println("### All operations in action:");
       calculator.calculate(138, 21, '+');
       calculator.calculate(137, 21, '-');
       calculator.calculate(137, 21, '*');

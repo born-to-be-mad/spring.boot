@@ -2,10 +2,10 @@
 + [What is __Spring Boot__?](#What-is-Spring-Boot)
 + [What is __spring-boot-starter-parent__?](#What-is-spring-boot-starter-parent)
 + [Annotations to run spring boot application?](#Annotations-to-run-spring-boot-based-application)
-+ [What is __@SpringBootApplication__?](What-is-@SpringBootApplication)
-+ [What is SpringApplication.run?](What-is-SpringApplication.run)
-+ [What is the interface ApplicationRunner?](@What-is-interface-ApplicationRunner)
-
++ [What is __@SpringBootApplication__?](#What-is-@SpringBootApplication)
++ [What is SpringApplication.run?](#What-is-SpringApplication.run)
++ [What is the interface ApplicationRunner?](#What-is-interface-ApplicationRunner)
++ [How to use @Value?](#How-to-use-@Value?)
 
 ## What is _Spring Boot_?
 *Spring Boot Reference Guide*:
@@ -71,5 +71,13 @@ Spring Boot has an interface `ApplicationRunner`, which can be used
 to run some code after startup of the application.
 When Spring Boot detects a bean of type ApplicationRunner,
 it will invoke its run method as soon as the application has started.
+
+[Table of contents](#Interview-questions)
+
+##How to use @Value?
+The _@Value_ will instruct Spring to look up the property and use the value of that property.
+For instance if we would use a @Value("${test}"), Spring would try to detect a property named `test`
+and use the value.
+You could also specify a default value by adding a semicolon, f.e. @Value("${test:123}").
 
 [Table of contents](#Interview-questions)
