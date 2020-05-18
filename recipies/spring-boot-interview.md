@@ -6,6 +6,7 @@
 + [What is SpringApplication.run?](#What-is-SpringApplication.run)
 + [What is the interface ApplicationRunner?](#What-is-interface-ApplicationRunner)
 + [How to use @Value?](#How-to-use-@Value?)
++ [What is @PropertySource annotation?](#What-is-@PropertySource-annotation)
 
 ## What is _Spring Boot_?
 *Spring Boot Reference Guide*:
@@ -79,5 +80,10 @@ The _@Value_ will instruct Spring to look up the property and use the value of t
 For instance if we would use a @Value("${test}"), Spring would try to detect a property named `test`
 and use the value.
 You could also specify a default value by adding a semicolon, f.e. @Value("${test:123}").
+
+[Table of contents](#Interview-questions)
+
+##What is _@PropertySource_ annotation?
+The _@PropertySource_ annotation allows you to add additional property files to be loaded during startup.
 
 [Table of contents](#Interview-questions)

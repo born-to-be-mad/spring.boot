@@ -4,15 +4,20 @@ import by.dma.components.calculator.Calculator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-
+/*
+ * We can override properties by following ways:
+ * - Override Using an External application.properties
+ * - Override Properties Using Profiles
+ *   '--spring.profiles.active=PROFILE_NAME'
+ * - Override Properties Using Command Line Arguments
+ *   pass @Value as '--PARAM_NAME=PARAM_VALUES'
+ * - Load Properties from Different Configuration File
+ *   @PropertySource("classpath:your-external.properties")
+ */
 @SpringBootApplication
 public class BasicsDemoApplication {
 
