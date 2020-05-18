@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class BasicsDemoApplication {
+
   public static void main(String[] args) {
     ConfigurableApplicationContext context =
             SpringApplication.run(BasicsDemoApplication.class, args);
@@ -29,13 +30,15 @@ public class BasicsDemoApplication {
   }*/
 
   @Bean
-  public ApplicationRunner calculationRunner(Calculator calculator,
+  public ApplicationRunner calculationRunner(
+          Calculator calculator,
           @Value("${left}") int lhs,
           @Value("${right}") int rhs,
           @Value("${operation}") char op) {
     return args -> {
-      System.out.println("### Calculate using property values:");
+      System.out.println("### Calculate using application-properties:");
       calculator.calculate(lhs, rhs, op);
+
       System.out.println("### All operations in action:");
       calculator.calculate(138, 21, '+');
       calculator.calculate(137, 21, '-');
@@ -43,9 +46,13 @@ public class BasicsDemoApplication {
     };
   }
 
-  //enabling overriding by setting spring.main.allow-bean-definition-overriding=true
-/*    @Bean
+
+/*
+   // enabling overriding by setting
+   // spring.main.allow-bean-definition-overriding=true
+    @Bean
     public Calculator calculator(Collection<Operation> operations) {
       return new Calculator(operations);
-    }*/
+    }
+*/
 }
