@@ -93,3 +93,16 @@ Spring Boot makes it easy to replace a bean with a mock in the application conte
 When there are multiple beans of a certain type, you need to specify the name of the bean you wish to replace.
 
 [Table of contents](#Interview-questions)
+
+## What is the purpose of @Import or @ImportResource?
+@Import or @ImportResource annotation allows @Configuration or @SpringBootApplication annotated class
+to import the configuration. It lets Spring loads the additional files.
+When bootstrapping the application, Spring Boot will also load the additional configuration from the mentioned XML file.
+
+```java
+@ImportResource("classpath:application-context.xml")
+// OR
+@Import(ExistingConfiguration.class)
+```
+
+[Table of contents](#Interview-questions)
