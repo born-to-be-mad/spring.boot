@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.rule.OutputCapture;
+import org.springframework.boot.test.system.OutputCaptureRule;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 public class CalculatorApplicationWithMocksIT {
 
   @Rule
-  public OutputCapture capture = new OutputCapture();
+  public OutputCaptureRule output = new OutputCaptureRule();
 
   @Autowired
   private Calculator calculator;
@@ -42,11 +42,10 @@ public class CalculatorApplicationWithMocksIT {
     assertThat((Collection) operations).hasSize(4);
   }
 
-
   @Test
   public void doingMultiplicationShouldSucceed() {
     calculator.calculate(12,13, '*');
-    capture.expect(Matchers.containsString("12 * 13 = 156"));
+    output.expect(Matchers.containsString("12 * 13 = 156"));
   }
 
   @Test
@@ -55,9 +54,7 @@ public class CalculatorApplicationWithMocksIT {
     when(mockOperation.apply(14, 7)).thenReturn(2);
 
     calculator.calculate(14,7, '/');
-    capture.expect(Matchers.containsString("14 / 7 = 2"));
+    output.expect(Matchers.containsString("14 / 7 = 2"));
   }
-
-
 
 }

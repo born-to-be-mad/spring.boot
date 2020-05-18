@@ -87,3 +87,9 @@ You could also specify a default value by adding a semicolon, f.e. @Value("${tes
 The _@PropertySource_ annotation allows you to add additional property files to be loaded during startup.
 
 [Table of contents](#Interview-questions)
+
+## What is @MockBean annotation?
+Spring Boot makes it easy to replace a bean with a mock in the application context via @MockBean annotation.
+When there are multiple beans of a certain type, you need to specify the name of the bean you wish to replace.
+
+[Table of contents](#Interview-questions)
