@@ -20,6 +20,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  **/
 @RunWith(SpringRunner.class)
 @WebMvcTest(HelloWorldController.class)
+/*
+* The @WebMvcTest instructs the Spring Test framework to set up an application context
+* for testing this specific controller.
+* It will start a minimal Spring Boot application with only
+* `the web-related beans like @Controller, @ControllerAdvice, etc.
+ */
 class HelloWorldControllerTest {
 
   @Autowired
