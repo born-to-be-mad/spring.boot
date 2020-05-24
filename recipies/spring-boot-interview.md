@@ -106,3 +106,16 @@ When bootstrapping the application, Spring Boot will also load the additional co
 ```
 
 [Table of contents](#Interview-questions)
+
+## What is the difference between @Controller and @RestController?
+The _@RestController_ indicates that this is a _@Controller_ and as such will be detect by Spring Boot.
+Additionally, it adds the _@ResponseBody_ annotation to all request handling methods, indicating it should send the result to the client.
+
+[Table of contents](#Interview-questions)
+
+## What is @WebMvcTest?
+The _@WebMvcTest_ instructs the Spring Test framework to set up an application context for testing this specific controller.
+It will start a minimal Spring Boot application with only the web-related beans like @Controller, @ControllerAdvice, etc.
+In addition it will preconfigure the Spring Test Mock MVC support, which can then be autowired.
+
+[Table of contents](#Interview-questions)
