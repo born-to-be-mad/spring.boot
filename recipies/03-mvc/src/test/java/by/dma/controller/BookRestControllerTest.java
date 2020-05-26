@@ -37,9 +37,12 @@ public class BookRestControllerTest {
 
   @org.junit.Test
   public void shouldReturnListOfBooks() throws Exception {
-    when(bookService.findAll()).thenReturn(Arrays.asList(
+    when(bookService.findAll())
+            .thenReturn(
+                    Arrays.asList(
             new Book("123", "Spring 5 Recipes", "Marten Deinum", "Josh Long"),
-            new Book("321", "Pro Spring MVC", "Marten Deinum", "Colin Yates")));
+            new Book("321", "Pro Spring MVC", "Marten Deinum", "Colin Yates")
+                                 ));
     mockMvc.perform(get("/books"))
            .andExpect(status().isOk())
            .andExpect(jsonPath("$", hasSize(2)))

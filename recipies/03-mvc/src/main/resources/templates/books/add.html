@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Library - Available Books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF­8"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+<form action="#" th:action="@{/books.add.html}" th:object="${book}" method="post">
+
+    <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input class="form-control" type="text" th:field="*{isbn}" id="isbn" placeholder="Enter ISBN">
+        <span th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+    </div>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-control" type="text" th:field="*{title}" id="title" placeholder="Enter book title">
+        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+</body>
+</html>
