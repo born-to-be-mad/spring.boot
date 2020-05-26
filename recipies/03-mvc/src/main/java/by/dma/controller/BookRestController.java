@@ -23,34 +23,38 @@ import by.dma.service.BookService;
 @RequestMapping("/books")
 public class BookRestController {
 
-    private final BookService bookService;
+  private final BookService bookService;
 
-    public BookRestController(BookService bookService) {
-        this.bookService = bookService;
-    }
+  public BookRestController(BookService bookService) {
+    this.bookService = bookService;
+  }
 
-    @GetMapping
-    public Iterable<Book> list() {
-        return bookService.findAll();
-    }
+  @GetMapping
+  public Iterable<Book> list() {
+    return bookService.findAll();
+  }
 
-    @GetMapping("/{isbn}")
-    public ResponseEntity<Book> get(@PathVariable("isbn") String isbn) {
-        return bookService.find(isbn)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+  @GetMapping("/{isbn}")
+  public ResponseEntity<Book> get(@PathVariable("isbn") String isbn) {
+    return bookService.find(isbn)
+                      .map(ResponseEntity::ok)
+                      .orElse(ResponseEntity.notFound()
+                                            .build());
+  }
 
-    @PostMapping
-    public Book create(@RequestBody Book book, UriComponentsBuilder uriBuilder) {
-        Book created = bookService.create(book);
-        URI newBookUri = uriBuilder.path("/books/{isbn}").build(created.getIsbn());
-        return ResponseEntity.created(newBookUri).body(created).getBody();
-    }
+  @PostMapping
+  public Book create(@RequestBody Book book, UriComponentsBuilder uriBuilder) {
+    Book created = bookService.create(book);
+    URI newBookUri = uriBuilder.path("/books/{isbn}")
+                               .build(created.getIsbn());
+    return ResponseEntity.created(newBookUri)
+                         .body(created)
+                         .getBody();
+  }
 
-    @GetMapping("/throw500")
-    public void error() {
-        throw new NullPointerException("Dummy NullPointerException.");
-    }
+  @GetMapping("/throw500")
+  public void error() {
+    throw new NullPointerException("Dummy NullPointerException.");
+  }
 
 }

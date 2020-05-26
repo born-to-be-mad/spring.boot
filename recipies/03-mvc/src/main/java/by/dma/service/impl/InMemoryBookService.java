@@ -10,8 +10,8 @@ import by.dma.entity.Book;
 import by.dma.service.BookService;
 
 /**
- * The service has been annotated with @Service so that Spring Boot will detect it and
- * create an instance of it.
+ * The service has been annotated with @Service so
+ * that Spring Boot will detect it and create an instance of it.
  *
  * @author : Dzmitry Marudau
  * @created at : 00:36

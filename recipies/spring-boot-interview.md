@@ -106,3 +106,9 @@ When bootstrapping the application, Spring Boot will also load the additional co
 ```
 
 [Table of contents](#Interview-questions)
+
+## How to replace @RestController annotation?
+Instead of @RestController you could also use @Controller and put @ResponseBody on each request
+handling method. Using @RestController will implicitly add @ResponseBody to request handling methods.
+
+[Table of contents](#Interview-questions)
