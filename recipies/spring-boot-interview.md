@@ -115,7 +115,7 @@ handling method. Using @RestController will implicitly add @ResponseBody to requ
 
 ## What embedded servlet containers are supported in Spring Boot?
 Spring Boot has out-of-the-box support for Tomcat, Jetty, and Undertow as embedded servlet containers.
-By default, Spring Boot uses Tomcat as the container (expressed through the spring-boot-starter-tomcat dependency in the spring-boot-starterweb artifact).
+_By default_, Spring Boot uses _Tomcat_ as the container (expressed through the spring-boot-starter-tomcat dependency in the spring-boot-starterweb artifact).
 The container can be configured using properties for which some apply to all containers and others to a specific container.
 
 [Table of contents](#Interview-questions)
