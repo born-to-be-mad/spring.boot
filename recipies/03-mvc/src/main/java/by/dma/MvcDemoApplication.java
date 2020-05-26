@@ -8,6 +8,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+
+import java.util.Locale;
 
 /**
  * This aap out of the box do the following:
@@ -25,7 +33,49 @@ import org.springframework.context.annotation.Bean;
  * @since : 2020.05
  **/
 @SpringBootApplication
-public class MvcDemoApplication {
+public class MvcDemoApplication implements WebMvcConfigurer {
+
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(localeChangeInterceptor());
+  }
+
+  @Bean
+  public HandlerInterceptor localeChangeInterceptor() {
+    return new LocaleChangeInterceptor();
+  }
+
+    /*
+    CookieLocaleResolver resolves locales by inspecting a cookie in a user?s browser.<BR/>
+    If the cookie does not exist, this locale resolver determines the default locale from the Accept-Language HTTP header.
+    */
+  @Bean
+  public LocaleResolver localeResolver() {
+
+    //Resolving Locales by an HTTP Request Header
+    //return new AcceptHeaderLocaleResolver();
+
+    //Resolving Locales by a Session Attribute
+/*
+      AbstractLocaleContextResolver localeResolver = new SessionLocaleResolver(); // FixedLocaleResolver
+        localeResolver.setDefaultLocale(new Locale("ru"));
+        return localeResolver;*/
+
+    // Fixed locale
+    /*
+    FixedLocaleResolver cookieLocaleResolver = new FixedLocaleResolver();
+    cookieLocaleResolver.setDefaultLocale(new Locale("en"));
+    return cookieLocaleResolver;
+     */
+
+    // Resolving Locales by a Cookie
+    CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
+    //we can customize
+    //cookieLocaleResolver.setCookieName("language");
+    cookieLocaleResolver.setCookieMaxAge(3600); //1 hour
+    cookieLocaleResolver.setDefaultLocale(Locale.ENGLISH);
+    return cookieLocaleResolver;
+  }
 
   public static void main(String[] args) {
     ConfigurableApplicationContext context =
