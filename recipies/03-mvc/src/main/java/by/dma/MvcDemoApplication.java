@@ -1,6 +1,7 @@
 package by.dma;
 
 import by.dma.entity.Book;
+import by.dma.exception.CustomizedErrorAttributes;
 import by.dma.service.BookService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -42,5 +43,10 @@ public class MvcDemoApplication {
       bookService.create(
               new Book("9780618260300", "The Hobbit", "J.R.R. Tolkien"));
     };
+  }
+
+  @Bean
+  public CustomizedErrorAttributes errorAttributes() {
+    return new CustomizedErrorAttributes();
   }
 }
