@@ -12,13 +12,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @since : 2020.05
  **/
 @RestController
-public class HelloController {
+public class CallableController {
 
-  @GetMapping
+  @GetMapping("/callable")
   public Callable<String> hello() {
     return () -> {
       Thread.sleep(ThreadLocalRandom.current().nextInt(5000));
-      return "Hello World, from Spring Boot 2!";
+      return "Hello World, from Callable!";
     };
   }
 }
