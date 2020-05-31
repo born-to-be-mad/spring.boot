@@ -4,10 +4,14 @@ import by.dma.service.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static org.springframework.web.servlet.mvc.method.annotation.SseEmitter.event;
 
 /**
  * @author : Dzmitry Marudau
@@ -24,7 +28,7 @@ public class OrderController {
   }
 
   @GetMapping("/orders")
-  public ResponseBodyEmitter orders() {
+  public ResponseBodyEmitter ordersViaResponseBodyEmitter() {
     var emitter = new ResponseBodyEmitter();
     var executor = Executors.newSingleThreadExecutor();
     executor.execute(() -> {
@@ -34,9 +38,31 @@ public class OrderController {
           randomDelay();
           emitter.send(order);
         }
-/*        the complete() method
-        needs to be called so that the thread responsible for sending the response
-        can complete the request and be freed up for the next response to handle.*/
+        emitter.complete();
+      } catch (IOException e) {
+        emitter.completeWithError(e);
+      }
+    });
+    executor.shutdown();
+    return emitter;
+  }
+
+  @GetMapping("/sse-orders")
+  public SseEmitter ordersViaSseEmitter() {
+    SseEmitter emitter = new SseEmitter();
+    ExecutorService executor = Executors.newSingleThreadExecutor();
+    executor.execute(() -> {
+      var orders = orderService.findA`ll();
+      try {
+        for (var order : orders) {
+          randomDelay();
+          var eventBuilder = event();
+          emitter.send(
+                  eventBuilder
+                          .data(order)
+                          .name("order-created")
+                          .id(String.valueOf(order.hashCode())));
+        }
         emitter.complete();
       } catch (IOException e) {
         emitter.completeWithError(e);
