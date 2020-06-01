@@ -8,9 +8,9 @@
     <version>1.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>spring-boot-mvc-asynch</artifactId>
+  <artifactId>spring-boot-webflux</artifactId>
   <version>1.0.1.SNAPSHOT</version>
-  <name>04-mvc-asynch</name>
+  <name>06-webflux</name>
 
   <dependencies>
 

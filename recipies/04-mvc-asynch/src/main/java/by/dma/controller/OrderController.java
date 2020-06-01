@@ -52,7 +52,7 @@ public class OrderController {
     SseEmitter emitter = new SseEmitter();
     ExecutorService executor = Executors.newSingleThreadExecutor();
     executor.execute(() -> {
-      var orders = orderService.findA`ll();
+      var orders = orderService.findAll();
       try {
         for (var order : orders) {
           randomDelay();
