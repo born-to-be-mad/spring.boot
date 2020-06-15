@@ -120,12 +120,15 @@ The container can be configured using properties for which some apply to all con
 
 [Table of contents](#Interview-questions)
 
-## What are two options to test Reactive Controllers in Spring Boot?
+## What are options to test Reactive Controllers in Spring Boot?
 * to write a test that creates an instance of the HelloWorldController, call the
   method, and do expectations on the result.
   StepVerifier from the reactive-test module can be used to make it easier to test.
 * to use the `@WebFluxTest` annotation to create the test, it will start a minimal application context
   containing the web infrastructure and you can use `MockMvc` to test the controller.
   This approach sits between a plain unit test and a full-blown integration test.
+* using `@SpringBootTest`, it will bootstrap the full application, including all other beans
+  (services, repositories, etc.). With the webEnvironment you can specify which
+  environment to use: values are RANDOM_PORT, MOCK (default), DEFINED_PORT, and NONE.
 
 [Table of contents](#Interview-questions)
