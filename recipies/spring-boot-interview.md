@@ -119,3 +119,13 @@ _By default_, Spring Boot uses _Tomcat_ as the container (expressed through the 
 The container can be configured using properties for which some apply to all containers and others to a specific container.
 
 [Table of contents](#Interview-questions)
+
+## What are two options to test Reactive Controllers in Spring Boot?
+* to write a test that creates an instance of the HelloWorldController, call the
+  method, and do expectations on the result.
+  StepVerifier from the reactive-test module can be used to make it easier to test.
+* to use the `@WebFluxTest` annotation to create the test, it will start a minimal application context
+  containing the web infrastructure and you can use `MockMvc` to test the controller.
+  This approach sits between a plain unit test and a full-blown integration test.
+
+[Table of contents](#Interview-questions)
