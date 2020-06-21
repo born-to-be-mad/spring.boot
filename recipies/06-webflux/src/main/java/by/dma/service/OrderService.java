@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 @Service
 public class OrderService {
-  private final Map<String, Order> orders = new ConcurrentHashMap<>(10);
+  private final Map<String, Order> orders = new ConcurrentHashMap<>(25);
 
   @PostConstruct
   public void init() {
