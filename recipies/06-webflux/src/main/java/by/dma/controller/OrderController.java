@@ -5,6 +5,8 @@ import by.dma.service.OrderService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author dzmitry.marudau
  * @since 2020.3
  */
-@RestController
+@RestController(value = "orderRestController")
 @RequestMapping("/orders")
 public class OrderController {
   private final OrderService orderService;
@@ -29,7 +31,7 @@ public class OrderController {
   }
 
   @GetMapping
-  public Flux<Order> list() {
+  public Flux<Order> listAll() {
     return orderService.orders();
   }
 
