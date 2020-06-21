@@ -1,16 +1,17 @@
 package by.dma.web;
 
-import by.dma.service.OrderService;
-import reactor.core.publisher.Mono;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 
+import reactor.core.publisher.Mono;
+
+import by.dma.service.OrderService;
+
 /**
- *  Uses Thymeleaf as template engine for views. Adds Flux<Order> to the model.
+ *  Uses Thymeleaf as template engine for views.
  *
  * @author dzmitry.marudau
  * @since 2020.3

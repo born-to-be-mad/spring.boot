@@ -1,10 +1,10 @@
 package by.dma.service;
 
-import by.dma.model.Order;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+
+import by.dma.model.Order;
 
 /**
  * @author : Dzmitry Marudau

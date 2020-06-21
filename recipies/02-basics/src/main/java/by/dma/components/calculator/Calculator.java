@@ -1,9 +1,10 @@
 package by.dma.components.calculator;
 
-import by.dma.components.calculator.operation.Operation;
+import java.util.Collection;
+
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
+import by.dma.components.calculator.operation.Operation;
 
 @Component
 public class Calculator {

@@ -1,12 +1,13 @@
 package by.dma.controller;
 
-import com.github.javafaker.Faker;
+import java.util.Locale;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Locale;
+import com.github.javafaker.Faker;
 
 /**
  * @author : Dzmitry Marudau

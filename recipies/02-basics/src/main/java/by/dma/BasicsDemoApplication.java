@@ -1,12 +1,13 @@
 package by.dma;
 
-import by.dma.components.calculator.Calculator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import by.dma.components.calculator.Calculator;
 
 /*
  * We can override properties by following ways:

@@ -1,8 +1,7 @@
 package by.dma;
 
-import by.dma.entity.Book;
-import by.dma.exception.CustomizedErrorAttributes;
-import by.dma.service.BookService;
+import java.util.Locale;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.Locale;
+import by.dma.entity.Book;
+import by.dma.exception.CustomizedErrorAttributes;
+import by.dma.service.BookService;
 
 /**
  * This aap out of the box do the following:
@@ -45,10 +46,12 @@ public class MvcDemoApplication implements WebMvcConfigurer {
     return new LocaleChangeInterceptor();
   }
 
-    /*
-    CookieLocaleResolver resolves locales by inspecting a cookie in a user?s browser.<BR/>
-    If the cookie does not exist, this locale resolver determines the default locale from the Accept-Language HTTP header.
-    */
+  /*
+  CookieLocaleResolver resolves locales by inspecting a cookie in a user?s
+  browser.<BR/>
+  If the cookie does not exist, this locale resolver determines
+  the default locale from the Accept-Language HTTP header.
+  */
   @Bean
   public LocaleResolver localeResolver() {
 

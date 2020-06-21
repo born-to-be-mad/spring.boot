@@ -1,9 +1,9 @@
 package by.dma.exception;
 
+import java.util.Map;
+
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.Map;
 
 /**
  * Adds the original request parameters to the model next to the default attributes.

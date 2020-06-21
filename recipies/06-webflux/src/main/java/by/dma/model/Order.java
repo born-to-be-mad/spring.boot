@@ -1,8 +1,12 @@
 package by.dma.model;
 
-import lombok.*;
-
 import java.math.BigDecimal;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * @author : Dzmitry Marudau

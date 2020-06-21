@@ -1,11 +1,11 @@
 package by.dma.controller;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author : Dzmitry Marudau

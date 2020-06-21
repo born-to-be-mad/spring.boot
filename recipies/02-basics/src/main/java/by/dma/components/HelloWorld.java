@@ -1,8 +1,8 @@
 package by.dma.components;
 
-import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Component;
 
 /**
  * @author : Dzmitry Marudau

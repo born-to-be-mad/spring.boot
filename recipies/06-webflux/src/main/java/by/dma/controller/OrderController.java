@@ -1,12 +1,5 @@
 package by.dma.controller;
 
-import by.dma.model.Order;
-import by.dma.service.OrderService;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import by.dma.model.Order;
+import by.dma.service.OrderService;
 
 /**
  * Exposes the {@link Order} as a REST resource.

@@ -1,14 +1,15 @@
 package by.dma.service;
 
-import by.dma.entity.Order;
-import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+
+import org.springframework.stereotype.Service;
+
+import by.dma.entity.Order;
 
 /**
  * @author : Dzmitry Marudau
@@ -24,6 +25,7 @@ public class OrderService {
   public void setup() {
     createOrders();
   }
+
   public Iterable<Order> findAll() {
     return List.copyOf(orders);
   }

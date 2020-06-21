@@ -1,6 +1,5 @@
 package by.dma;
 
-import by.dma.echo.EchoHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -8,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+import by.dma.echo.EchoHandler;
 
 /**
  * @author : Dzmitry Marudau

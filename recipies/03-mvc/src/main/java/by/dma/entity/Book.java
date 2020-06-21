@@ -1,14 +1,14 @@
 package by.dma.entity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A book is defined by its ISBN number; it has a title and 1 or more authors.
