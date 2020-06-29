@@ -33,7 +33,8 @@ class OrderController {
     // The Flux is wrapped in the ReactiveDataDriverContextVariable.
     // It will start rendering as soon as five elements are received
     // and will continue to render the page until everything is received
-    model.addAttribute("orders", new ReactiveDataDriverContextVariable(orders, 5));
+    model.addAttribute("orders",
+            new ReactiveDataDriverContextVariable(orders, 5));
     return Mono.just("orders/list");
   }
 }
