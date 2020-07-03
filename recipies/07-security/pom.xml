@@ -10,7 +10,7 @@
     <version>1.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>spring-boot-WebsocketDemoApplication</artifactId>
+  <artifactId>spring-boot-security</artifactId>
   <version>1.0.1.SNAPSHOT</version>
   <name>07-security</name>
 
