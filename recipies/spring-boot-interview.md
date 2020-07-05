@@ -132,3 +132,40 @@ The container can be configured using properties for which some apply to all con
   environment to use: values are RANDOM_PORT, MOCK (default), DEFINED_PORT, and NONE.
 
 [Table of contents](#Interview-questions)
+
+## How to overwrite default spring security settings?
+Spring Boot enables the default security settings when no explicit `WebSecurityConfigurerAdapter` can be found.
+When one or more are found, it will use those to configure the security.
+Also it might be needed to implement the `WebMvcConfigurer` and override the addViewControllers methods.
+```java
+@Configuration
+public class CustomSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.securityContext()
+            .and()
+                .servletApi()
+            ...
+                .httpBasic();
+            ...
+                .formLogin().loginPage("/login")
+                            .defaultSuccessUrl("/index")
+                            .failureUrl("/login.html?error=true");
+            .and()
+                .logout().logoutSuccessUrl("/");
+            .and()
+                .anonymous().principal("guest").authorities("ROLE_GUEST")
+            .and()
+                .rememberMe();
+            .and()
+                .exceptionHandling();
+    }
+
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+    }
+
+}
+```
+
+[Table of contents](#Interview-questions)
