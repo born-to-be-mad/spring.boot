@@ -179,5 +179,14 @@ With those you can write security-based expressions just as with the URL-based s
 To enable the annotation processing,add the `@EnableGlobalMethodSecurity` annotation
 to the security configuration and set the `prePostEnabled` attribute to true.
 
+[Table of contents](#Interview-questions)
+
+## How to enable security for Spring WebFlux application?
+To get security enabled, add the spring-boot-starter-security to your WebFlux application.
+This will add the spring-security-core, spring-security-config, and springsecurity-web dependencies.
+Spring Boot will configure Spring Security with the following:
+- authentication with Basic Authentication and form login
+- enable HTTP headers for security;
+- require a login to access any resource.
 
 [Table of contents](#Interview-questions)
