@@ -25,20 +25,50 @@ public class SpringJdbcApplication {
   }
 }
 
-  @Component
-  class TableLister implements ApplicationRunner {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final DataSource dataSource;
-    TableLister(DataSource dataSource) {
-      this.dataSource = dataSource;
-    }
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-      try (var con = dataSource.getConnection();
-           var rs = con.getMetaData().getTables(null, null, "%", null)) {
-        while (rs.next()) {
-          logger.info("{}", rs.getString(3));
-        }
+@Component
+class TableLister implements ApplicationRunner {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final DataSource dataSource;
+
+  TableLister(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) throws Exception {
+    try (var con = dataSource.getConnection(); var rs = con.getMetaData()
+                                                           .getTables(null,
+                                                                      null,
+                                                                      "%",
+                                                                      null)) {
+      while (rs.next()) {
+        logger.info("{}", rs.getString(3));
       }
     }
+  }
+}
+
+@Component
+class CustomerLister implements ApplicationRunner {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final DataSource dataSource;
+
+
+  CustomerLister(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) throws Exception {
+    try (var con = dataSource.getConnection(); var stmt = con
+            .createStatement(); var rs = stmt.executeQuery(
+            "SELECT id, name, email FROM customer")) {
+      while (rs.next()) {
+        logger.info("Customer [id={}, name={}, email={}]", rs.getLong(1),
+                    rs.getString(2), rs.getString(3));
+      }
+    }
+  }
 }
