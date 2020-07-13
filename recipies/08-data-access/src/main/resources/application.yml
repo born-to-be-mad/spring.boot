@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customers
+    username: customers
+    password: customers
+  flyway:
+    baseline-on-migrate: true
