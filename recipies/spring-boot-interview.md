@@ -173,8 +173,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter implement
 ## How to secure method invocations?
 
 You can use the `@PreAuthorize` and `@PostAuthorize` annotations to secure method invocations instead of only securing URLs.
-The @PreAuthorize is checked before the method is invoked and
-@PostAuthorize after the method invocation and could be used to do security checks on the returned value.
+The `@PreAuthorize` is checked before the method is invoked and `@PostAuthorize` after the method invocation
+and could be used to do security checks on the returned value.
 With those you can write security-based expressions just as with the URL-based security.
 To enable the annotation processing,add the `@EnableGlobalMethodSecurity` annotation
 to the security configuration and set the `prePostEnabled` attribute to true.
