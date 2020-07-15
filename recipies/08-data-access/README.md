@@ -1,5 +1,10 @@
 
-# Run postgress as docker container:
+# Run postgres as docker container:
 ```batch
-docker run --name sb2r-postgres -e POSTGRES_USER=customers -e POSTGRES_PASSWORD=customers -e POSTGRES_DB=customers -p 5432:5432 -d postgres:alpine
+docker run --name my-postgress -e POSTGRES_USER=customers -e POSTGRES_PASSWORD=customers -e POSTGRES_DB=customers -p 5432:5432 -d --rm postgres:alpine
+```
+or
+```batch
+docker build -t my-postgres-db .
+docker run -p 5432:5432 --name my-postgress -it my-postgres-db
 ```

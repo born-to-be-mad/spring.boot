@@ -37,13 +37,24 @@ class TableLister implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    try (var con = dataSource.getConnection(); var rs = con.getMetaData()
-                                                           .getTables(null,
-                                                                      null,
-                                                                      "%",
-                                                                      null)) {
+    try (var con = dataSource.getConnection();
+         var rs = con.getMetaData().getTables(null,
+                 null,
+                 "%",
+                 null)) {
       while (rs.next()) {
         logger.info("{}", rs.getString(3));
+      }
+    }
+
+    System.out.println("###### DB content ######");
+    var query = "SELECT id, name, email FROM customer";
+    try (var con = dataSource.getConnection();
+         var stmt = con.createStatement();
+         var rs = stmt.executeQuery(query)) {
+      while (rs.next()) {
+        logger.info("Customer [id={}, name={}, email={}]",
+                rs.getLong(1), rs.getString(2), rs.getString(3));
       }
     }
   }
