@@ -190,3 +190,15 @@ Spring Boot will configure Spring Security with the following:
 - require a login to access any resource.
 
 [Table of contents](#Interview-questions)
+
+## How to enable JPA in Spring boot?
+Spring Boot has out-of-the-box support for JPA through Hibernate.
+When Hibernate is detected, an EntityManagerFactory will be automatically configured using the earlier
+configured DataSource.
+First you need to add `hibernate-core` and `spring-orm` as a dependency to your project.
+However, it is easier to add the `spring-boot-starter-data-jpa` dependency to
+your project (although this will also pull in `spring-data-jpa` as a dependency.)
+
+[Table of contents](#Interview-questions)
+
+[Table of contents](#Interview-questions)
