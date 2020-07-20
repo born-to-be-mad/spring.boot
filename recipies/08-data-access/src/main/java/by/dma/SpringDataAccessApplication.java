@@ -20,11 +20,11 @@ import by.dma.repository.CustomerRepository;
  * @since : 2020.05
  **/
 @SpringBootApplication
-public class SpringJdbcApplication {
+public class SpringDataAccessApplication {
 
   public static void main(String[] args) {
     ConfigurableApplicationContext context = SpringApplication.run(
-            SpringJdbcApplication.class, args);
+            SpringDataAccessApplication.class, args);
   }
 }
 
@@ -85,19 +85,21 @@ class CustomerLister implements ApplicationRunner {
   private final Logger logger = LoggerFactory.getLogger(getClass());
   private final DataSource dataSource;
 
-
   CustomerLister(DataSource dataSource) {
     this.dataSource = dataSource;
   }
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    try (var con = dataSource.getConnection(); var stmt = con
-            .createStatement(); var rs = stmt.executeQuery(
-            "SELECT id, name, email FROM customer")) {
+    try (var con = dataSource.getConnection();
+         var stmt = con.createStatement();
+         var rs = stmt.executeQuery("SELECT id, name, email FROM customer")
+    ) {
       while (rs.next()) {
-        logger.info("Customer [id={}, name={}, email={}]", rs.getLong(1),
-                rs.getString(2), rs.getString(3));
+        logger.info("Customer [id={}, name={}, email={}]",
+                rs.getLong(1),
+                rs.getString(2),
+                rs.getString(3));
       }
     }
   }
