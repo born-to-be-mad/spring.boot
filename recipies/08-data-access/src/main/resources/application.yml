@@ -5,6 +5,8 @@ spring:
     password: customers
   flyway:
     baseline-on-migrate: true
+  jpa:
+    show-sql: true
 
 server:
   port: 8100
