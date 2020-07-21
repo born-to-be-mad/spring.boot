@@ -7,6 +7,11 @@ spring:
     baseline-on-migrate: true
   jpa:
     show-sql: true
+    properties:
+      hibernate:
+        jdbc:
+          fetch_size: 250
+          batch_size: 50
 
 server:
   port: 8100
