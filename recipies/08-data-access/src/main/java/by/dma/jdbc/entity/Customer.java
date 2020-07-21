@@ -1,4 +1,4 @@
-package by.dma.entity;
+package by.dma.jdbc.entity;
 
 import lombok.Data;
 

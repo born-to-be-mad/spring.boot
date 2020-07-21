@@ -1,8 +1,8 @@
-package by.dma.repository;
+package by.dma.jdbc.repository;
 
 import java.util.List;
 
-import by.dma.entity.Customer;
+import by.dma.jdbc.entity.Customer;
 
 /**
  * @author : Dzmitry Marudau

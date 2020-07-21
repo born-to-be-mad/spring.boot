@@ -12,7 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import by.dma.repository.CustomerRepository;
+import by.dma.jdbc.repository.CustomerRepository;
 
 /**
  * @author : Dzmitry Marudau

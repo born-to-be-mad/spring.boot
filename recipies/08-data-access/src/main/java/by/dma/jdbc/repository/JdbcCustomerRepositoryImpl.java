@@ -1,4 +1,4 @@
-package by.dma.repository;
+package by.dma.jdbc.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import by.dma.entity.Customer;
+import by.dma.jdbc.entity.Customer;
 
 /**
  * It uses a JdbcTemplate and RowMapper (through a lambda expression)
