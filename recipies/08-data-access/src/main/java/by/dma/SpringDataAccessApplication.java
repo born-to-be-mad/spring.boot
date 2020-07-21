@@ -24,7 +24,7 @@ public class SpringDataAccessApplication {
 
   public static void main(String[] args) {
     ConfigurableApplicationContext context = SpringApplication.run(
-            SpringDataAccessApplication.class, args);
+        SpringDataAccessApplication.class, args);
   }
 }
 
@@ -36,8 +36,9 @@ class TableLister implements ApplicationRunner {
   private final JdbcTemplate jdbc;
   private final CustomerRepository customerRepository;
 
-  TableLister(DataSource dataSource, JdbcTemplate jdbc,
-          CustomerRepository customerRepository) {
+  TableLister(
+      DataSource dataSource, JdbcTemplate jdbc,
+      CustomerRepository customerRepository) {
     this.dataSource = dataSource;
     this.jdbc = jdbc;
     this.customerRepository = customerRepository;
@@ -45,11 +46,12 @@ class TableLister implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    try (var con = dataSource.getConnection();
-         var rs = con.getMetaData().getTables(null,
-                 null,
-                 "%",
-                 null)) {
+    try (
+        var con = dataSource.getConnection();
+        var rs = con.getMetaData().getTables(null,
+                                             null,
+                                             "%",
+                                             null)) {
       while (rs.next()) {
         logger.info("{}", rs.getString(3));
       }
@@ -57,24 +59,28 @@ class TableLister implements ApplicationRunner {
 
     System.out.println("###### DB content via DataSource ######");
     var query = "SELECT id, name, email FROM customer";
-    try (var con = dataSource.getConnection();
-         var stmt = con.createStatement();
-         var rs = stmt.executeQuery(query)) {
+    try (
+        var con = dataSource.getConnection();
+        var stmt = con.createStatement();
+        var rs = stmt.executeQuery(query)) {
       while (rs.next()) {
         logger.info("Customer [id={}, name={}, email={}]",
-                rs.getLong(1), rs.getString(2), rs.getString(3));
+                    rs.getLong(1), rs.getString(2),
+                    rs.getString(3));
       }
     }
 
     System.out.println("###### DB content via JdbcTemplate ######");
     jdbc.query(query, rs -> {
       logger.info("Customer [id={}, name={}, email={}]",
-              rs.getLong(1), rs.getString(2), rs.getString(3));
+                  rs.getLong(1),
+                  rs.getString(2),
+                  rs.getString(3));
     });
 
     System.out.println("###### DB content via Jdbc repository ######");
     customerRepository.findAll()
-            .forEach(customer -> logger.info("{}", customer));
+                      .forEach(customer -> logger.info("{}", customer));
 
   }
 }
@@ -91,15 +97,16 @@ class CustomerLister implements ApplicationRunner {
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
-    try (var con = dataSource.getConnection();
-         var stmt = con.createStatement();
-         var rs = stmt.executeQuery("SELECT id, name, email FROM customer")
+    try (
+        var con = dataSource.getConnection();
+        var stmt = con.createStatement();
+        var rs = stmt.executeQuery("SELECT id, name, email FROM customer")
     ) {
       while (rs.next()) {
         logger.info("Customer [id={}, name={}, email={}]",
-                rs.getLong(1),
-                rs.getString(2),
-                rs.getString(3));
+                    rs.getLong(1),
+                    rs.getString(2),
+                    rs.getString(3));
       }
     }
   }
