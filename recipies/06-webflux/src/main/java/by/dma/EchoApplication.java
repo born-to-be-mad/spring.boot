@@ -43,6 +43,7 @@ public class EchoApplication {
     mapping.setOrder(Ordered.HIGHEST_PRECEDENCE);
     return mapping;
   }
+
   @Bean
   public WebSocketHandlerAdapter handlerAdapter() {
     return new WebSocketHandlerAdapter(webSocketService());
