@@ -12,6 +12,9 @@ spring:
         jdbc:
           fetch_size: 250
           batch_size: 50
-
+  data:
+    jpa:
+      repositories:
+        enabled: true # we can deactivate it if necessary
 server:
   port: 8100

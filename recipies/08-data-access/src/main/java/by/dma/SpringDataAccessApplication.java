@@ -16,6 +16,7 @@ import by.dma.jdbc.repository.CustomerRepository;
 import by.dma.jpa.repository.ICustomerRepository;
 import by.dma.jpa.repository.PlainHibernateCustomerRepository;
 import by.dma.jpa.repository.PlainJpaCustomerRepository;
+import by.dma.jpa.repository.SpringDataCustomerRepository;
 
 import static by.dma.SpringDataAccessApplication.SELECT_SQL;
 
@@ -47,6 +48,26 @@ class PlainHibernateRepositoryTableLister implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) {
     System.out.println("###### DB content via PlainHibernate repository -> START ######");
+    customerRepository.findAll()
+                      .forEach(customer -> logger.info("{}", customer));
+
+  }
+}
+
+@Component
+class SpringDataRepositoryTableLister implements ApplicationRunner {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+
+  private final SpringDataCustomerRepository customerRepository;
+
+  SpringDataRepositoryTableLister(SpringDataCustomerRepository customerRepository) {
+    this.customerRepository = customerRepository;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) {
+    System.out.println("###### DB content via SpringData repository -> START ######");
     customerRepository.findAll()
                       .forEach(customer -> logger.info("{}", customer));
 
