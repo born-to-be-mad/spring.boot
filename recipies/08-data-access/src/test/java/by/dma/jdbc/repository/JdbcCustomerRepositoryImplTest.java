@@ -1,4 +1,4 @@
-package by.dma.repository;
+package by.dma.jdbc.repository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +10,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import by.dma.jdbc.entity.Customer;
-import by.dma.jdbc.repository.JdbcCustomerRepositoryImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
