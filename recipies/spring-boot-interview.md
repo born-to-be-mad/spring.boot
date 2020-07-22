@@ -201,4 +201,10 @@ your project (although this will also pull in `spring-data-jpa` as a dependency.
 
 [Table of contents](#Interview-questions)
 
+## What is the purpose of `@EntityScan`?
+It works like `@ComponentScan` but then for `@Entity` annotated beans.
+We can include entities from different packages and make them accessible by JPA
+by adding `@EntityScan` annotation with the package(s) to scan to @SpringBootApplication annotated class (or a regular @Configuration class).
+
 [Table of contents](#Interview-questions)
+ 
