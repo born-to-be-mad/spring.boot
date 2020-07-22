@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
-import by.dma.jdbc.entity.Customer;
+import by.dma.entity.Customer;
 
 /**
  * It uses a JdbcTemplate and RowMapper (through a lambda expression)

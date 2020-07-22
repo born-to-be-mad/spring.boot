@@ -9,7 +9,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import by.dma.jdbc.entity.Customer;
+import by.dma.entity.Customer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
