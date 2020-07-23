@@ -3,3 +3,7 @@ spring:
     embedded:
       storage:
         oplog-size: 5
+
+  data:
+    mongodb:
+      port: 27017

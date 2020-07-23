@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import by.dma.entity.Customer;
 import by.dma.repository.MongoCustomerRepository;
+import by.dma.repository.MongoSpringDataRepository;
 
 /**
  * @author : Dzmitry Marudau
@@ -52,18 +53,36 @@ class DataInitializer implements ApplicationRunner {
 }
 
 @Component
-class MongoCustomerLister implements ApplicationRunner {
+class MongoRepositoryCustomerLister implements ApplicationRunner {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
   private final MongoCustomerRepository repository;
 
-  MongoCustomerLister(MongoCustomerRepository repository) {
+  MongoRepositoryCustomerLister(MongoCustomerRepository repository) {
     this.repository = repository;
   }
 
   @Override
   public void run(ApplicationArguments args) {
+    System.out.println("### -> MongoCustomRepository");
+    repository.findAll()
+              .forEach(customer -> logger.info("{}", customer));
+  }
+}
 
+@Component
+class MongoSpringDataCustomerLister implements ApplicationRunner {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final MongoSpringDataRepository repository;
+
+  MongoSpringDataCustomerLister(MongoSpringDataRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) {
+    System.out.println("### -> MongoSpringDataRepository");
     repository.findAll()
               .forEach(customer -> logger.info("{}", customer));
   }
