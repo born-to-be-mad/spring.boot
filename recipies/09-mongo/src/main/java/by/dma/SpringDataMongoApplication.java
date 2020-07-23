@@ -45,19 +45,19 @@ class DataInitializer implements ApplicationRunner {
     List.of(
         new Customer("Marten Deinum", "marten.deinum@conspect.nl"),
         new Customer("Josh Long", "jlong@pivotal.io"),
-        new Customer("John Doe", "john.doe@island.io"),
-        new Customer("Jane Doe", "jane.doe@island.io"))
+        new Customer("Dzmitry Marudau", "vinmaster@tut.by"),
+        new Customer("Tagir Valeev", "amaembo@gmail.com"))
         .forEach(repository::save);
   }
 }
 
 @Component
-class CustomerLister implements ApplicationRunner {
+class MongoCustomerLister implements ApplicationRunner {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
   private final MongoCustomerRepository repository;
 
-  CustomerLister(MongoCustomerRepository repository) {
+  MongoCustomerLister(MongoCustomerRepository repository) {
     this.repository = repository;
   }
 
@@ -65,6 +65,6 @@ class CustomerLister implements ApplicationRunner {
   public void run(ApplicationArguments args) {
 
     repository.findAll()
-              .forEach( customer -> logger.info("{}", customer));
+              .forEach(customer -> logger.info("{}", customer));
   }
 }
