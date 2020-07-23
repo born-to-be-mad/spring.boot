@@ -1,5 +1,6 @@
 package by.dma;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Component;
 
 import by.dma.entity.Customer;
 import by.dma.repository.MongoCustomerRepository;
-import by.dma.repository.MongoSpringDataRepository;
+import by.dma.repository.SpringDataMongoRepository;
+import by.dma.repository.SpringDataReactiveMongoRepository;
+import reactor.core.publisher.Flux;
 
 /**
  * @author : Dzmitry Marudau
@@ -24,9 +27,56 @@ import by.dma.repository.MongoSpringDataRepository;
 @SpringBootApplication
 public class SpringDataMongoApplication {
 
-  public static void main(String[] args) {
-    ConfigurableApplicationContext context = SpringApplication.run(
-        SpringDataMongoApplication.class, args);
+  public static void main(String[] args) throws IOException {
+    ConfigurableApplicationContext context = SpringApplication.run(SpringDataMongoApplication.class, args);
+    System.in.read();
+  }
+}
+
+@Component
+@Order(4)
+class ReactiveDataInitializer implements ApplicationRunner {
+  private final SpringDataReactiveMongoRepository repository;
+
+  ReactiveDataInitializer(SpringDataReactiveMongoRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) {
+    System.out.println("### -------------->");
+    System.out.println("### -> REACTIVE ###");
+    System.out.println("### -------------->");
+    repository.deleteAll()
+              .thenMany(
+                  Flux.just(
+                      new Customer("Marten Deinum", "marten.deinum@conspect.nl"),
+                      new Customer("Josh Long", "jlong@pivotal.io"),
+                      new Customer("Dzmitry Marudau", "vinmaster@tut.by"),
+                      new Customer("Josh Long", "jlong@pivotal.io"),
+                      new Customer("Dzmitry Marudau", "vinmaster@tut.by"),
+                      new Customer("Tagir Valeev", "amaembo@gmail.com")
+                  )
+              ).flatMap(repository::save).subscribe(System.out::println);
+  }
+}
+
+@Component
+@Order(5)
+class MongoSpringDataReactiveCustomerLister implements ApplicationRunner {
+
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+
+  private final SpringDataReactiveMongoRepository repository;
+
+  MongoSpringDataReactiveCustomerLister(SpringDataReactiveMongoRepository repository) {
+    this.repository = repository;
+  }
+
+  @Override
+  public void run(ApplicationArguments args) {
+    System.out.println("### --> SpringDataReactiveMongoRepository");
+    repository.findAll().subscribe(customer -> logger.info("{}", customer));
   }
 }
 
@@ -41,7 +91,7 @@ class DataInitializer implements ApplicationRunner {
   }
 
   @Override
-  public void run(ApplicationArguments args) throws Exception {
+  public void run(ApplicationArguments args) {
 
     List.of(
         new Customer("Marten Deinum", "marten.deinum@conspect.nl"),
@@ -53,6 +103,7 @@ class DataInitializer implements ApplicationRunner {
 }
 
 @Component
+@Order(2)
 class MongoRepositoryCustomerLister implements ApplicationRunner {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -71,12 +122,13 @@ class MongoRepositoryCustomerLister implements ApplicationRunner {
 }
 
 @Component
+@Order(3)
 class MongoSpringDataCustomerLister implements ApplicationRunner {
 
   private final Logger logger = LoggerFactory.getLogger(getClass());
-  private final MongoSpringDataRepository repository;
+  private final SpringDataMongoRepository repository;
 
-  MongoSpringDataCustomerLister(MongoSpringDataRepository repository) {
+  MongoSpringDataCustomerLister(SpringDataMongoRepository repository) {
     this.repository = repository;
   }
 

@@ -10,5 +10,5 @@ import by.dma.entity.Customer;
  * @author dzmitry.marudau
  * @since 2020.3
  */
-public interface MongoSpringDataRepository extends MongoRepository<Customer, String> {
+public interface SpringDataMongoRepository extends MongoRepository<Customer, String> {
 }
