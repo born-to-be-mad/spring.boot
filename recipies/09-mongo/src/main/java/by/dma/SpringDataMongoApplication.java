@@ -1,6 +1,7 @@
 package by.dma;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ public class SpringDataMongoApplication {
 
   public static void main(String[] args) throws IOException {
     ConfigurableApplicationContext context = SpringApplication.run(SpringDataMongoApplication.class, args);
+    // To prevent the shutdown of the application, add a System.in.read(); this will keep the application running
+    // until you press Enter
     System.in.read();
   }
 }
@@ -57,7 +60,8 @@ class ReactiveDataInitializer implements ApplicationRunner {
                       new Customer("Dzmitry Marudau", "vinmaster@tut.by"),
                       new Customer("Tagir Valeev", "amaembo@gmail.com")
                   )
-              ).flatMap(repository::save).subscribe(System.out::println);
+              ).delayElements(Duration.ofMillis(250))
+              .flatMap(repository::save).subscribe(System.out::println);
   }
 }
 
