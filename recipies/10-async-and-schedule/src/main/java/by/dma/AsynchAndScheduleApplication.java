@@ -9,6 +9,7 @@ import org.springframework.boot.task.TaskExecutorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author : Dzmitry Marudau
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  **/
 @SpringBootApplication
 @EnableAsync
+@EnableScheduling
 public class AsynchAndScheduleApplication {
 
   public static void main(String[] args) throws IOException {
@@ -31,7 +33,7 @@ public class AsynchAndScheduleApplication {
     return builder.corePoolSize(4)
                   .maxPoolSize(16)
                   .queueCapacity(125)
-                  .threadNamePrefix("sbr-exec-")
+                  .threadNamePrefix("dma-exec-")
                   .build();
   }
 
