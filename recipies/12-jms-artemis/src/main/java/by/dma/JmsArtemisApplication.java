@@ -16,8 +16,7 @@ public class JmsArtemisApplication {
   private static final String MSG = "\tName: %100s, Type: %s\n";
 
   public static void main(String[] args) {
-    var ctx =
-        SpringApplication.run(JmsArtemisApplication.class, args);
+    var ctx = SpringApplication.run(JmsArtemisApplication.class, args);
 
     System.out.println("# Beans: " + ctx.getBeanDefinitionCount());
 

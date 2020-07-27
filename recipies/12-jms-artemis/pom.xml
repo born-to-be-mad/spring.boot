@@ -22,7 +22,7 @@
         <!-- Additional Dependency needed for Embedded mode -->
         <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>artemis-server</artifactId>
+            <artifactId>artemis-jms-server</artifactId>
         </dependency>
     </dependencies>
 

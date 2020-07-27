@@ -2,3 +2,6 @@ spring:
   activemq:
     close-timeout: 10s
     send-timeout: 10s
+
+  artemis:
+    mode: embedded
