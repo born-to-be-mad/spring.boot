@@ -61,7 +61,8 @@
         <module>08-data-access</module>
         <module>09-mongo</module>
         <module>10-async-and-schedule</module>
-	<module>11-jms-activemq</module>
+        <module>11-jms-activemq</module>
+        <module>12-jms-artemis</module>
     </modules>
 
 </project>

@@ -19,7 +19,7 @@ public class ScheduledPrinter {
   public void printMessage() {
     logger.info("Scheduled print...");
   }
-`
+
   public void printMore() {
     logger.info("Printing more...");
   }
