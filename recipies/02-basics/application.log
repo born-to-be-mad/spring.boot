@@ -1,3 +1,0 @@
-2020-06-02 00:30:43.301  INFO 7923 --- [main] by.dma.configuration.YamlPropertiesTest  : Starting YamlPropertiesTest on sc0597 with PID 7923 (started by dma in /home/dma/projects/dma1979/spring.boot/recipies/02-basics)
-2020-06-02 00:30:43.304  INFO 7923 --- [main] by.dma.configuration.YamlPropertiesTest  : No active profile set, falling back to default profiles: default
-2020-06-02 00:30:44.254  INFO 7923 --- [main] by.dma.configuration.YamlPropertiesTest  : Started YamlPropertiesTest in 1.395 seconds (JVM running for 4.007)
