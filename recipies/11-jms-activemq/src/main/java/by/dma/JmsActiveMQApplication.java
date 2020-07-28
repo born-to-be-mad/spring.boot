@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author : Dzmitry Marudau
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since : 2020.05
  **/
 @SpringBootApplication
+@EnableScheduling
 public class JmsActiveMQApplication {
 
   private static final String MSG = "\tName: %100s, Type: %s\n";
