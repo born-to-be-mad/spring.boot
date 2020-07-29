@@ -1,4 +1,4 @@
-package by.dma;
+package by.dma.sender;
 
 import java.time.LocalDateTime;
 

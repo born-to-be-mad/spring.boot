@@ -1,0 +1,6 @@
+spring:
+  activemq:
+    send-timeout: 500ms
+  jms:
+    template:
+      receive-timeout: 500ms
