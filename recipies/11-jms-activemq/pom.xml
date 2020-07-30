@@ -36,6 +36,17 @@
             <artifactId>activemq-broker</artifactId>
             <scope>test</scope>
         </dependency>-->
+
+<!--    If you were using activemq-pool, support has been removed since 2.1
+        in favor of pooled-jms that offers the same features while being JMS 2.0 compliant.-->
+        <dependency>
+            <groupId>org.messaginghub</groupId>
+            <artifactId>pooled-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

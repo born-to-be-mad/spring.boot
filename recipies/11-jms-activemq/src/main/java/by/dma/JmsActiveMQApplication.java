@@ -1,11 +1,17 @@
 package by.dma;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Stream;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageType;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
+import by.dma.entity.Order;
 
 /**
  * @author : Dzmitry Marudau
@@ -30,5 +36,16 @@ public class JmsActiveMQApplication {
             Object bean = ctx.getBean(name);
             System.out.printf(MSG, name, bean.getClass().getSimpleName());
           });
+  }
+
+  @Bean
+  public MappingJackson2MessageConverter messageConverter() {
+    var messageConverter = new MappingJackson2MessageConverter();
+    messageConverter.setTypeIdPropertyName("content-type");
+    messageConverter.setTypeIdMappings(
+        Collections.singletonMap("order", Order.class)
+    );
+    //messageConverter.setTargetType(MessageType.TEXT);
+    return messageConverter;
   }
 }
