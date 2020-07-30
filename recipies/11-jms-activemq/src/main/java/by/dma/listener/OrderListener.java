@@ -1,9 +1,11 @@
 package by.dma.listener;
 
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
 import by.dma.entity.Order;
+import by.dma.entity.OrderConfirmation;
 
 /**
  * @author : Dzmitry Marudau
@@ -14,7 +16,9 @@ import by.dma.entity.Order;
 public class OrderListener {
 
   @JmsListener(destination = "orders")
-  public void handle(Order order) {
+  @SendTo("order-confirmations")
+  public OrderConfirmation handle(Order order) {
     System.out.println("[RECEIVED] from 'orders' queue: " + order);
+    return new OrderConfirmation(order.getId());
   }
 }
