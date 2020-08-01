@@ -63,6 +63,7 @@
         <module>10-async-and-schedule</module>
         <module>11-jms-activemq</module>
         <module>12-jms-artemis</module>
+        <module>13-rabbitmq</module>
     </modules>
 
 </project>
