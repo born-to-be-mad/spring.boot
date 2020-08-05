@@ -39,7 +39,11 @@ public class GreetingControllerTest {
       mockMvc.perform(MockMvcRequestBuilders.get(urlTemplate))
              .andExpect(status().isOk())
              .andExpect(
-                     content().string(containsString("Chuck Norris")))
+                     content().string(
+                         allOf(
+                             containsStringIgnoringCase("Chuck"),
+                             containsStringIgnoringCase("Norris")
+                         )))
              .andExpect(
                      content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN));
     }
