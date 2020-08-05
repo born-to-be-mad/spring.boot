@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>spring-boot-mvc-asynch</artifactId>
-  <version>1.0.1.SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>04-mvc-asynch</name>
 
   <dependencies>
