@@ -34,6 +34,7 @@ public class SpringDataAccessApplication {
         SpringDataAccessApplication.class, args);
   }
 }
+
 @Component
 class PlainHibernateRepositoryTableLister implements ApplicationRunner {
 

@@ -17,7 +17,9 @@ import by.dma.entity.Order;
  **/
 @Component
 public class OrderSender {
+
   private final RabbitTemplate rabbit;
+
   OrderSender(RabbitTemplate rabbit) {
     this.rabbit = rabbit;
   }

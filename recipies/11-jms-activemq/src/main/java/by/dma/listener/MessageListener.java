@@ -1,12 +1,7 @@
 package by.dma.listener;
 
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.TextMessage;
-
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 /**
  * @author : Dzmitry Marudau

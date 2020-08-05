@@ -9,7 +9,7 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertySourceFactory;
 
 /**
- * TODO
+ * Property Factory implementation.
  *
  * @author dzmitry.marudau
  * @since 2020.3

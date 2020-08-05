@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * TODO
+ * Currency controller.
  *
  * @author dzmitry.marudau
  * @since 2020.3

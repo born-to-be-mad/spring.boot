@@ -25,7 +25,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 public class AsynchAndScheduleApplication implements SchedulingConfigurer {
 
   @Autowired
-  ScheduledPrinter scheduledPrinter;
+  private ScheduledPrinter scheduledPrinter;
 
   public static void main(String[] args) throws IOException {
     SpringApplication.run(AsynchAndScheduleApplication.class, args);
@@ -51,7 +51,6 @@ public class AsynchAndScheduleApplication implements SchedulingConfigurer {
   @Override
   public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
     scheduledTaskRegistrar.addFixedRateTask(
-        () -> scheduledPrinter.printMore()
-        , 1500);
+        () -> scheduledPrinter.printMore(), 1500);
   }
 }

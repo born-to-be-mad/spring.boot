@@ -10,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * TODO
+ * Yaml properties configuration.
  *
  * @author dzmitry.marudau
  * @since 2020.3
@@ -18,7 +18,8 @@ import lombok.Setter;
 @Configuration
 @ConfigurationProperties(prefix = "yaml")
 @PropertySource(value = "classpath:yaml-properties.yml", factory = YamlPropertySourceFactory.class)
-@Getter @Setter
+@Getter
+@Setter
 public class YamlProperties {
 
   private String name;
