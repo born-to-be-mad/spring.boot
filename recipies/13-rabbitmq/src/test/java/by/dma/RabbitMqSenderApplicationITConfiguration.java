@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Profile;
 
 import io.arivera.oss.embedded.rabbitmq.EmbeddedRabbitMq;
 import io.arivera.oss.embedded.rabbitmq.EmbeddedRabbitMqConfig;
+import io.arivera.oss.embedded.rabbitmq.EmbeddedRabbitMqConfig.Builder;
 
 /**
  * Configuration class which needs to be loaded additionally to the
@@ -36,8 +37,9 @@ public class RabbitMqSenderApplicationITConfiguration {
   @Bean(initMethod = "start", destroyMethod = "stop")
   @Profile("embedded")
   public EmbeddedRabbitMq embeddedRabbitMq() {
-    EmbeddedRabbitMqConfig config = new EmbeddedRabbitMqConfig.Builder()
-        .rabbitMqServerInitializationTimeoutInMillis(10000).build();
+    EmbeddedRabbitMqConfig config = new Builder()
+        .rabbitMqServerInitializationTimeoutInMillis(10000)
+        .build();
     return new EmbeddedRabbitMq(config);
   }
 
