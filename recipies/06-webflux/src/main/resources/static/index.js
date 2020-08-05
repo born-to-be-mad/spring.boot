@@ -1,5 +1,5 @@
 var ws = null;
-var url = "ws://localhost:8080/echo";
+var url = "ws://localhost:8100/echo";
 function setConnected(connected) {
     document.getElementById('connect').disabled = connected;
     document.getElementById('disconnect').disabled = !connected;
