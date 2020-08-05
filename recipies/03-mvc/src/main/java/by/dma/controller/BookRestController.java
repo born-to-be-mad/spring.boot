@@ -42,14 +42,13 @@ public class BookRestController {
                                             .build());
   }
 
-  @PostMapping
-  public Book create(@RequestBody Book book, UriComponentsBuilder uriBuilder) {
+  @PostMapping()
+  public ResponseEntity<Book> create(@RequestBody Book book, UriComponentsBuilder uriBuilder) {
     Book created = bookService.create(book);
     URI newBookUri = uriBuilder.path("/books/{isbn}")
                                .build(created.getIsbn());
     return ResponseEntity.created(newBookUri)
-                         .body(created)
-                         .getBody();
+                         .body(created);
   }
 
   @GetMapping("/throw500")
