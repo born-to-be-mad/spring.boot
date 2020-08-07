@@ -11,3 +11,21 @@ What to expose can be configured through the management by using properties:
 * `endpoints.web.exposure.include` 
 * `management.endpoints.web.exposure.exclude`
 Using a * for the include will expose all endpoints to the web.
+
+## Configuration
+Running the actuator on a different port has the benefit of hiding it from the public internet 
+by blocking the port on the firewall and only allowing local access.
+
+The `management.server` properties are only effective when using an embedded server; 
+when deploying to an external server these properties don’t apply anymore!
+
+Individual endpoints can be configured through properties in the `management.endpoint.<endpoint-name>` namespace:
+* `enabled` property
+* `cache.time-to-live` property 
+* more
+
+## Securing Management Endpoints
+When Spring Boot detects both Spring Boot Actuator and Spring Security, 
+it will enable secure access to management endpoints automatically. 
+
+Adding the `spring-boot-starter-security` in addition to the `spring-bootstarter-actuator` is enough to have secured management endpoints.
