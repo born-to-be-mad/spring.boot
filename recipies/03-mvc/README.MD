@@ -24,8 +24,19 @@ Individual endpoints can be configured through properties in the `management.end
 * `cache.time-to-live` property 
 * more
 
-## Securing Management Endpoints
+### Securing Management Endpoints
 When Spring Boot detects both Spring Boot Actuator and Spring Security, 
 it will enable secure access to management endpoints automatically. 
 
-Adding the `spring-boot-starter-security` in addition to the `spring-bootstarter-actuator` is enough to have secured management endpoints.
+Adding the `spring-boot-starter-security` in addition to the `Configure Healthchecksspring-bootstarter-actuator` is enough to have secured management endpoints.
+
+### Configure Healthchecks
+Which HealthIndicators are present can be controlled by setting the `management.health.<health-indicator>.enabled` property.
+
+### Configure Metrics
+One of the features of Spring Boot Actuator is to expose metrics. 
+`/actuator/metrics/{name-of-metric}` to obtain information about metric by name.
+
+Spring Boot uses micrometer.io1 to record metrics. Metrics are enabled by default
+for the features detected by Spring Boot. So if a DataSource is detected, metrics will be
+enabled. To disable metrics, add them to the `management.metrics.enable property`.
