@@ -30,7 +30,7 @@ it will enable secure access to management endpoints automatically.
 
 Adding the `spring-boot-starter-security` in addition to the `Configure Healthchecksspring-bootstarter-actuator` is enough to have secured management endpoints.
 
-### Configure Healthchecks
+### Configure Health checks
 Which HealthIndicators are present can be controlled by setting the `management.health.<health-indicator>.enabled` property.
 
 ### Configure Metrics
@@ -40,3 +40,7 @@ One of the features of Spring Boot Actuator is to expose metrics.
 Spring Boot uses micrometer.io1 to record metrics. Metrics are enabled by default
 for the features detected by Spring Boot. So if a DataSource is detected, metrics will be
 enabled. To disable metrics, add them to the `management.metrics.enable property`.
+
+### Example
+* `https://localhost:8101/actuator` to see metrics/health checks
+* `https://localhost:8101/actuator

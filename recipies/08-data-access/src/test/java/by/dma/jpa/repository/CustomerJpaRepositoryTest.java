@@ -27,11 +27,9 @@ public class CustomerJpaRepositoryTest {
   @Autowired
   private TestEntityManager testEntityManager;
 
-
   @Test
   public void insertNewCustomer() {
     assertThat(repository.findAll()).isEmpty();
-    ;
 
     Customer customer = repository.save(
         new Customer("Dzmitry Alexandrov", "support@tut.by")
