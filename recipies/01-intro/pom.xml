@@ -3,21 +3,35 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
         xmlns="http://maven.apache.org/POM/4.0.0"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>by.dma</groupId>
-    <artifactId>recipies</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>by.dma</groupId>
+        <artifactId>recipies</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>spring-boot-intro</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-  </parent>
+    <name>01-intro</name>
 
-  <artifactId>spring-boot-intro</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
-  <name>01-intro</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-  </dependencies>
+    <!--Making the Archive Executable-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
