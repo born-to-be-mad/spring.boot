@@ -1,0 +1,7 @@
+spring:
+  activemq:
+    close-timeout: 10s
+    send-timeout: 10s
+    pool:
+      max-connections: 50
+      enabled: true

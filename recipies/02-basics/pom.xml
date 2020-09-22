@@ -7,12 +7,12 @@
   <parent>
     <groupId>by.dma</groupId>
     <artifactId>recipies</artifactId>
-    <version>1.0.1.RELEASE</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-basics</artifactId>
-  <version>1.0.1.RELEASE</version>
-  <name>02-spring-boot-basics</name>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>02-basics</name>
 
   <dependencies>
     <dependency>

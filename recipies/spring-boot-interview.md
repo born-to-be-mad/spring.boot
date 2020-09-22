@@ -107,15 +107,104 @@ When bootstrapping the application, Spring Boot will also load the additional co
 
 [Table of contents](#Interview-questions)
 
-## What is the difference between @Controller and @RestController?
-The _@RestController_ indicates that this is a _@Controller_ and as such will be detect by Spring Boot.
-Additionally, it adds the _@ResponseBody_ annotation to all request handling methods, indicating it should send the result to the client.
+## How to replace @RestController annotation?
+Instead of @RestController you could also use @Controller and put @ResponseBody on each request
+handling method. Using @RestController will implicitly add @ResponseBody to request handling methods.
 
 [Table of contents](#Interview-questions)
 
-## What is @WebMvcTest?
-The _@WebMvcTest_ instructs the Spring Test framework to set up an application context for testing this specific controller.
-It will start a minimal Spring Boot application with only the web-related beans like @Controller, @ControllerAdvice, etc.
-In addition it will preconfigure the Spring Test Mock MVC support, which can then be autowired.
+## What embedded servlet containers are supported in Spring Boot?
+Spring Boot has out-of-the-box support for Tomcat, Jetty, and Undertow as embedded servlet containers.
+_By default_, Spring Boot uses _Tomcat_ as the container (expressed through the spring-boot-starter-tomcat dependency in the spring-boot-starterweb artifact).
+The container can be configured using properties for which some apply to all containers and others to a specific container.
 
 [Table of contents](#Interview-questions)
+
+## What are options to test Reactive Controllers in Spring Boot?
+* to write a test that creates an instance of the HelloWorldController, call the
+  method, and do expectations on the result.
+  StepVerifier from the reactive-test module can be used to make it easier to test.
+* to use the `@WebFluxTest` annotation to create the test, it will start a minimal application context
+  containing the web infrastructure and you can use `MockMvc` to test the controller.
+  This approach sits between a plain unit test and a full-blown integration test.
+* using `@SpringBootTest`, it will bootstrap the full application, including all other beans
+  (services, repositories, etc.). With the webEnvironment you can specify which
+  environment to use: values are RANDOM_PORT, MOCK (default), DEFINED_PORT, and NONE.
+
+[Table of contents](#Interview-questions)
+
+## How to overwrite default spring security settings?
+Spring Boot enables the default security settings when no explicit `WebSecurityConfigurerAdapter` can be found.
+When one or more are found, it will use those to configure the security.
+Also it might be needed to implement the `WebMvcConfigurer` and override the addViewControllers methods.
+```java
+@Configuration
+public class CustomSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.securityContext()
+            .and()
+                .servletApi()
+            ...
+                .httpBasic();
+            ...
+                .formLogin().loginPage("/login")
+                            .defaultSuccessUrl("/index")
+                            .failureUrl("/login.html?error=true");
+            .and()
+                .logout().logoutSuccessUrl("/");
+            .and()
+                .anonymous().principal("guest").authorities("ROLE_GUEST")
+            .and()
+                .rememberMe();
+            .and()
+                .exceptionHandling();
+    }
+
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/login").setViewName("login");
+    }
+
+}
+```
+
+[Table of contents](#Interview-questions)
+
+## How to secure method invocations?
+
+You can use the `@PreAuthorize` and `@PostAuthorize` annotations to secure method invocations instead of only securing URLs.
+The `@PreAuthorize` is checked before the method is invoked and `@PostAuthorize` after the method invocation
+and could be used to do security checks on the returned value.
+With those you can write security-based expressions just as with the URL-based security.
+To enable the annotation processing,add the `@EnableGlobalMethodSecurity` annotation
+to the security configuration and set the `prePostEnabled` attribute to true.
+
+[Table of contents](#Interview-questions)
+
+## How to enable security for Spring WebFlux application?
+To get security enabled, add the spring-boot-starter-security to your WebFlux application.
+This will add the spring-security-core, spring-security-config, and springsecurity-web dependencies.
+Spring Boot will configure Spring Security with the following:
+- authentication with Basic Authentication and form login
+- enable HTTP headers for security;
+- require a login to access any resource.
+
+[Table of contents](#Interview-questions)
+
+## How to enable JPA in Spring boot?
+Spring Boot has out-of-the-box support for JPA through Hibernate.
+When Hibernate is detected, an EntityManagerFactory will be automatically configured using the earlier
+configured DataSource.
+First you need to add `hibernate-core` and `spring-orm` as a dependency to your project.
+However, it is easier to add the `spring-boot-starter-data-jpa` dependency to
+your project (although this will also pull in `spring-data-jpa` as a dependency.)
+
+[Table of contents](#Interview-questions)
+
+## What is the purpose of `@EntityScan`?
+It works like `@ComponentScan` but then for `@Entity` annotated beans.
+We can include entities from different packages and make them accessible by JPA
+by adding `@EntityScan` annotation with the package(s) to scan to @SpringBootApplication annotated class (or a regular @Configuration class).
+
+[Table of contents](#Interview-questions)
+ 

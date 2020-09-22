@@ -5,13 +5,20 @@
   <parent>
     <groupId>by.dma</groupId>
     <artifactId>recipies</artifactId>
-    <version>1.0.1.RELEASE</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <artifactId>spring-boot-mvc-asynch</artifactId>
-  <version>1.0.1.SNAPSHOT</version>
-  <name>04-spring-boot-mvc-asynch</name>
+  <version>1.0.1-SNAPSHOT</version>
+  <name>04-mvc-asynch</name>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
   </dependencies>
+
 </project>

@@ -1,0 +1,8 @@
+spring:
+  rabbitmq:
+    template:
+      receive-timeout: 3s
+      reply-timeout: 3s
+  jms:
+    template:
+      receive-timeout: 1500ms

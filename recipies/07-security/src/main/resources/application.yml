@@ -1,0 +1,13 @@
+server:
+  port: 8100
+
+spring:
+  security:
+    user:
+      name: user
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

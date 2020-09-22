@@ -1,0 +1,8 @@
+spring:
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 16
+        queue-capacity: 128
+      thread-name-prefix: dma-exec-
