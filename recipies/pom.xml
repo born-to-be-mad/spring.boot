@@ -64,6 +64,7 @@
         <module>11-jms-activemq</module>
         <module>12-jms-artemis</module>
         <module>13-rabbitmq</module>
+        <module>misc</module>
     </modules>
 
 </project>
