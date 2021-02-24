@@ -1,0 +1,25 @@
+
+### get GWT token
+POST http://localhost:8100/authenticate
+Content-Type: application/json
+
+{
+"userName": "dma",
+"password": "dma"
+}
+
+<> 2021-02-24T155158.200.json
+
+### try to access without token
+GET http://localhost:8100/hello
+
+<> 2021-02-24T155250.403.json
+
+
+### access with token
+# curl -H 'Accept: application/json' -H "Authorization: Bearer $eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkbWEiLCJleHAiOjE2MTQyMDY0OTAsImlhdCI6MTYxNDE3MDQ5MH0.gaPAHG5mIoBZPwKHeGQpQCnfuODsD99b6HA-vA20IMs" http://localhost:8080/hello
+GET http://localhost:8100/hello
+Accept: application/json
+Authorization: Bearer $eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkbWEiLCJleHAiOjE2MTQyMDcxMTcsImlhdCI6MTYxNDE3MTExN30.bIyuco6X21ZJxVgC1J5A5IWrsvL3njOYJTfAiiYTzw0
+
+<> 2021-02-24T155254.403.json
