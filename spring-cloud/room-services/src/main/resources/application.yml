@@ -1,5 +1,5 @@
-server:
-  port: 8300
+#server:
+#  port: 8300
 
 spring:
   jpa:

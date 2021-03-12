@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: reservationservices
+
+  cloud:
+    config:
+      uri: http://localhost:9000
