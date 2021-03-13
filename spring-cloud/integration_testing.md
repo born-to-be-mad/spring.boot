@@ -37,12 +37,22 @@ spring.jpa.hibernate.ddl-auto=create
 @Transactional
 ```
 
-* use assertions in @BeforeEach method to be sure that system in correct state,
+* use Assertions in @BeforeEach method to be sure that system in correct state,
+  ```xml
+  <dependency>
+    <groupId>org.assertj</groupId>
+    <artifactId>assertj-code</artifactId>
+  </dependency>
+  ```
   it is useful for real-world projects, f.e. nested transactions
 ```java
     @BeforeEach
     public final void before() {
         assertThat(repo.findAll()).isEmpty();
+        asssertTha(scoreStr).isEqualTo("Test");
+        //collections
+        asssertTha(list).anyMatch(e -> e.getX() == 1);
+        asssertTha(list).doesNotContain(2);
     }
 ```
 
@@ -56,6 +66,9 @@ spring.jpa.hibernate.ddl-auto=create
 @ContextConfiguration(initializers = WaitForDatabase.class)
 @SpringBootTest
 ```
+
+* use @MockBean which overrides the @Bean with mock functionality
+
 
 ## Test Data
 
@@ -91,6 +104,26 @@ public class ClassUnderTest {
 * `@Sql("data.sql)`
 * `@Sql({"schema.sql", "data.sql"})`
 
-## Integration in Action
-* Cucumber and Spring Integration
 
+## Integration in Action
+
+* Cucumber and Spring Integration via Gherkin Language
+
+* override properties, WireMockExtension and mappings
+```java
+@SpringBootTest(properties = "safety.service.url.base=http://localhost:8099")
+
+@RegisterExtension
+public WireMockExtension wireMock = new WireMockExtension(8099);
+// it really starts the http server which  listens to the mocked port and responds with some data
+```
++ files 'resources\mappings\urlName-SAFE.json' and 'resources\mappings\urlName-UNSAFE.json'containing "request" and "Response"
+
+* wiremock recordings
+  `java -jar wiremock-standalone-2.27.2.jar` to start the server and record http calls
+  * go to http://wiremock.org/docs/running-standalone/
+  * download
+  * run
+  * go to http://localhost:8080/__admin/recorder
+  * start recording
+  * point yur app/test to localhost:8080 (wiremock proxy)
