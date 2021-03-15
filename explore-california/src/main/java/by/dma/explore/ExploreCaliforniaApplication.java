@@ -1,12 +1,14 @@
 package by.dma.explore;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -17,10 +19,18 @@ import by.dma.explore.domain.Difficulty;
 import by.dma.explore.domain.Region;
 import by.dma.explore.service.TourPackageService;
 import by.dma.explore.service.TourService;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static by.dma.explore.ExploreCaliforniaApplication.TourFromFile.importTours;
+import static springfox.documentation.builders.PathSelectors.any;
 
 @SpringBootApplication
+@EnableSwagger2
 public class ExploreCaliforniaApplication implements CommandLineRunner {
 
   private static final String INIT_DATA_FILE = "/initial_data.json";
@@ -30,6 +40,26 @@ public class ExploreCaliforniaApplication implements CommandLineRunner {
 
   @Autowired
   private TourService tourService;
+
+  @Bean
+  public Docket docket() {
+    return new Docket(DocumentationType.SWAGGER_2)
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("by.dma.explore"))
+            .paths(any())
+            .build()
+            .apiInfo(
+                    new ApiInfo("Explore California API's",
+                                "API's for the Explore California Travel Service",
+                                "2.0",
+                                null,
+                                new Contact("Dzmitry Marudau",
+                                            "https://github.com/dma1979",
+                                            "vinmaster@tut.by"),
+                                null,
+                                null,
+                                new ArrayList()));
+  }
 
   public static void main(String[] args) {
     SpringApplication.run(ExploreCaliforniaApplication.class, args);

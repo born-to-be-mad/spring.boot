@@ -1,5 +1,10 @@
 # Getting Started
 
+## API
+Swagger UI:
+* http://localhost:8100/v2/api-docs
+* http://localhost:8100/swagger-ui.html
+
 ### Reference Documentation
 
 For further reference, please consider the following sections:
