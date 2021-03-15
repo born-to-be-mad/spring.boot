@@ -8,10 +8,10 @@ spring:
   jackson:
     default-property-inclusion: NON_EMPTY
   datasource:
-    url: jdbc:mysql://localhost:6604/explorecali
-    username: cali_user
-    password: cali_pass
     initialization-mode: always
+  profiles:
+    #active: default
+    active: mysql
 
 logging:
   path: logs

@@ -62,6 +62,12 @@ mvn spring-boot:run -Dspring.profiles.active=mysql
 ``
 
 or
+``
+mvn spring-boot:run -Dspring.profiles.active=mysql -DskipTests
+``
+
+or
+
 
 ``
 java  -Dspring.profiles.active=mysql -jar target/explorecali-2.0.0-SNAPSHOT.jar
