@@ -23,7 +23,8 @@ import static by.dma.explore.ExploreCaliforniaApplication.TourFromFile.importTou
 @SpringBootApplication
 public class ExploreCaliforniaApplication implements CommandLineRunner {
 
-  public static final String INIT_DATA_FILE = "/initial_data.json";
+  private static final String INIT_DATA_FILE = "/initial_data.json";
+
   @Autowired
   private TourPackageService tourPackageService;
 
@@ -38,36 +39,39 @@ public class ExploreCaliforniaApplication implements CommandLineRunner {
    * Method invoked after this class has been instantiated by Spring container
    * Initializes the in-memory database with all the TourPackages and Tours.
    *
-   * @param strings
+   * @param args
    * @throws Exception if problem occurs.
    */
   @Override
-  public void run(String... strings) throws Exception {
-    //Create the default tour packages
-    tourPackageService.createTourPackage("BC", "Backpack Cal");
-    tourPackageService.createTourPackage("CC", "California Calm");
-    tourPackageService.createTourPackage("CH", "California Hot springs");
-    tourPackageService.createTourPackage("CY", "Cycle California");
-    tourPackageService.createTourPackage("DS", "From Desert to Sea");
-    tourPackageService.createTourPackage("KC", "Kids California");
-    tourPackageService.createTourPackage("NW", "Nature Watch");
-    tourPackageService.createTourPackage("SC", "Snowboard Cali");
-    tourPackageService.createTourPackage("TC", "Taste of California");
-    System.out.println("Number of tours packages =" + tourPackageService.total());
+  public void run(String... args) throws Exception {
+    //use json import
+    if (args.length > 0 && "json".equalsIgnoreCase(args[0])) {
+      //Create the default tour packages
+      tourPackageService.createTourPackage("BC", "Backpack Cal");
+      tourPackageService.createTourPackage("CC", "California Calm");
+      tourPackageService.createTourPackage("CH", "California Hot springs");
+      tourPackageService.createTourPackage("CY", "Cycle California");
+      tourPackageService.createTourPackage("DS", "From Desert to Sea");
+      tourPackageService.createTourPackage("KC", "Kids California");
+      tourPackageService.createTourPackage("NW", "Nature Watch");
+      tourPackageService.createTourPackage("SC", "Snowboard Cali");
+      tourPackageService.createTourPackage("TC", "Taste of California");
+      System.out.println("Number of tours packages =" + tourPackageService.total());
 
-    //Persist the Tours to the database
-    importTours().forEach(t-> tourService.createTour(
-            t.title,
-            t.description,
-            t.blurb,
-            Integer.parseInt(t.price),
-            t.length,
-            t.bullets,
-            t.keywords,
-            t.packageType,
-            Difficulty.valueOf(t.difficulty),
-            Region.findByLabel(t.region)));
-    System.out.println("Number of tours =" + tourService.total());
+      //Persist the Tours to the database
+      importTours().forEach(t -> tourService.createTour(
+              t.title,
+              t.description,
+              t.blurb,
+              Integer.parseInt(t.price),
+              t.length,
+              t.bullets,
+              t.keywords,
+              t.packageType,
+              Difficulty.valueOf(t.difficulty),
+              Region.findByLabel(t.region)));
+      System.out.println("Number of tours =" + tourService.total());
+    }
 
 
   }
@@ -96,9 +100,11 @@ public class ExploreCaliforniaApplication implements CommandLineRunner {
      */
     static List<TourFromFile> importTours() throws IOException {
       return new ObjectMapper()
-              .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+              .setVisibility(PropertyAccessor.FIELD,
+                             JsonAutoDetect.Visibility.ANY)
               .readValue(TourFromFile.class.getResourceAsStream(INIT_DATA_FILE),
-                         new TypeReference<List<TourFromFile>>() {});
+                         new TypeReference<List<TourFromFile>>() {
+                         });
     }
   }
 

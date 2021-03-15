@@ -8,29 +8,28 @@ import by.dma.explore.repo.TourPackageRepository;
 
 /**
  * Tour Package Service
- *
-
  */
 @Service
 public class TourPackageService {
-    private TourPackageRepository tourPackageRepository;
+  private final TourPackageRepository tourPackageRepository;
 
-    @Autowired
-    public TourPackageService(TourPackageRepository tourPackageRepository) {
-        this.tourPackageRepository = tourPackageRepository;
-    }
+  @Autowired
+  public TourPackageService(TourPackageRepository tourPackageRepository) {
+    this.tourPackageRepository = tourPackageRepository;
+  }
 
-    public TourPackage createTourPackage(String code, String name) {
-        return !tourPackageRepository.existsById(code) ?
-                tourPackageRepository.save(new TourPackage(code, name)) :
-                null;
+  public TourPackage createTourPackage(String code, String name) {
+    return !tourPackageRepository.existsById(code)
+           ? tourPackageRepository.save(new TourPackage(code, name))
+           : null;
+  }
 
-    }
-    public Iterable<TourPackage> lookup(){
-        return tourPackageRepository.findAll();
-    }
-    public long total() {
-        return tourPackageRepository.count();
-    }
+  public Iterable<TourPackage> lookup() {
+    return tourPackageRepository.findAll();
+  }
+
+  public long total() {
+    return tourPackageRepository.count();
+  }
 }
 

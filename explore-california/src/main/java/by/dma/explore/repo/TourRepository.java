@@ -10,47 +10,46 @@ import by.dma.explore.domain.Tour;
 
 /**
  * Tour Repository Interface
- *
-
  */
-public interface TourRepository extends PagingAndSortingRepository<Tour,Integer> {
+public interface TourRepository extends PagingAndSortingRepository<Tour, Integer> {
 
-    /**
-     * Lookup a Page of Tours associated with a TourPackage
-     *
-     * @param code the tour Package code.
-     * @param pageable details for finding the correct page.
-     * @return A page of tours if found, empty otherwise.
-     */
-    Page<Tour> findByTourPackageCode(@Param("code") String code, Pageable pageable);
+  /**
+   * Lookup a Page of Tours associated with a TourPackage
+   *
+   * @param code     the tour Package code.
+   * @param pageable details for finding the correct page.
+   * @return A page of tours if found, empty otherwise.
+   */
+  Page<Tour> findByTourPackageCode(@Param("code") String code,
+                                   Pageable pageable);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    <S extends Tour> S save(S s);
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  <S extends Tour> S save(S s);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    <S extends Tour> Iterable<S> saveAll(Iterable<S> iterable);
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  <S extends Tour> Iterable<S> saveAll(Iterable<S> iterable);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    void deleteById(Integer integer);
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  void deleteById(Integer integer);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    void delete(Tour tour);
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  void delete(Tour tour);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    void deleteAll(Iterable<? extends Tour> iterable);
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  void deleteAll(Iterable<? extends Tour> iterable);
 
-    //Not exposed by Spring Data REST
-    @Override
-    @RestResource(exported = false)
-    void deleteAll();
+  //Not exposed by Spring Data REST
+  @Override
+  @RestResource(exported = false)
+  void deleteAll();
 }
