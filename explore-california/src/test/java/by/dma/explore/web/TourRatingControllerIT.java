@@ -1,9 +1,7 @@
 package by.dma.explore.web;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-
-import javax.transaction.Transactional;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -18,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,140 +32,170 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.PATCH;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
 
 /**
- *
  * Invoke the Controller methods via HTTP.
  * Do not invoke the tourRatingService methods, use Mock instead
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@Transactional
 public class TourRatingControllerIT {
 
-    //These Tour and rating id's do not already exist in the db
-    private static final int TOUR_ID = 999;
-    private static final int CUSTOMER_ID = 1000;
-    private static final int SCORE = 3;
-    private static final String COMMENT = "comment";
-    private static final String TOUR_RATINGS_URL = "/tours/" + TOUR_ID + "/ratings";
+  //These Tour and rating id's do not already exist in the db
+  private static final int TOUR_ID = 999;
+  private static final int CUSTOMER_ID = 1000;
+  private static final int SCORE = 3;
+  private static final String COMMENT = "comment";
+  private static final String TOUR_RATINGS_URL = "/tours/" + TOUR_ID + "/ratings";
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+  @Autowired
+  private TestRestTemplate restTemplate;
 
-    @MockBean
-    private TourRatingService serviceMock;
+  @Autowired
+  private JwtRequestHelper jwtRequestHelper;
 
-    @Mock
-    private TourRating tourRatingMock;
+  @MockBean
+  private TourRatingService serviceMock;
 
-    @Mock
-    private Tour tourMock;
+  @Mock
+  private TourRating tourRatingMock;
 
-    private final RatingDto ratingDto = new RatingDto(SCORE, COMMENT, CUSTOMER_ID);
+  @Mock
+  private Tour tourMock;
 
-    @Before
-    public void setupReturnValuesOfMockMethods() {
-        when(tourRatingMock.getComment()).thenReturn(COMMENT);
-        when(tourRatingMock.getScore()).thenReturn(SCORE);
-        when(tourRatingMock.getCustomerId()).thenReturn(CUSTOMER_ID);
-        when(tourRatingMock.getTour()).thenReturn(tourMock);
-        when(tourMock.getId()).thenReturn(TOUR_ID);
-    }
+  private RatingDto ratingDto = new RatingDto(SCORE, COMMENT, CUSTOMER_ID);
 
-    /**
-     *  HTTP POST /tours/{tourId}/ratings
-     */
-    @Test
-    public void createTourRating() throws Exception {
-        restTemplate.postForEntity(TOUR_RATINGS_URL, ratingDto, Void.class);
+  @Before
+  public void setupReturnValuesOfMockMethods() {
+    when(tourRatingMock.getComment()).thenReturn(COMMENT);
+    when(tourRatingMock.getScore()).thenReturn(SCORE);
+    when(tourRatingMock.getCustomerId()).thenReturn(CUSTOMER_ID);
+    when(tourRatingMock.getTour()).thenReturn(tourMock);
+    when(tourMock.getId()).thenReturn(TOUR_ID);
+  }
 
-        verify(this.serviceMock).createNew(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
-    }
+  /**
+   * HTTP POST /tours/{tourId}/ratings
+   */
+  @Test
+  public void createTourRating() throws Exception {
 
-    /**
-     *  HTTP DELETE /tours/{tourId}/ratings
-     */
-    @Test
-    public void delete() throws Exception {
-        restTemplate.delete(TOUR_RATINGS_URL + "/" + CUSTOMER_ID);
+    restTemplate.exchange(TOUR_RATINGS_URL, POST,
+                          new HttpEntity(ratingDto,
+                                         jwtRequestHelper.withRole("ROLE_CSR")),
+                          Void.class);
 
-        verify(serviceMock).delete(TOUR_ID, CUSTOMER_ID);
-    }
+    verify(this.serviceMock).createNew(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
+  }
 
-    /**
-     *  HTTP POST /tours/{tourId}/ratings/{score}?customers={ids..}
-     */
-    @Test
-    public void createManyTourRatings() throws Exception {
-        restTemplate.postForEntity(TOUR_RATINGS_URL + "/" + SCORE + "?customers=" + CUSTOMER_ID, ratingDto, Void.class);
-        verify(serviceMock).rateMany(TOUR_ID, SCORE, new Integer[] {CUSTOMER_ID});
-    }
+  /**
+   * HTTP DELETE /tours/{tourId}/ratings
+   */
+  @Test
+  public void delete() throws Exception {
 
-    /**
-     *  HTTP GET /tours/{tourId}/ratings
-     */
-    @Test
-    public void getAllRatingsForTour() throws Exception {
-        List<TourRating> listOfTourRatings = Collections.singletonList(tourRatingMock);
-        Page<TourRating> page = new PageImpl(listOfTourRatings, PageRequest.of(0,10),1);
-        when(serviceMock.lookupRatings(anyInt(),any(Pageable.class))).thenReturn(page);
+    restTemplate.exchange(TOUR_RATINGS_URL + "/" + CUSTOMER_ID,
+                          DELETE,
+                          new HttpEntity(jwtRequestHelper.withRole("ROLE_CSR")),
+                          Void.class);
 
-        ResponseEntity<String> response = restTemplate.getForEntity(TOUR_RATINGS_URL,String.class);
+    verify(serviceMock).delete(TOUR_ID, CUSTOMER_ID);
+  }
 
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        verify(serviceMock).lookupRatings(anyInt(), any(Pageable.class));
-    }
+  /**
+   * HTTP POST /tours/{tourId}/ratings/{score}?customers={ids..}
+   */
+  @Test
+  public void createManyTourRatings() throws Exception {
+    restTemplate.exchange(TOUR_RATINGS_URL + "/" + SCORE + "?customers=" + CUSTOMER_ID,
+                          POST,
+                          new HttpEntity(ratingDto,
+                                         jwtRequestHelper.withRole("ROLE_CSR")),
+                          Void.class);
 
-    /**
-     *  HTTP GET /tours/{tourId}/ratings/average
-     */
-    @Test
-    public void getAverage() throws Exception {
-        when(serviceMock.getAverageScore(TOUR_ID)).thenReturn(3.2);
+    verify(serviceMock).rateMany(TOUR_ID, SCORE, new Integer[] {CUSTOMER_ID});
+  }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(TOUR_RATINGS_URL + "/average", String.class);
+  /**
+   * HTTP GET /tours/{tourId}/ratings
+   */
+  @Test
+  public void getAllRatingsForTour() throws Exception {
+    List<TourRating> listOfTourRatings = Arrays.asList(tourRatingMock);
+    Page<TourRating> page =
+            new PageImpl(listOfTourRatings, PageRequest.of(0, 10), 1);
+    when(serviceMock.lookupRatings(anyInt(), any(Pageable.class))).thenReturn(
+            page);
 
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is("{\"average\":3.2}"));
-    }
+    ResponseEntity<String> response =
+            restTemplate.getForEntity(TOUR_RATINGS_URL, String.class);
 
-    /**
-     *  HTTP PUT /tours/{tourId}/ratings
-     */
-    @Test
-    public void updateWithPut() throws Exception {
-        when(serviceMock.update(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT)).thenReturn(tourRatingMock);
+    assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    verify(serviceMock).lookupRatings(anyInt(), any(Pageable.class));
+  }
 
-        restTemplate.put(TOUR_RATINGS_URL, ratingDto);
+  /**
+   * HTTP GET /tours/{tourId}/ratings/average
+   */
+  @Test
+  public void getAverage() throws Exception {
+    when(serviceMock.getAverageScore(TOUR_ID)).thenReturn(3.2);
 
-        verify(serviceMock).update(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
-    }
+    ResponseEntity<String> response = restTemplate.getForEntity(
+            TOUR_RATINGS_URL + "/average",
+            String.class);
 
-    /**
-     *  HTTP PATCH /tours/{tourId}/ratings
-     */
-    /**
-     *  RestTemplate Patch only works if it uses httpclient. Method will only work if:
-     *  1. Include dependency
-     *      <dependency>
-     *            <groupId>org.apache.httpcomponents</groupId>
-     *           <artifactId>httpclient</artifactId>
-     *           <version>4.4.1</version>
-     *       </dependency>
-     *  2. Attach httpclient
-     *      restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-     */
-    @Test
-    @Ignore
-    public  void updateWithPatch() {
+    assertThat(response.getStatusCode(), is(HttpStatus.OK));
+    assertThat(response.getBody(), is("{\"average\":3.2}"));
+  }
 
-        when(serviceMock.updateSome(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT)).thenReturn(tourRatingMock);
+  /**
+   * HTTP PUT /tours/{tourId}/ratings
+   */
+  @Test
+  public void updateWithPut() throws Exception {
+    when(serviceMock.update(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT))
+            .thenReturn(tourRatingMock);
 
-        restTemplate.patchForObject(TOUR_RATINGS_URL, ratingDto, RatingDto.class);
+    restTemplate.exchange(TOUR_RATINGS_URL,
+                          PUT,
+                          new HttpEntity(ratingDto,
+                                         jwtRequestHelper.withRole("ROLE_CSR")),
+                          Void.class);
 
-        verify(serviceMock).updateSome(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
+    verify(serviceMock).update(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
+  }
 
-    }
+  /**
+   *  HTTP PATCH /tours/{tourId}/ratings
+   */
 
+  /**
+   * RestTemplate Patch only works if it uses httpclient. Method will only work if:
+   * 1. Include dependency
+   * <dependency>
+   * <groupId>org.apache.httpcomponents</groupId>
+   * <artifactId>httpclient</artifactId>
+   * <version>4.4.1</version>
+   * </dependency>
+   * 2. Attach httpclient
+   * restTemplate.getRestTemplate().setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+   */
+  @Test
+    public void updateWithPatch() {
+    when(serviceMock.updateSome(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT))
+            .thenReturn(tourRatingMock);
+
+    restTemplate.exchange(TOUR_RATINGS_URL,
+                          PATCH,
+                          new HttpEntity(ratingDto, jwtRequestHelper.withRole("ROLE_CSR")),
+                          Void.class);
+
+    verify(serviceMock).updateSome(TOUR_ID, CUSTOMER_ID, SCORE, COMMENT);
+
+  }
 }

@@ -23,12 +23,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/signin")
-    public Authentication login(@RequestBody @Valid LoginDto loginDto) {
-      return userService.signIn(loginDto.getUsername(), loginDto.getPassword());
+    @PostMapping("/signin-no-token")
+    public Authentication loginWithoutToken(@RequestBody @Valid LoginDto loginDto) {
+      return userService.signInWithoutToken(loginDto.getUsername(), loginDto.getPassword());
     }
 
-    @PostMapping("/signup")
+  @PostMapping("/signin")
+  public String login(@RequestBody @Valid LoginDto loginDto) {
+    return userService.signIn(loginDto.getUsername(), loginDto.getPassword())
+                      .orElseThrow(()-> new HttpServerErrorException(HttpStatus.FORBIDDEN, "Login Failed"));
+  }
+
+  @PostMapping("/signup")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public User signup(@RequestBody @Valid LoginDto loginDto){

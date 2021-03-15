@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,6 +50,7 @@ public class TourRatingController {
    * @param ratingDto
    */
   @PostMapping
+  @PreAuthorize("hasRole('ROLE_CSR')")
   @ResponseStatus(HttpStatus.CREATED)
   public void createTourRating(@PathVariable(value = "tourId") int tourId,
                                @RequestBody @Validated RatingDto ratingDto) {
@@ -67,6 +69,7 @@ public class TourRatingController {
    * @param customers
    */
   @PostMapping("/{score}")
+  @PreAuthorize("hasRole('ROLE_CSR')")
   @ResponseStatus(HttpStatus.CREATED)
   public void createManyTourRatings(@PathVariable(value = "tourId") int tourId,
                                     @PathVariable(value = "score") int score,
@@ -119,6 +122,7 @@ public class TourRatingController {
    * @return The modified Rating DTO.
    */
   @PutMapping
+  @PreAuthorize("hasRole('ROLE_CSR')")
   public RatingDto updateWithPut(@PathVariable(value = "tourId") int tourId,
                                  @RequestBody @Validated RatingDto ratingDto) {
     LOGGER.info("PUT /tours/{}/ratings", tourId);
@@ -136,6 +140,7 @@ public class TourRatingController {
    * @return The modified Rating DTO.
    */
   @PatchMapping
+  @PreAuthorize("hasRole('ROLE_CSR')")
   public RatingDto updateWithPatch(@PathVariable(value = "tourId") int tourId,
                                    @RequestBody @Validated RatingDto ratingDto) {
     LOGGER.info("PATCH /tours/{}/ratings", tourId);
@@ -152,6 +157,7 @@ public class TourRatingController {
    * @param customerId
    */
   @DeleteMapping("/{customerId}")
+  @PreAuthorize("hasRole('ROLE_CSR')")
   public void delete(@PathVariable(value = "tourId") int tourId,
                      @PathVariable(value = "customerId") int customerId) {
     LOGGER.info("DELETE /tours/{}/ratings/{}", tourId, customerId);

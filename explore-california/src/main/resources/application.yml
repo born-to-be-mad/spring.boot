@@ -11,3 +11,11 @@ spring:
 logging:
   path: logs
   file: ${logging.path}/myapp.log
+
+#application-specific string used to encrypt tokens
+security:
+  jwt:
+    token:
+      secret-key: secret-key-for-encryption
+      # token valid for 10 minutes
+      expiration: 600000
