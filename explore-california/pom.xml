@@ -51,6 +51,15 @@
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>-->
 
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+
     <!--To fix the problem is with Jdk 11 and javassist-->
     <dependency>
       <groupId>org.javassist</groupId>
