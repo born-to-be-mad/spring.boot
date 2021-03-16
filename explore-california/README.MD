@@ -66,49 +66,72 @@ or
 ``
 java -jar target/explorecali-2.0.0-SNAPSHOT.jar
 ``
+#### Startup with Profile settings
+##### Default profile, H2 database
+``
+mvn spring-boot:run
+``
+
+or
+
+``
+java  -jar target/explorecali-2.0.0-SNAPSHOT.jar
+``
 ##### mysql profile, MySql database (requires running container ec-mysql)
 ``
 mvn spring-boot:run -Dspring.profiles.active=mysql
 ``
 
 or
-``
-mvn spring-boot:run -Dspring.profiles.active=mysql -DskipTests
-``
-
-or
-
 
 ``
 java  -Dspring.profiles.active=mysql -jar target/explorecali-2.0.0-SNAPSHOT.jar
 ``
+#### App Dockerization
 
-#### Dockerization
-##### Build jar
+##### Build jar, image, set default profile
 ``
-mvn package -DskipTests
+mvn package -DskipTests docker:build
 ``
-##### Build Docker image
+###### container with default property set in Dockerfile
 ``
-docker build -t explorecali .
+docker run --name ec-app-default -p 8100:8100  -d explorecali-default
 ``
-###### Run Docker container with default property set in Dockerfile
+##### Build jar, image, set mysql profile
 ``
-docker run --name ec-app -d explorecali
+mvn package -DskipTests docker:build -Dec-profile=mysql
 ``
-##### Run Docker container with mysql profile set in Dockerfile
+##### Run Docker container with mysql profile
 ``
-docker run --name ec-app -p 8100:8100 --link ec-mysql:mysql -d explorecali
+docker run --name ec-app-mysql -p 8200:8100  --link ec-mysql:mysql -d explorecali-mysql
+``
+##### Build jar, image, set docker profile
+``
+mvn package -DskipTests docker:build -Dec-profile=docker
 ``
 ##### Run Docker container with docker profile set in Dockerfile and migration scripts on host
 ``
-docker run --name ec-app -p 8100:8100 -v ~/db/migration:/var/migration -e server=ec-mysql -e port=3306 -e dbuser=cali_user -e dbpassword=cali_pass --link ec-mysql:mysql -d explorecali
+docker run --name ec-app-docker -p 8300:8100 -v ~/db/migration:/var/migration -e server=ec-mysql -e port=3306 -e dbuser=cali_user -e dbpassword=cali_pass --link ec-mysql:mysql -d explorecali-docker
 ``
-
-##### enter Docker container
+##### Enter Docker container
 ``
 docker exec -t -i ec-app /bin/bash
 ``
+
+##### Push image to Docker hub
+######Login to Docker hub locally
+``docker login``
+###### Upload image
+``
+docker tag <image id> <docker hub repository>/explorecali-default:latest
+``
+###### Download image
+``
+docker pull <docker hub repository>/explorecali-default
+``
+##### Run Container from docker hub image
+``
+docker run --name ec-app-default -p 8100:8100  -d <docker hub repository>/explorecali-default``
 
 ### Reference Documentation
 

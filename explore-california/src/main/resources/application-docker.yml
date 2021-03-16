@@ -1,0 +1,8 @@
+spring:
+  flyway:
+    check-location: false
+    locations: filesystem:/var/migration
+  datasource:
+    url: jdbc:mysql://${server}:${port}/explorecali
+    username: ${dbuser}}
+    password: ${dbpassword}}
