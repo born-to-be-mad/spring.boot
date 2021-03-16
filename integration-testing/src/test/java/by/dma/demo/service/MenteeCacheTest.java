@@ -9,7 +9,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import by.dma.demo.model.Mentee;
 import by.dma.demo.persist.MenteeRepository;
-import by.dma.demo.web.service.MenteeService;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;

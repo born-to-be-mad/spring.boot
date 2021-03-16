@@ -1,4 +1,4 @@
-package by.dma.demo.web.service;
+package by.dma.demo.service;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,6 @@ public class MenteeService {
 
     @Cacheable("mentees")
     public Mentee getMenteeById(Long id) {
-        return menteeRepository.findById(id).orElse(null);
+        return menteeRepository.findById(id).orElseThrow(MenteeNotFoundException::new);
     }
 }

@@ -2,6 +2,7 @@ package by.dma.demo.service;
 
 import javax.transaction.Transactional;
 
+import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import by.dma.demo.model.Mentee;
 import by.dma.demo.persist.MenteeRepository;
-import by.dma.demo.web.service.MenteeService;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
@@ -39,5 +40,17 @@ public class MenteeServiceIT {
         // Assert that the expected change has occurred
         then(mentee.getId()).isNotNull();
         then(mentee.getName()).isEqualTo("Dzmitry");
+    }
+
+    @Test
+    public void shouldThrowException_whenMenteeIsMissing() {
+        // given:
+        Long givenId = 123456L;
+
+        // when:
+        Throwable throwable = catchThrowable(() -> service.getMenteeById(givenId));
+
+        // then:
+        BDDAssertions.then(throwable).isInstanceOf(MenteeNotFoundException.class);
     }
 }
