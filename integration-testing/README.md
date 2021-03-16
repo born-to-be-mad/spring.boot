@@ -1,4 +1,5 @@
-#Test Libraries
+# Test Libraries
+
 * Spring Boot defaults: jUnit5, Mockito, AssertJ, JSONAssert, JsonPath
 * Mockito
 * BDDMockito - reduce boilerplate, improved code readability
@@ -6,20 +7,24 @@
 * @Testcontainers - simple setup, throwaway docker DB instance
 
 ### Mocking in Spring boot
+
 * @MockBean
 * @SpyBean
 
 ### Mockito
+
 ```java
     when(methodCall).then(doSomething);
 ```
 
 ### BDDMockito
+
 ```java
     given(methodCall).will(doSomething);
 ```
 
 ### AssertJ
+
 ```java
     assertThat(entity.getName())
         .as("Check that Name is set")
@@ -39,22 +44,22 @@
 ```
 
 ## Test Slices
-* DATA
-  * @DataJdbcTest
-  * @DataJpaTest
-  * @DataLdapTest
-  * @DataMongoTest
-  * @DataNeo4jTest
-  * @DataRdbcTest
-  * @DataRedisTest
-* WEB
-  * @RestClientTest
-  * @WebServiceClientTest
-  * @WebFluxTest
-  * @WebMvcTest
-* SERIALIZATION
-  * @JsonTest
 
+* DATA
+    * @DataJdbcTest
+    * @DataJpaTest
+    * @DataLdapTest
+    * @DataMongoTest
+    * @DataNeo4jTest
+    * @DataRdbcTest
+    * @DataRedisTest
+* WEB
+    * @RestClientTest
+    * @WebServiceClientTest
+    * @WebFluxTest
+    * @WebMvcTest
+* SERIALIZATION
+    * @JsonTest
 
 # Getting Started
 
