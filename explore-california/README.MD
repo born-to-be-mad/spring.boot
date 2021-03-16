@@ -5,7 +5,17 @@ Swagger UI:
 * http://localhost:8100/v2/api-docs
 * http://localhost:8100/swagger-ui.html
 
+
 ## Start with Docker
+
+### Start app
+* `docker run --detach --name ec-mysql -p 6604:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=explorecali -e MYSQL_USER=cali_user -e MYSQL_PASSWORD=cali_pass -d mysql` start MySQl server in a container
+* `mvn package -DskipTests` to build the project
+* `docker build -t explorecali .` to build the image
+* `docker run --name ec-app -p 8100:8100 --link ec-mysql:mysql -d explorecali` to run app as a container
+* `docker logs ec-app` to check that app is running without any issues
+* `http://localhost:8100/tours` to check the packages
+
 ##### Start MySql Container (downloads image if not found)
 ``
 docker run --detach --name ec-mysql -p 6604:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=explorecali -e MYSQL_USER=cali_user -e MYSQL_PASSWORD=cali_pass -d mysql
@@ -54,7 +64,7 @@ mvn spring-boot:run
 or
 
 ``
-java  -jar target/explorecali-2.0.0-SNAPSHOT.jar
+java -jar target/explorecali-2.0.0-SNAPSHOT.jar
 ``
 ##### mysql profile, MySql database (requires running container ec-mysql)
 ``
@@ -71,6 +81,33 @@ or
 
 ``
 java  -Dspring.profiles.active=mysql -jar target/explorecali-2.0.0-SNAPSHOT.jar
+``
+
+#### Dockerization
+##### Build jar
+``
+mvn package -DskipTests
+``
+##### Build Docker image
+``
+docker build -t explorecali .
+``
+###### Run Docker container with default property set in Dockerfile
+``
+docker run --name ec-app -d explorecali
+``
+##### Run Docker container with mysql profile set in Dockerfile
+``
+docker run --name ec-app -p 8100:8100 --link ec-mysql:mysql -d explorecali
+``
+##### Run Docker container with docker profile set in Dockerfile and migration scripts on host
+``
+docker run --name ec-app -p 8100:8100 -v ~/db/migration:/var/migration -e server=ec-mysql -e port=3306 -e dbuser=cali_user -e dbpassword=cali_pass --link ec-mysql:mysql -d explorecali
+``
+
+##### enter Docker container
+``
+docker exec -t -i ec-app /bin/bash
 ``
 
 ### Reference Documentation
