@@ -5,6 +5,10 @@
 * AssertJ - rich set of assertions, helpful error messages, improved code readability, asy to use
 * @Testcontainers - simple setup, throwaway docker DB instance
 
+### Mocking in Spring boot
+* @MockBean
+* @SpyBean
+
 ### Mockito
 ```java
     when(methodCall).then(doSomething);
