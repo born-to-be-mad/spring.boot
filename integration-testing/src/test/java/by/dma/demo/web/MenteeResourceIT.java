@@ -8,6 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import by.dma.demo.model.Mentee;
+import by.dma.demo.service.MenteeNotFoundException;
 import by.dma.demo.service.MenteeService;
 
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -42,5 +43,18 @@ public class MenteeResourceIT {
                      .andExpect(jsonPath("id").value(1L))
                      .andExpect(jsonPath("name").value("Dzmitry"))
                      .andExpect(jsonPath("grade").value("90"));
+    }
+
+    @Test
+    public void getMentee_forMissingMentee_status404() throws Exception {
+        // given:
+        given(menteeService.getMenteeById(anyLong()))
+            .willThrow(MenteeNotFoundException.class);
+
+        // when:
+        ResultActions resultActions = mockMvc.perform(get("/mentees/1"));
+
+        // then:
+        resultActions.andExpect(status().isNotFound());
     }
 }
