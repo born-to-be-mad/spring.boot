@@ -1,4 +1,4 @@
-package by.dma.jpa.domain;
+package learn.dma.jpa.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,23 +14,23 @@ public class Student {
     @GeneratedValue
     private Integer studentId;
 
+    @Embedded
+    private Person attendee;
+
     @Column
     private boolean fullTime;
 
     @Column
     private Integer age;
 
-    @Embedded
-    private Person attendee;
-
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Course> courses = new ArrayList<>();
 
     public Student(Person attendee, boolean fullTime, Integer age) {
         this.attendee = attendee;
         this.fullTime = fullTime;
         this.age = age;
-        this.courses = new ArrayList<>();
+        courses = new ArrayList<>();
     }
 
     protected Student() {
@@ -62,7 +62,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "studentId=" + studentId + ", " + attendee + ", fullTime=" + fullTime +
-                ", age=" + age + "}\n";
+        return "Student{" + "studentId=" + studentId + ", " + attendee +  ", fullTime=" + fullTime +
+               ", age=" + age + "}\n";
     }
 }

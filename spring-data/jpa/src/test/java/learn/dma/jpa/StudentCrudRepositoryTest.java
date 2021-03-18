@@ -1,12 +1,12 @@
-package by.dma.jpa;
+package learn.dma.jpa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import by.dma.jpa.domain.Person;
-import by.dma.jpa.domain.Student;
-import by.dma.jpa.repo.StudentRepository;
+import learn.dma.jpa.domain.Person;
+import learn.dma.jpa.domain.Student;
+import learn.dma.jpa.repo.StudentRepository;
 
 /**
  * Demonstrate Creation, Reading, Updating, and Deletion of Students with StudentRepository.

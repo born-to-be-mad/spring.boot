@@ -1,4 +1,4 @@
-package by.dma.jpa.domain;
+package learn.dma.jpa.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -33,6 +33,6 @@ public class Person {
     @Override
     public String toString() {
         return " firstName='" + firstName + '\'' +
-                ", lastname='" + lastName + "\' ";
+               ", lastName='" + lastName + "\' ";
     }
 }
