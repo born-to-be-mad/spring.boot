@@ -10,8 +10,7 @@ import learn.dma.jdbc.domain.Department;
 
 /**
  * DataSource Management for the Departments at the University.
- * <p>
- * Created by maryellenbowman.
+ *.
  */
 public interface DepartmentRepository extends CrudRepository<Department, String> {
 
