@@ -191,7 +191,7 @@ public class QueryDemosTest {
     @BeforeEach
     @AfterEach
     public void printBanner() {
-        System.out.println("*************************************************************************************");
+        System.out.println("*".repeat(30));
     }
 
 }
