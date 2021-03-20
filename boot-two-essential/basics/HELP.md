@@ -1,7 +1,7 @@
 # Run
 * `docker build -t booting-basics .` to build the image
 * `docker run -p 8888:8000 -name sb-basics -d booting-basics` to run the app in a container
-* open "8888"
+* open "http://localhost:8888/"
 
 # Getting Started
 
