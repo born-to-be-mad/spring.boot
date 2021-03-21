@@ -14,6 +14,7 @@ import by.dma.web.async.RoomCleanerListener;
 
 @Configuration
 public class AsyncConfig {
+    private static final String ROUTING_KEY = "minsk.rooms.cleaner";
     private static final String QUEUE_NAME = "room-cleaner";
     private static final String EXCHANGE_NAME = "operations";
 
@@ -31,7 +32,7 @@ public class AsyncConfig {
     public Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue)
                              .to(exchange)
-                             .with("minsk.rooms.cleaner");
+                             .with(ROUTING_KEY);
     }
 
     @Bean
