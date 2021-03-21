@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Minsk Hotels | Login</title>
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <div>
+        <label>Username: <input type="text" name="username"/></label>
+        <label>Password: <input type="password" name="password"/></label>
+    </div>
+    <div>
+        <input type="submit" value="Login"/>
+    </div>
+</form>
+</body>
+</html>
