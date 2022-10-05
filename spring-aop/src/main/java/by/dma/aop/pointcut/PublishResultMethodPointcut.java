@@ -31,13 +31,11 @@ public class PublishResultMethodPointcut implements Pointcut {
       public boolean matches(Method method, Class<?> targetClass) {
         final boolean matches = super.matches(method, targetClass);
 
-        if (matches) {
-          if (method.getReturnType() == void.class || method.getReturnType() == Void.class) {
-            throw new IllegalStateException(
-                    String.format("You can not use @%s annotation on method " +
-                                  "which return nothing",
-                            PublishResultAfterReturnAdvice.class.getSimpleName()));
-          }
+        if (matches && (method.getReturnType() == void.class || method.getReturnType() == Void.class)) {
+          throw new IllegalStateException(
+                  String.format("You can not use @%s annotation on method " +
+                                "which return nothing",
+                          PublishResultAfterReturnAdvice.class.getSimpleName()));
         }
 
         return matches;
