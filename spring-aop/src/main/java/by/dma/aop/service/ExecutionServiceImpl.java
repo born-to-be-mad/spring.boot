@@ -2,6 +2,7 @@ package by.dma.aop.service;
 
 import org.springframework.stereotype.Service;
 
+import by.dma.aop.aspect.ExclusiveLock;
 import by.dma.aop.aspect.LogMethod;
 
 /**
@@ -24,5 +25,11 @@ public class ExecutionServiceImpl implements ExecutionService {
   public void doAdvancedWork(String message, String requirements) {
     doBaseWork(message);
     System.out.println("ExecutionServiceImpl#doAdvancedWork... requires " + requirements);
+  }
+
+  @LogMethod
+  @ExclusiveLock
+  public void doExclusiveWork(String message) {
+    System.out.println("ExecutionServiceImpl#doExclusiveWork..." + message);
   }
 }
