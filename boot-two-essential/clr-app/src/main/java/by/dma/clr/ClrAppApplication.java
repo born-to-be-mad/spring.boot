@@ -36,9 +36,12 @@ public class ClrAppApplication {
 
             LOG.info("### ROOMS ###");
             ResponseEntity<List<Room>> rooms = restTemplate.exchange(
-                "http://localhost:8080/api/rooms", HttpMethod.GET, null,
-                new ParameterizedTypeReference<List<Room>>() { //https://bugs.openjdk.java.net/browse/JDK-8212586
-                });
+                    "http://localhost:8080/api/rooms",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<>() { //https://bugs.openjdk.java.net/browse/JDK-8212586
+
+                    });
             rooms.getBody()
                  .forEach(room -> LOG.info(room.toString()));
 
