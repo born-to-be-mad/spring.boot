@@ -29,7 +29,7 @@ public class SpringAopApplication {
               "SpringApplication.webApplicationType: " + app.getWebApplicationType());
 
       executionService.doBaseWork("MESSAGE");
-      executionService.doAdvancedWork("MESSAGE", "CONTEXT");
+      executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
     };
   }
 }

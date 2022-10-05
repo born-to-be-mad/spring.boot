@@ -27,7 +27,7 @@ public class DecoratedClassicLoggingService implements ExecutionService {
   public void doAdvancedWork(String message, String requirements) {
     logExecution("doAdvancedWork", message, () -> {
       doBaseWork(message);
-      System.out.println("DecoratedClassicLoggingService#doAdvancedWork... requires" + requirements);
+      System.out.println("DecoratedClassicLoggingService#doAdvancedWork... requires " + requirements);
     });
   }
 
