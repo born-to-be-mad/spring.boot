@@ -32,19 +32,23 @@ public class LoggingAspect {
     final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     final Method method = signature.getMethod();
     final StopWatch stopWatch = new StopWatch();
-    final String arguments = getMethodArguments(
-            signature.getParameterNames(), joinPoint.getArgs());
 
     try {
-      log.info("Start method [{}] with arguments [{}] execution", method,
-              arguments);
+      if (logMethod.logArguments()) {
+        final String arguments = getMethodArguments(
+                signature.getParameterNames(), joinPoint.getArgs());
+        log.info("Method '{}' is called with arguments: {}",
+                method, arguments);
+      } else {
+        log.info("Method '{}' is called", method);
+      }
+
       stopWatch.start();
       var result = joinPoint.proceed();
       stopWatch.stop();
-      log.info(
-              "Finish method [{}] with arguments [{}] execution (running {} ns)",
-              method, arguments, stopWatch.getTotalTimeNanos());
 
+      log.info("Finish execution of method [{}] (running {} ns)",
+              method, stopWatch.getTotalTimeNanos());
       return result;
     } catch (Exception e) {
       stopWatch.stop();
