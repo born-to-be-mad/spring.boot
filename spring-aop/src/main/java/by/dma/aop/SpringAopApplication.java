@@ -1,25 +1,33 @@
 package by.dma.aop;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import by.dma.aop.service.ClassicLoggingExecutionService;
 import by.dma.aop.service.ExecutionService;
+import by.dma.aop.service.ExecutionServiceImpl;
 
 @SpringBootApplication
 public class SpringAopApplication {
 
   public static void main(String[] args) {
+    var ctx = new SpringApplicationBuilder()
+            .sources(SpringAopApplication.class)
+            .web(WebApplicationType.NONE)
+            .run(args);
+
+    ExecutionService executionService = ctx.getBean(ExecutionServiceImpl.class);
+    executionService.doBaseWork("MESSAGE");
+    executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
+  }
+
+/*   public static void main(String[] args) {
     SpringApplication.run(SpringAopApplication.class, args);
   }
 
   @Bean
   ApplicationListener<ApplicationReadyEvent> applicationListener(
-          @Qualifier("decoratedClassicLoggingService")
+          @Qualifier("executionServiceImpl")
           ExecutionService executionService) {
 
     return event -> {
@@ -31,5 +39,5 @@ public class SpringAopApplication {
       executionService.doBaseWork("MESSAGE");
       executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
     };
-  }
+  } */
 }

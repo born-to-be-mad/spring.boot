@@ -1,11 +1,14 @@
 package by.dma.aop.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Created by IntelliJ IDEA.
  *
  * @author dzmitry.marudau
  * @since 2022.10
  */
+@Service
 public class ExecutionServiceImpl implements ExecutionService {
 
   @Override public void doBaseWork(String message) {
