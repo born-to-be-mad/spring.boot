@@ -19,7 +19,7 @@ public class ExclusiveLockAspect {
 
   private final Lock lock;
 
-  @Around("@annotation(by.dma.aop.aspect.ExclusiveLock)")
+  @Around("@annotation(by.dma.aop.annotation.ExclusiveLock)")
   public Object exclusiveLockAspect(ProceedingJoinPoint joinPoint)
           throws Throwable {
 

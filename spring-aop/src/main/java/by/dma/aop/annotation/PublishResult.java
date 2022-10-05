@@ -1,4 +1,4 @@
-package by.dma.aop.aspect;
+package by.dma.aop.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -12,7 +12,6 @@ import java.lang.annotation.Target;
  * @since 2022.10
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
-public @interface ExclusiveLock {
-
+@Target(ElementType.METHOD)
+public @interface PublishResult {
 }

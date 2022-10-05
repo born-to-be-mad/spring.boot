@@ -2,8 +2,13 @@ package by.dma.aop.service;
 
 import org.springframework.stereotype.Service;
 
-import by.dma.aop.aspect.ExclusiveLock;
-import by.dma.aop.aspect.LogMethod;
+import by.dma.aop.annotation.ExclusiveLock;
+import by.dma.aop.annotation.LogMethod;
+import by.dma.aop.annotation.PublishResult;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,7 +29,8 @@ public class ExecutionServiceImpl implements ExecutionService {
   @LogMethod
   public void doAdvancedWork(String message, String requirements) {
     doBaseWork(message);
-    System.out.println("ExecutionServiceImpl#doAdvancedWork... requires " + requirements);
+    System.out.println(
+            "ExecutionServiceImpl#doAdvancedWork... requires " + requirements);
   }
 
   @LogMethod
@@ -32,4 +38,25 @@ public class ExecutionServiceImpl implements ExecutionService {
   public void doExclusiveWork(String message) {
     System.out.println("ExecutionServiceImpl#doExclusiveWork..." + message);
   }
+
+  @PublishResult
+  public ResultDto processWithResult(String message) {
+    doBaseWork(message);
+    System.out.println("ExecutionServiceImpl#processWithResult...");
+    return ResultDto.builder()
+            .source(message)
+            .description("Please, accept this message")
+            .build();
+  }
+}
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+class ResultDto {
+
+  private String source;
+
+  private String description;
 }

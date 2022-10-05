@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.util.StopWatch;
 
+import by.dma.aop.annotation.LogMethod;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
