@@ -19,8 +19,8 @@ public class SpringAopApplication {
             .run(args);
 
     ExecutionServiceImpl executionService = ctx.getBean(ExecutionServiceImpl.class);
-    //executionService.doBaseWork("MESSAGE");
-    //executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
+    executionService.doBaseWork("MESSAGE");
+    executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
 
     final Lock lock = ctx.getBean(Lock.class);
     try {
