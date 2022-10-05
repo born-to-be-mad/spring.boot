@@ -14,24 +14,20 @@ import org.springframework.util.StopWatch;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Created by IntelliJ IDEA.
- *
- * @author dzmitry.marudau
- * @since 2022.10
- */
-@Component
 @Slf4j
 @Aspect
 public class LoggingAspect {
 
-  @Pointcut("execution(* by.dma.aop.service.ExecutionServiceImpl.*(..))")
+  /* @Pointcut("execution(* by.dma.aop.service.ExecutionServiceImpl.*(..))")
   public void executionServiceMethodsPointcut() {
-  }
+  } */
 
-  @Around("executionServiceMethodsPointcut()")
-  public Object logMethodExecution(ProceedingJoinPoint joinPoint)
-          throws Throwable {
+  //@Around("executionServiceMethodsPointcut()")
+  // public Object logMethodExecution(ProceedingJoinPoint joinPoint,) throws Throwable {
+
+  @Around("@annotation(logMethod)")
+  public Object logMethodExecution(ProceedingJoinPoint joinPoint,
+          LogMethod logMethod) throws Throwable {
 
     final MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     final Method method = signature.getMethod();
@@ -40,11 +36,13 @@ public class LoggingAspect {
             signature.getParameterNames(), joinPoint.getArgs());
 
     try {
-      log.info("Start method [{}] with arguments [{}] execution", method, arguments);
+      log.info("Start method [{}] with arguments [{}] execution", method,
+              arguments);
       stopWatch.start();
       var result = joinPoint.proceed();
       stopWatch.stop();
-      log.info("Finish method [{}] with arguments [{}] execution (running {} ns)",
+      log.info(
+              "Finish method [{}] with arguments [{}] execution (running {} ns)",
               method, arguments, stopWatch.getTotalTimeNanos());
 
       return result;
