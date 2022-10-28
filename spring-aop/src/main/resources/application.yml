@@ -1,0 +1,26 @@
+server:
+  port: 8100
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      delayService:
+        failureRateThreshold: 50
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 500ms
+        permittedNumberOfCallsInHalfOpenState: 4
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 4
+        waitDurationInOpenState: 30s
+management:
+  health:
+    circuitbreakers:
+      enabled: true  #open circuit breaker health status at actuator/health
+  endpoints:
+    web:
+      exposure:
+        include: "*" #open all endpoints
+  endpoint:
+    health:
+      show-details: always #show always health details

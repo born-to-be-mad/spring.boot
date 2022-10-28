@@ -1,21 +1,30 @@
-package by.dma.aop;
+package by.dma;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import by.dma.aop.service.ExecutionService;
 import by.dma.aop.service.ExecutionServiceImpl;
 
 @SpringBootApplication
 public class SpringAopApplication {
 
-  public static void main(String[] args) throws InterruptedException {
+
+
+   public static void main(String[] args) throws InterruptedException {
     var ctx = new SpringApplicationBuilder()
             .sources(SpringAopApplication.class)
-            .web(WebApplicationType.NONE)
+            //.web(WebApplicationType.NONE)
+            .web(WebApplicationType.SERVLET)
             .run(args);
 
     ExecutionServiceImpl executionService = ctx.getBean(ExecutionServiceImpl.class);
@@ -35,7 +44,8 @@ public class SpringAopApplication {
     }
   }
 
-/*   public static void main(String[] args) {
+/*
+  public static void main(String[] args) {
     SpringApplication.run(SpringAopApplication.class, args);
   }
 
@@ -54,4 +64,21 @@ public class SpringAopApplication {
       executionService.doAdvancedWork("MESSAGE", "REQUIREMENTS");
     };
   } */
+
 }
+
+@Controller
+@ResponseBody
+class TestController {
+
+    @GetMapping("/")
+    public String test() {
+        return "It works on my machine";
+    }
+
+    @GetMapping("/random")
+    public String random() {
+        return String.valueOf(ThreadLocalRandom.current().nextInt(100));
+    }
+}
+
