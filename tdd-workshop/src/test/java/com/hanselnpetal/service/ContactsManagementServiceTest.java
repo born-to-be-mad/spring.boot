@@ -1,7 +1,5 @@
 package com.hanselnpetal.service;
 
-import java.math.BigDecimal;
-
 import com.hanselnpetal.data.repos.CustomerContactRepository;
 import com.hanselnpetal.domain.CustomerContact;
 
@@ -14,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 /**
@@ -47,7 +44,7 @@ class ContactsManagementServiceTest {
         Mockito.when(repository.save(any(CustomerContact.class))).thenReturn(originalContact);
 
         // when:
-        CustomerContact newContact = service.add(new CustomerContact());
+        CustomerContact newContact = service.add(originalContact);
 
         // then:
         assertThat(newContact).isNotNull();

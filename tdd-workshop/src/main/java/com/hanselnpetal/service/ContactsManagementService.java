@@ -7,20 +7,25 @@ import com.hanselnpetal.domain.CustomerContact;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ContactsManagementService {
 
-	private final CustomerContactRepository customerContactRepository;
-	
-	public CustomerContact add(CustomerContact contact) {
-		CustomerContact newContact = customerContactRepository.save(contact);
-		return newContact;
-	}
-	
-	public CustomerContact addContactOccasion(CustomerContact contact, ContactImportantOccasion anOccasion) {
-		CustomerContact newContact = null;
-		return newContact;
-	}
+    private final CustomerContactRepository customerContactRepository;
+
+    public CustomerContact add(CustomerContact contact) {
+        if (contact.getFirstName() != null && contact.getLastName() != null) {
+            return customerContactRepository.save(contact);
+        }
+        log.warn("Contact not saved, first name or last name is missing");
+        return null;
+    }
+
+    public CustomerContact addContactOccasion(CustomerContact contact, ContactImportantOccasion anOccasion) {
+        CustomerContact newContact = null;
+        return newContact;
+    }
 }

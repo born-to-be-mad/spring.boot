@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author dzmitry.marudau
  * @since 2022.11
  */
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(ContactsManagementController.class)
 class ContactsManagementControllerTest {
 
     @Autowired
@@ -32,16 +33,8 @@ class ContactsManagementControllerTest {
     @MockBean
     private ContactsManagementService service;
 
-    @InjectMocks
-    private ContactsManagementController controller;
-
-    @BeforeEach
-    void setUp() {
-        controller = new ContactsManagementController(service);
-    }
-
     @Test
-    public void testAddContactHappyPath() throws Exception {
+    void testAddContactHappyPath() throws Exception {
         // setup mock Contact returned the mock service component
         CustomerContact mockCustomerContact = new CustomerContact();
         mockCustomerContact.setFirstName("James");
@@ -61,24 +54,24 @@ class ContactsManagementControllerTest {
     }
 
     @Test
-    public void testAddContactBizServiceRuleNotSatisfied() throws Exception {
+    void testAddContactWhenServiceRuleNotSatisfied() throws Exception {
         // setup a mock response of NULL object returned from the mock service component
         Mockito.when(service.add(any(CustomerContact.class)))
                 .thenReturn(null);
 
         // simulate the form bean that would POST from the web page
-        CustomerContact aContact = new CustomerContact();
-        aContact.setLastName("Johnson");
+        CustomerContact contact = new CustomerContact();
+        contact.setLastName("Bond");
 
         // simulate the form submit (POST)
         mockMvc
-                .perform(post("/addContact", aContact))
-                .andExpect(status().is(302))
+                .perform(post("/addContact", contact))
+                .andExpect(status().is3xxRedirection())
                 .andReturn();
     }
 
     @Test
-    public void testAddContactOccasionHappyPath() throws Exception {
+    void testAddContactOccasionHappyPath() throws Exception {
         // implement this
     }
 

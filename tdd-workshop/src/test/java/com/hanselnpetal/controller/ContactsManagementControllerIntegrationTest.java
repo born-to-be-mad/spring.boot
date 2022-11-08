@@ -20,7 +20,7 @@ class ContactsManagementControllerIntegrationTest {
     ContactsManagementController controller;
 
     @Test
-    public void testAddContactHappyPath() {
+    void testAddContactHappyPath() {
         CustomerContact contact = new CustomerContact();
         contact.setFirstName("Jenny");
         contact.setLastName("Johnson");
@@ -31,11 +31,11 @@ class ContactsManagementControllerIntegrationTest {
     }
 
     @Test
-    public void testAddContactFirstNameMissing() {
+    void testAddContactFirstNameMissing() {
         CustomerContact contact = new CustomerContact();
 
         String outcome = controller.processAddContactSubmit(contact);
 
-        assertThat(outcome).isEqualTo("failure");
+        assertThat(outcome).isEqualTo("redirect:/failure");
     }
 }
