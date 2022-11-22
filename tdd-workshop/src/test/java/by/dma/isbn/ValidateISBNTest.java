@@ -25,6 +25,14 @@ class ValidateISBNTest {
     }
 
     @Test
+    void checkValidISBNEndingWIthX() {
+        var validator = new ValidateISBN();
+        assertThat(validator.test("080442957X"))
+                .as("The Tales of Henry James ")
+                .isTrue();
+    }
+
+    @Test
     void checkInvalidISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("0140449117")).isFalse();
