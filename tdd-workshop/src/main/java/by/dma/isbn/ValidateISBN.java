@@ -14,9 +14,10 @@ public class ValidateISBN implements Predicate<String> {
 
     @Override
     public boolean test(String isbn) {
-        if (isbn == "0140449116") {
-            return true;
+        int total = 0;
+        for (int i = 0; i < 10; i++) {
+            total += isbn.charAt(i) * (10 - i);
         }
-        return false;
+        return total % 11 == 0;
     }
 }
