@@ -25,6 +25,14 @@ class ValidateISBNTest {
     }
 
     @Test
+    void checkValid13DigitISBN() {
+        var validator = new ValidateISBN();
+        assertThat(validator.test("9781617298424"))
+                .as("Spring Cloud Native")
+                .isTrue();
+    }
+
+    @Test
     void checkValidISBNEndingWIthX() {
         var validator = new ValidateISBN();
         assertThat(validator.test("080442957X"))
