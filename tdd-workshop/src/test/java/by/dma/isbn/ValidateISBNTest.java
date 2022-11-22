@@ -35,6 +35,6 @@ class ValidateISBNTest {
         var validator = new ValidateISBN();
         assertThatThrownBy(() -> validator.test("123456789"))
                 .as("9 digit ISBN")
-                .hasCauseInstanceOf(NumberFormatException.class);
+                .isInstanceOf(NumberFormatException.class);
     }
 }
