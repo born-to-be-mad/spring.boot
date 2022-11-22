@@ -17,22 +17,20 @@ public class ValidateISBN implements Predicate<String> {
     private static final int SHORT_ISBN_LENGTH = 10;
 
     private static final int LONG_ISBN_MULTIPLIER = 10;
+
     private static final int SHORT_ISBN_MULTIPLIER = 11;
 
     @Override
     public boolean test(String isbn) {
         if (isbn != null && isbn.length() == LONG_ISBN_LENGTH) {
-            return test13DigitIsbn(isbn);
+            return testLongIsbn(isbn);
+        } else if (isbn != null && isbn.length() == SHORT_ISBN_LENGTH) {
+            return testShortIsbn(isbn);
         }
-
-        if (isbn == null || isbn.length() != SHORT_ISBN_LENGTH) {
-            throw new NumberFormatException("Invalid ISBN length");
-        }
-
-        return test10DigitIsbn(isbn);
+        throw new NumberFormatException("Invalid ISBN length(10 or 13 characters)");
     }
 
-    private static boolean test10DigitIsbn(String isbn) {
+    private static boolean testShortIsbn(String isbn) {
         int total = 0;
         for (int i = 0; i < SHORT_ISBN_LENGTH; i++) {
             var charAt = isbn.charAt(i);
@@ -50,7 +48,7 @@ public class ValidateISBN implements Predicate<String> {
         return total % SHORT_ISBN_MULTIPLIER == 0;
     }
 
-    private static boolean test13DigitIsbn(String isbn) {
+    private static boolean testLongIsbn(String isbn) {
         int total = 0;
         for (int i = 0; i < LONG_ISBN_LENGTH; i++) {
             var charAt = isbn.charAt(i);
