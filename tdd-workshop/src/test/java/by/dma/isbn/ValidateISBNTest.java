@@ -3,6 +3,7 @@ package by.dma.isbn;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,5 +28,13 @@ class ValidateISBNTest {
     void checkInvalidISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("0140449117")).isFalse();
+    }
+
+    @Test
+    void checkBadLengthISBN() {
+        var validator = new ValidateISBN();
+        assertThatThrownBy(() -> validator.test("123456789"))
+                .as("9 digit ISBN")
+                .hasCauseInstanceOf(NumberFormatException.class);
     }
 }
