@@ -50,6 +50,12 @@ class ValidateISBNTest {
     }
 
     @Test
+    void checkInvalid13DigitISBN() {
+        var validator = new ValidateISBN();
+        assertThat(validator.test("0123456789123")).isFalse();
+    }
+
+    @Test
     void checkBadLengthISBN() {
         var validator = new ValidateISBN();
         assertThatThrownBy(() -> validator.test("123456789"))
