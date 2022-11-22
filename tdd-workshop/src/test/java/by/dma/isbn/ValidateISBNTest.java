@@ -30,6 +30,9 @@ class ValidateISBNTest {
         assertThat(validator.test("9781617298424"))
                 .as("Spring Cloud Native")
                 .isTrue();
+        assertThat(validator.test("9781492046530"))
+                .as("Kubernetes: Up and Running")
+                .isTrue();
     }
 
     @Test
