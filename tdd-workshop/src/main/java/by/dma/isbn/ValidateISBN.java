@@ -14,6 +14,9 @@ public class ValidateISBN implements Predicate<String> {
 
     @Override
     public boolean test(String isbn) {
+        if (isbn != null && isbn.length() == 13) {
+            return true;
+        }
         if (isbn == null || isbn.length() != 10) {
             throw new NumberFormatException("Invalid ISBN length");
         }
