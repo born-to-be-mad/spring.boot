@@ -19,4 +19,9 @@ class ValidateISBNTest {
         assertThat(validator.test(140449116)).isTrue();
     }
 
+    @Test
+    void checkInvalidISBN() {
+        var validator = new ValidateISBN();
+        assertThat(validator.test(140449117)).isFalse();
+    }
 }
