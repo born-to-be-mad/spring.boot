@@ -3,7 +3,6 @@ package by.dma.isbn;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,10 +15,10 @@ class ValidateISBNTest {
     @Test
     void checkValidISBN() {
         var validator = new ValidateISBN();
-        assertThat(validator.test(140449116))
+        assertThat(validator.test("0140449116"))
                 .as("The Odyssey - Homer")
                 .isTrue();
-        assertThat(validator.test(1617297571))
+        assertThat(validator.test("01617297571"))
                 .as("Spring in Action, 6th Edition")
                 .isTrue();
     }
@@ -27,6 +26,6 @@ class ValidateISBNTest {
     @Test
     void checkInvalidISBN() {
         var validator = new ValidateISBN();
-        assertThat(validator.test(140449117)).isFalse();
+        assertThat(validator.test("0140449117")).isFalse();
     }
 }
