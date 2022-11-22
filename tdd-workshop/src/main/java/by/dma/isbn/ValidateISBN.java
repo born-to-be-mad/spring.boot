@@ -21,11 +21,14 @@ public class ValidateISBN implements Predicate<String> {
         for (int i = 0; i < 10; i++) {
             var charAt = isbn.charAt(i);
             if (!Character.isDigit(charAt)) {
-                if (!(i == 9 && charAt == 'X')) {
+                if (i == 9 && charAt == 'X') {
+                    total += 10;
+                } else {
                     throw new NumberFormatException("ISBN contains non-numeric symbols");
                 }
+            } else {
+                total += Character.getNumericValue(charAt) * (10 - i);
             }
-            total += charAt * (10 - i);
         }
 
         return total % 11 == 0;
