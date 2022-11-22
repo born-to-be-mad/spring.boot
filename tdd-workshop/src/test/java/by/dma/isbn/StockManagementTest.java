@@ -14,9 +14,10 @@ class StockManagementTest {
 
     @Test
     void testCanGetCorrectLocatorCode() {
-        IsbnDataService dataService = isbn -> new Book(isbn, "Of Mice and Men", "J. Steinbeck");
+        IsbnDataService mainService = isbn -> new Book(isbn, "Of Mice and Men", "J. Steinbeck");
+        IsbnDataService fallbackService = isbn -> null;
 
-        var service = new StockManager(dataService);
+        var service = new StockManager(mainService, fallbackService);
         assertThat(service.getLocatorCode("0140177396"))
                 .as("The Odyssey - Homer")
                 .isEqualTo("7396J4");
