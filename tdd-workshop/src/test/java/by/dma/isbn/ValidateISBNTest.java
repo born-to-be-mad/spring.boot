@@ -16,7 +16,12 @@ class ValidateISBNTest {
     @Test
     void checkValidISBN() {
         var validator = new ValidateISBN();
-        assertThat(validator.test(140449116)).isTrue();
+        assertThat(validator.test(140449116))
+                .as("The Odyssey - Homer")
+                .isTrue();
+        assertThat(validator.test(1617297571))
+                .as("Spring in Action, 6th Edition")
+                .isTrue();
     }
 
     @Test
