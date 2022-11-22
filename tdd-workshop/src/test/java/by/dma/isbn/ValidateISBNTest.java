@@ -36,7 +36,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkValidISBNEndingWIthX() {
+    void checkValid10DigitISBNEndingWIthX() {
         var validator = new ValidateISBN();
         assertThat(validator.test("080442957X"))
                 .as("The Tales of Henry James ")
@@ -44,7 +44,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkInvalidISBN() {
+    void checkInvalid10DigitISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("0140449117")).isFalse();
     }
@@ -58,7 +58,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkNonNumericISBN() {
+    void checkNonNumeric10DigitISBN() {
         var validator = new ValidateISBN();
         assertThatThrownBy(() -> validator.test("hello,java"))
                 .as("Non numeric ISB of valid length")
