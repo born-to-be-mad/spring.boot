@@ -25,7 +25,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkValid13DigitISBN() {
+    void checkValidLongISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("9781617298424"))
                 .as("Spring Cloud Native")
@@ -36,7 +36,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkValid10DigitISBNEndingWIthX() {
+    void checkValidShortISBNEndingWIthX() {
         var validator = new ValidateISBN();
         assertThat(validator.test("080442957X"))
                 .as("The Tales of Henry James ")
@@ -44,13 +44,13 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkInvalid10DigitISBN() {
+    void checkInvalidShortISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("0140449117")).isFalse();
     }
 
     @Test
-    void checkInvalid13DigitISBN() {
+    void checkInvalidLongISBN() {
         var validator = new ValidateISBN();
         assertThat(validator.test("0123456789123")).isFalse();
     }
@@ -64,7 +64,7 @@ class ValidateISBNTest {
     }
 
     @Test
-    void checkNonNumeric10DigitISBN() {
+    void checkNonNumericShortISBN() {
         var validator = new ValidateISBN();
         assertThatThrownBy(() -> validator.test("hello,java"))
                 .as("Non numeric ISB of valid length")
