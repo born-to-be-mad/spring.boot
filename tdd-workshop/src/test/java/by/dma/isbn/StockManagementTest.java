@@ -23,4 +23,23 @@ class StockManagementTest {
                 .isEqualTo("7396J4");
     }
 
+    @Test
+    void testCanGetCorrectLocatorCodeWhenMainServiceIsUsed() {
+        IsbnDataService mainService = isbn -> new Book(isbn, "Of Mice and Men", "J. Steinbeck");
+        var manager = new StockManager(mainService, null);
+        assertThat(manager.getLocatorCode("0140177396"))
+                .as("The Odyssey - Homer")
+                .isEqualTo("7396J4");
+    }
+
+    @Test
+    void testCanGetCorrectLocatorCodeWhenFallbackServiceIsUsed() {
+        IsbnDataService mainService = isbn -> null;
+        IsbnDataService fallbackService = isbn -> new Book(isbn, "Of Mice and Men", "J. Steinbeck");
+        var manager = new StockManager(mainService, fallbackService);
+        assertThat(manager.getLocatorCode("0140177396"))
+                .as("The Odyssey - Homer")
+                .isEqualTo("7396J4");
+    }
+
 }
