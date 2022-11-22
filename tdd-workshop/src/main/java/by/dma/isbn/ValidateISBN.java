@@ -21,7 +21,9 @@ public class ValidateISBN implements Predicate<String> {
         for (int i = 0; i < 10; i++) {
             var charAt = isbn.charAt(i);
             if (!Character.isDigit(charAt)) {
-                throw new NumberFormatException("ISBN contains non-numeric symbols");
+                if (!(i == 9 && charAt == 'X')) {
+                    throw new NumberFormatException("ISBN contains non-numeric symbols");
+                }
             }
             total += charAt * (10 - i);
         }
