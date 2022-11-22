@@ -12,27 +12,29 @@ import java.util.function.Predicate;
  */
 public class ValidateISBN implements Predicate<String> {
 
+    private static final int LONG_ISBN_LENGTH = 13;
+
+    private static final int SHORT_ISBN_LENGTH = 10;
+
+    private static final int LONG_ISBN_MULTIPLIER = 10;
+    private static final int SHORT_ISBN_MULTIPLIER = 11;
+
     @Override
     public boolean test(String isbn) {
-        if (isbn != null && isbn.length() == 13) {
-            int total = 0;
-            for (int i = 0; i < 13; i++) {
-                var charAt = isbn.charAt(i);
-                if (i % 2 == 0) {
-                    total += Character.getNumericValue(charAt);
-                } else {
-                    total += Character.getNumericValue(charAt) * 3;
-                }
-            }
-            return total % 10 == 0;
+        if (isbn != null && isbn.length() == LONG_ISBN_LENGTH) {
+            return test13DigitIsbn(isbn);
         }
 
-        if (isbn == null || isbn.length() != 10) {
+        if (isbn == null || isbn.length() != SHORT_ISBN_LENGTH) {
             throw new NumberFormatException("Invalid ISBN length");
         }
 
+        return test10DigitIsbn(isbn);
+    }
+
+    private static boolean test10DigitIsbn(String isbn) {
         int total = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < SHORT_ISBN_LENGTH; i++) {
             var charAt = isbn.charAt(i);
             if (!Character.isDigit(charAt)) {
                 if (i == 9 && charAt == 'X') {
@@ -41,10 +43,23 @@ public class ValidateISBN implements Predicate<String> {
                     throw new NumberFormatException("ISBN contains non-numeric symbols");
                 }
             } else {
-                total += Character.getNumericValue(charAt) * (10 - i);
+                total += Character.getNumericValue(charAt) * (SHORT_ISBN_LENGTH - i);
             }
         }
 
-        return total % 11 == 0;
+        return total % SHORT_ISBN_MULTIPLIER == 0;
+    }
+
+    private static boolean test13DigitIsbn(String isbn) {
+        int total = 0;
+        for (int i = 0; i < LONG_ISBN_LENGTH; i++) {
+            var charAt = isbn.charAt(i);
+            if (i % 2 == 0) {
+                total += Character.getNumericValue(charAt);
+            } else {
+                total += Character.getNumericValue(charAt) * 3;
+            }
+        }
+        return total % LONG_ISBN_MULTIPLIER == 0;
     }
 }
