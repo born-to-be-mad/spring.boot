@@ -37,4 +37,12 @@ class ValidateISBNTest {
                 .as("9 digit ISBN")
                 .isInstanceOf(NumberFormatException.class);
     }
+
+    @Test
+    void checkNonNumericISBN() {
+        var validator = new ValidateISBN();
+        assertThatThrownBy(() -> validator.test("hello,java"))
+                .as("Non numeric ISB of valid length")
+                .isInstanceOf(NumberFormatException.class);
+    }
 }
