@@ -15,11 +15,22 @@ public class ValidateISBN implements Predicate<String> {
     @Override
     public boolean test(String isbn) {
         if (isbn != null && isbn.length() == 13) {
-            return true;
+            int total = 0;
+            for (int i = 0; i < 13; i++) {
+                var charAt = isbn.charAt(i);
+                if (i % 2 == 0) {
+                    total += Character.getNumericValue(charAt);
+                } else {
+                    total += Character.getNumericValue(charAt) * 3;
+                }
+            }
+            return total % 10 == 0;
         }
+
         if (isbn == null || isbn.length() != 10) {
             throw new NumberFormatException("Invalid ISBN length");
         }
+
         int total = 0;
         for (int i = 0; i < 10; i++) {
             var charAt = isbn.charAt(i);
