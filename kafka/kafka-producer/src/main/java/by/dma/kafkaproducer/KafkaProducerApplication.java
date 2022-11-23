@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,7 @@ public class KafkaProducerApplication {
     }
 
     /* topic in Apache Kafka broker */
-    static final String PAGE_VIEWS_TOPIC = "PVT";
+    static final String PAGE_VIEWS_TOPIC = "pv_topic";
 
 }
 
@@ -62,6 +63,10 @@ class IntegrationConfiguration {
 
 @Configuration
 class RunnerConfiguration {
+
+    void stream(StreamBridge streamBridge) {
+        streamBridge.send("pageViews-out-0", random("stream"));
+    }
 
     void kafka(KafkaTemplate<Object, Object> template) {
         var pageView = random("kafka");
@@ -91,11 +96,13 @@ class RunnerConfiguration {
     @Bean
     ApplicationListener<ApplicationReadyEvent> runnerListener(
             KafkaTemplate<Object, Object> template,
-            MessageChannel channel) {
+            MessageChannel channel,
+            StreamBridge streamBridge) {
 
         return event -> {
             kafka(template);
             integration(channel);
+            stream(streamBridge);
         };
     }
 }
