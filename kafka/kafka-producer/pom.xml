@@ -99,6 +99,11 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+        <repository>
+            <id>spring-release</id>
+            <name>Spring release</name>
+            <url>https://repo.spring.io/release</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -116,6 +121,11 @@
             <releases>
                 <enabled>false</enabled>
             </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-release</id>
+            <name>Spring release</name>
+            <url>https://repo.spring.io/release</url>
         </pluginRepository>
     </pluginRepositories>
 

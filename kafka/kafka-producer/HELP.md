@@ -48,8 +48,17 @@
 ### How to run
 
 * `docker-compose up -d` to run kafka locally via docker.
-* `mvn -Pnative -DskipTests clean package` to create native image under `X64 Native Toools Command Prompt`. It will take approximately about 
-* `targer/`
+* Building a Native Image Using `Buildpacks`
+  * `mvn -Pnative -DskipTests spring-boot:build-image` to build the image, you can run the spring-boot:build-image goal with the native profile active
+  * `docker run --rm -p 8080:8080 docker.io/library/kafka-producer:0.0.1-SNAPSHOT`
+  * `ctrl-c` to gracefully exit the application
+* Building a Native Image using `Native Build Tools`
+  * GraalVM or Liberica Native Image Kit in
+    version 22.3, the Visual Studio Build Tools and the Windows SDK are required on Windows
+  * `spring-boot-starter-parent` inherits the `native` profile
+  * `mvn -DskipTests clean package` to build the project 
+  * `mvn -Pnative native:compile` to create native image executable under `target` by using `X64 Native Toools Command Prompt`. It will take approximately about 5-7 minutes.
+  * `.\target\kafka-producer.exe` to run the nativa application.
 
 ### Reference Documentation
 
